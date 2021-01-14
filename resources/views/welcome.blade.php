@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends('panel.layout')
 
 @section('content')
     <div class="flex flex-col justify-center min-h-screen py-4 bg-gray-50 sm:px-6 lg:px-8">

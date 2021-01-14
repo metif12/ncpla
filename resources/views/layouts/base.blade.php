@@ -19,7 +19,7 @@
 
         <!-- Scripts -->
         <script src="{{ url(mix('js/app.js')) }}" defer></script>
-        <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+{{--        <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>--}}
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
