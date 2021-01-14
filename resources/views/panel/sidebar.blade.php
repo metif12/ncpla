@@ -13,7 +13,8 @@
          :class="{'lg:justify-center': !isSidebarOpen}">
                     <span
                         class="p-2 w-full text-center inline-block text-xl font-semibold leading-8 tracking-wider uppercase whitespace-nowrap">
-                        N<span x-show="isSidebarOpen">CPLA</span>
+                        <span x-show="!isSidebarOpen">N</span>
+                        <span x-show="isSidebarOpen"><x-logo class="h-8" /></span>
                     </span>
         <button @click="toggleSidbarMenu()" class="p-2 rounded-md lg:hidden">
             <svg
