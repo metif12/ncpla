@@ -9,12 +9,12 @@ module.exports = {
             },
         },
     },
-    variants: {
-        extend: {
-            backgroundColor: ['active'],
-            opacity: ['disabled'],
-        }
-    },
+    // variants: {
+    //     extend: {
+    //         backgroundColor: ['active'],
+    //         opacity: ['disabled'],
+    //     }
+    // },
     // purge: {
     //     content: [
     //         './app/**/*.php',

@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.panel')
 
 @section('content')
-    <div class="flex flex-col justify-center min-h-screen py-12 bg-gray-50 sm:px-6 lg:px-8">
-        <div class="absolute top-0 right-0 mt-4 mr-4">
+    <div class="flex flex-col justify-center min-h-screen py-4 bg-gray-50 sm:px-6 lg:px-8">
+        <div class="mx-auto my-4">
             @if (Route::has('login'))
                 <div class="space-x-4">
                     @auth
