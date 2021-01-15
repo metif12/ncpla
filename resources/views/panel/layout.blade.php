@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('body')
-    <div class="h-screen overflow-hidden flex items-center justify-center">
+    <div class="h-screen overflow-hidden flex items-center justify-center bg-gray-100">
         <div class="flex h-screen w-screen overflow-y-hidden" x-data="setup()"
              x-init="$refs.loading.classList.add('hidden')">
             <!-- Loading screen -->
@@ -27,7 +27,7 @@
                 <!-- Navbar -->
                 @include('panel.navbar')
                 <!-- Main content -->
-                <main class="flex-1 h-full p-5 overflow-hidden overflow-y-auto bg-gray-100">
+                <main class="flex-1 h-full p-6 overflow-hidden overflow-y-auto bg-gray-100">
                     @yield('content')
 
                     @isset($slot)

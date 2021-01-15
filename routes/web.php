@@ -63,5 +63,7 @@ Route::middleware('auth')->group(function () {
             Route::view('/', 'panel.dashboard')->name('dashboard');
 
             Route::view('/profile', 'panel.profile')->name('profile');
+            Route::view('/products', 'panel.products')->name('products');
+            Route::view('/products/create', 'panel.forms.product-create')->name('product-create');
         });
 });

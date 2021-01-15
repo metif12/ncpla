@@ -13,9 +13,20 @@
          :class="{'lg:justify-center': !isSidebarOpen}">
                     <span
                         class="p-2 w-full text-center inline-block text-xl font-semibold leading-8 tracking-wider uppercase whitespace-nowrap">
-{{--                        <span x-show="!isSidebarOpen">RIC</span>--}}
-{{--                        <span x-show="isSidebarOpen"><x-logo class="h-8" /></span>--}}
-                        <x-logo class="h-8" />
+<button @click="toggleSidbarMenu()" class="p-2 rounded-md focus:outline-none focus:ring hidden lg:inline">
+                <svg
+                    class="w-4 h-4 text-gray-600"
+                    :class="{'transform transition-transform -rotate-180': !isSidebarOpen}"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </button>
+                        <x-logo class="h-8 lg:hidden" />
                     </span>
         <button @click="toggleSidbarMenu()" class="p-2 rounded-md lg:hidden">
             <svg
@@ -49,7 +60,7 @@
                     />
                 </svg>
             </x-sidebar-item>
-            <x-sidebar-item route="panel.dashboard" name="داشبورد">
+            <x-sidebar-item route="panel.products" name="محصولات">
                 <svg
                     class="w-6 h-6"
                     xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +84,7 @@
             @csrf
             <button
                 type="submit"
-                class="flex items-center text-red-500 w-full px-4 py-2 space-x-1 font-medium bg-red-200 text-red-500 shadow hover:bg-red-300 rounded-md focus:outline-none focus:ring"
+                class="flex items-center justify-center text-red-500 w-full px-2 py-1 space-x-1 font-medium bg-red-200 shadow-m border border-red-200 hover:bg-red-300 rounded-md focus:outline-none focus:ring"
             >
             <span>
               <svg

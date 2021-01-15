@@ -9,12 +9,11 @@ module.exports = {
             },
         },
     },
-    // variants: {
-    //     extend: {
-    //         backgroundColor: ['active'],
-    //         opacity: ['disabled'],
-    //     }
-    // },
+    variants: {
+        extend: {
+            backgroundColor: ['responsive', 'dark', 'group-hover', 'focus-within', 'hover', 'focus', 'active', 'disabled'],
+        }
+    },
     // purge: {
     //     content: [
     //         './app/**/*.php',

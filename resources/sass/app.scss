@@ -1,55 +1,110 @@
-/**
- * This injects Tailwind's base styles, which is a combination of
- * Normalize.css and some additional base styles.
- *
- * You can see the styles here:
- * https://unpkg.com/tailwindcss/dist/base.css
- */
 @tailwind base;
 
-/**
- * Remove the default box-shadow for invalid elements to prevent
- * inputs in Livewire components showing with a
- * red border by default in Firefox.
- *
- * See: https://github.com/laravel-frontend-presets/tall/issues/7
- */
  input:invalid, textarea:invalid, select:invalid {
     box-shadow: none;
 }
 
-/**
- * This injects any component classes registered by plugins.
- */
 @tailwind components;
-
-/**
- * Here you would add any of your custom component classes; stuff that you'd
- * want loaded *before* the utilities so that the utilities could still
- * override them.
- *
- * Example:
- *
- * .btn { ... }
- * .form-input { ... }
- */
-
-/**
- * This injects all of Tailwind's utility classes, generated based on your
- * config file.
- */
 @tailwind utilities;
 
-/**
- * Here you would add any custom utilities you need that don't come out of the
- * box with Tailwind.
- *
- * Example :
- *
- * .bg-pattern-graph-paper { ... }
- * .skew-45 { ... }
- */
+@font-face {
+    font-family: Vazir;
+    src: url('/vazir/Vazir.eot');
+    src: url('/vazir/Vazir.eot?#iefix') format('embedded-opentype'),
+    url('/vazir/Vazir.woff2') format('woff2'),
+    url('/vazir/Vazir.woff') format('woff'),
+    url('/vazir/Vazir.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: Vazir;
+    src: url('/vazir/Vazir-Bold.eot');
+    src: url('/vazir/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
+    url('/vazir/Vazir-Bold.woff2') format('woff2'),
+    url('/vazir/Vazir-Bold.woff') format('woff'),
+    url('/vazir/Vazir-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: Vazir;
+    src: url('/vazir/Vazir-Black.eot');
+    src: url('/vazir/Vazir-Black.eot?#iefix') format('embedded-opentype'),
+    url('/vazir/Vazir-Black.woff2') format('woff2'),
+    url('/vazir/Vazir-Black.woff') format('woff'),
+    url('/vazir/Vazir-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: Vazir;
+    src: url('/vazir/Vazir-Medium.eot');
+    src: url('/vazir/Vazir-Medium.eot?#iefix') format('embedded-opentype'),
+    url('/vazir/Vazir-Medium.woff2') format('woff2'),
+    url('/vazir/Vazir-Medium.woff') format('woff'),
+    url('/vazir/Vazir-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: Vazir;
+    src: url('/vazir/Vazir-Light.eot');
+    src: url('/vazir/Vazir-Light.eot?#iefix') format('embedded-opentype'),
+    url('/vazir/Vazir-Light.woff2') format('woff2'),
+    url('/vazir/Vazir-Light.woff') format('woff'),
+    url('/vazir/Vazir-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: Vazir;
+    src: url('/vazir/Vazir-Thin.eot');
+    src: url('/vazir/Vazir-Thin.eot?#iefix') format('embedded-opentype'),
+    url('/vazir/Vazir-Thin.woff2') format('woff2'),
+    url('/vazir/Vazir-Thin.woff') format('woff'),
+    url('/vazir/Vazir-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
 
 [x-cloak] {
     display: none;
+}
+
+[type="checkbox"] {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.form-checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    display: inline-block;
+    vertical-align: middle;
+    background-origin: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    flex-shrink: 0;
+    color: currentColor;
+    background-color: #fff;
+    border-color: #e2e8f0;
+    border-width: 1px;
+    border-radius: 0.25rem;
+    height: 1.2em;
+    width: 1.2em;
+}
+
+.form-checkbox:checked {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+    border-color: transparent;
+    background-color: currentColor;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
