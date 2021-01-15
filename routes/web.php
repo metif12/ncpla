@@ -62,6 +62,6 @@ Route::middleware('auth')->group(function () {
 
             Route::view('/', 'panel.dashboard')->name('dashboard');
 
-            Route::get('/profile', Profile::class)->name('profile');
+            Route::view('/profile', 'panel.profile')->name('profile');
         });
 });
