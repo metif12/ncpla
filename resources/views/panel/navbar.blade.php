@@ -337,21 +337,24 @@
                     x-show.transition.opacity="isOpen"
                     class="absolute mt-3 left-0 bg-white border rounded-md shadow-xl min-w-max"
                 >
-                    <div class="flex flex-col p-4 space-y-1 font-medium border-b">
-                        <span class="text-gray-800">Ahmed Kamel</span>
-                        <span class="text-sm text-gray-400">ahmed.kamel@example.com</span>
+                    <div class="flex flex-col p-2 px-4 space-y-1 font-medium border-b">
+                        <span class="text-gray-800">{{ auth()->user()->name }}</span>
+                        <span class="text-sm text-gray-400">{{ auth()->user()->email }}</span>
                     </div>
-                    <ul class="flex flex-col p-2 my-2 space-y-1">
+                    <ul class="flex flex-col p-2 space-y-1">
                         <li>
-                            <a href="#" class="block px-2 py-1 transition rounded-md hover:bg-gray-100">Link</a>
+                            <a href="{{ route('panel.profile') }}" class="block px-2 py-1 transition rounded-md hover:bg-gray-100">پروفایل</a>
                         </li>
                         <li>
                             <a href="#" class="block px-2 py-1 transition rounded-md hover:bg-gray-100">Another
                                 Link</a>
                         </li>
                     </ul>
-                    <div class="flex items-center justify-center p-4 text-blue-700 underline border-t">
-                        <a href="#">Logout</a>
+                    <div class="flex items-center p-2 text-blue-700 border-t">
+                        <form class="w-full" action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button class="block w-full text-right text-red-500 px-2 py-1 transition rounded-md hover:bg-red-100" type="submit">خروج</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -27,7 +27,8 @@
 
     <body dir="rtl">
         @yield('body')
-
+        @stack('modals')
+        @stack('scripts')
         @livewireScripts
     </body>
 </html>

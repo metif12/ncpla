@@ -5,7 +5,7 @@
     x-transition:leave="transition transform duration-300"
     x-transition:leave-start="translate-x-0 opacity-100 ease-out"
     x-transition:leave-end="-translate-x-full opacity-0 ease-in"
-    class="fixed bg-gray-100 inset-y-0 z-10 flex flex-col flex-shrink-0 w-64 max-h-screen overflow-hidden transition-all transform bg-white border-l shadow-lg lg:z-auto lg:static lg:shadow-none"
+    class="fixed bg-white inset-y-0 z-10 flex flex-col flex-shrink-0 w-64 max-h-screen overflow-hidden transition-all transform bg-white border-l shadow-lg lg:z-auto lg:static lg:shadow-none"
     :class="{'translate-x-full lg:translate-x-0 lg:w-20': !isSidebarOpen}"
 >
     <!-- sidebar header -->
@@ -13,8 +13,9 @@
          :class="{'lg:justify-center': !isSidebarOpen}">
                     <span
                         class="p-2 w-full text-center inline-block text-xl font-semibold leading-8 tracking-wider uppercase whitespace-nowrap">
-                        <span x-show="!isSidebarOpen">N</span>
-                        <span x-show="isSidebarOpen"><x-logo class="h-8" /></span>
+{{--                        <span x-show="!isSidebarOpen">RIC</span>--}}
+{{--                        <span x-show="isSidebarOpen"><x-logo class="h-8" /></span>--}}
+                        <x-logo class="h-8" />
                     </span>
         <button @click="toggleSidbarMenu()" class="p-2 rounded-md lg:hidden">
             <svg
@@ -32,7 +33,7 @@
     <!-- Sidebar links -->
     <nav class="flex-1 overflow-hidden hover:overflow-y-auto">
         <ul class="p-2 overflow-hidden">
-            <x-sidebar-item route="home" name="داشبورد">
+            <x-sidebar-item route="panel.dashboard" name="داشبورد">
                 <svg
                     class="w-6 h-6"
                     xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +49,7 @@
                     />
                 </svg>
             </x-sidebar-item>
-            <x-sidebar-item route="login" name="داشبورد">
+            <x-sidebar-item route="panel.dashboard" name="داشبورد">
                 <svg
                     class="w-6 h-6"
                     xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +73,7 @@
             @csrf
             <button
                 type="submit"
-                class="flex items-center text-red-500 w-full px-4 py-2 space-x-1 font-medium bg-gray-50 hover:bg-white border rounded-md focus:outline-none focus:ring"
+                class="flex items-center text-red-500 w-full px-4 py-2 space-x-1 font-medium bg-red-200 text-red-500 shadow hover:bg-red-300 rounded-md focus:outline-none focus:ring"
             >
             <span>
               <svg

@@ -8,6 +8,7 @@ use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
+use App\Http\Livewire\Panel\Profile;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,10 +48,20 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+
     Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
         ->middleware('signed')
         ->name('verification.verify');
 
     Route::post('logout', LogoutController::class)
         ->name('logout');
+
+    Route::prefix('panel')
+        ->name('panel.')
+        ->group(function (){
+
+            Route::view('/', 'panel.dashboard')->name('dashboard');
+
+            Route::get('/profile', Profile::class)->name('profile');
+        });
 });
