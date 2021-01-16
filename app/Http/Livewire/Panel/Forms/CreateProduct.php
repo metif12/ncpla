@@ -26,6 +26,8 @@ class CreateProduct extends Component
 
     public function render()
     {
-        return view('livewire.panel.forms.create-product');
+        return view('livewire.panel.forms.create-product')
+            ->layout('panel.layout');
+
     }
 }

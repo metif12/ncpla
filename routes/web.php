@@ -8,6 +8,9 @@ use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
+use App\Http\Livewire\Panel\Forms\CreateProduct;
+use App\Http\Livewire\Panel\Password;
+use App\Http\Livewire\Panel\ProductsList;
 use App\Http\Livewire\Panel\Profile;
 use Illuminate\Support\Facades\Route;
 
@@ -62,8 +65,9 @@ Route::middleware('auth')->group(function () {
 
             Route::view('/', 'panel.dashboard')->name('dashboard');
 
-            Route::view('/profile', 'panel.profile')->name('profile');
-            Route::view('/products', 'panel.products')->name('products');
-            Route::view('/products/create', 'panel.forms.product-create')->name('product-create');
+            Route::get('/profile', Profile::class)->name('profile');
+            Route::get('/password', Password::class)->name('password');
+            Route::get('/products', ProductsList::class)->name('products');
+            Route::get('/products/create', CreateProduct::class)->name('product-create');
         });
 });

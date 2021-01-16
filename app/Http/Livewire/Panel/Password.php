@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Panel;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
-class ProfilePassword extends Component
+class Password extends Component
 {
     public $password = '';
     public $current_password = '';
@@ -36,6 +36,7 @@ class ProfilePassword extends Component
 
     public function render()
     {
-        return view('livewire.panel.profile-password');
+        return view('livewire.panel.password')
+            ->layout('panel.layout');
     }
 }

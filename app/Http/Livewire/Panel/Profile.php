@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class ProfileInformation extends Component
+class Profile extends Component
 {
     use WithFileUploads;
 
@@ -43,8 +43,8 @@ class ProfileInformation extends Component
 
         if ($this->photo) {
 
-            $profile_photo = 'profile_photos/' . date('YmdHis') . '-' . md5_file($this->photo->getRealPath()) . '.' . $this->photo->getClientOriginalExtension();
-            move_uploaded_file($this->photo->getRealPath(), public_path($profile_photo));
+            $name = date('YmdHis') . '-' . md5_file($this->photo->getRealPath()) . '.' . $this->photo->getClientOriginalExtension();
+            $profile_photo = $this->photo->storeAs('profile_photos', $name);
         }
 
         $this->user->forceFill([
@@ -58,6 +58,7 @@ class ProfileInformation extends Component
 
     public function render()
     {
-        return view('livewire.panel.profile-information');
+        return view('livewire.panel.profile')
+            ->layout('panel.layout');
     }
 }

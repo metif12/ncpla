@@ -324,8 +324,7 @@
                         class="p-1 bg-gray-200 rounded-full focus:outline-none focus:ring">
                     <img
                         class="object-cover w-8 h-8 rounded-full"
-                        src="{{ url('img/profile.png') }}"
-                        alt="Ahmed Kamel"
+                        src="{{ asset(auth()->user()->profile_photo) }}"
                     />
                 </button>
                 <!-- green dot -->
@@ -345,6 +344,9 @@
                     <ul class="flex flex-col p-2 space-y-1">
                         <li>
                             <a href="{{ route('panel.profile') }}" class="block px-2 py-1 transition rounded-md hover:bg-gray-100">پروفایل</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('panel.password') }}" class="block px-2 py-1 transition rounded-md hover:bg-gray-100">رمز عبور</a>
                         </li>
                     </ul>
                     <div class="flex items-center p-2 text-blue-700 border-t">
