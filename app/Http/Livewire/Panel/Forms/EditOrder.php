@@ -6,22 +6,16 @@ use App\Models\Order;
 use App\Models\Product;
 use Livewire\Component;
 
-class CreateOrder extends Component
+class EditOrder extends Component
 {
-    public Product $product;
+    public Order $order;
 
     public array $attrs = [];
 
-    public function mount(Product $product)
+    public function mount(Order $order)
     {
-        $this->product = $product;
-
-        foreach ($this->product->attrs as $attr) {
-
-            $attr['value'] = $attr['default'];
-
-            $this->attrs[] = $attr;
-        }
+        $this->order = $order;
+        $this->attrs = $order->attrs;
     }
 
     public function updated()
@@ -31,7 +25,7 @@ class CreateOrder extends Component
 
     protected function getRules()
     {
-        foreach ($this->product->attrs as $i => $attr) {
+        foreach ($this->order->attrs as $i => $attr) {
 
             switch ($attr['type']){
 
@@ -54,10 +48,8 @@ class CreateOrder extends Component
     {
         $this->validate();
 
-        Order::query()->create([
+        $this->order->update([
 
-            'product_id' => $this->product->id,
-            'code' => strtoupper(dechex(time())),
             'attrs' => $this->attrs,
         ]);
 

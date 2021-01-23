@@ -17,10 +17,10 @@
         @foreach($product->attrs as $i => $attr)
 
             <div class="col-start-1 col-span-6 sm:col-span-4">
-                <x-label for="{{ $attr['name'] }}" value="{{ $attr['name'] }}"/>
-                <x-input id="{{ $attr['name'] }}" type="{{ $attr['type'] }}" step="any" class="mt-1 block w-full"
-                         wire:model.lazy="attrs.{{ $attr['name'] }}"/>
-                <x-input-error for="attrs.{{ $attr['name'] }}" class="mt-2"/>
+                <x-label for="attrs.{{ $i }}.{{ $attr['name'] }}" value="attrs.{{ $i }}.{{ $attr['name'] }}"/>
+                <x-input id="attrs.{{ $i }}.{{ $attr['name'] }}" type="{{ $attr['type'] }}" step="any" class="mt-1 block w-full"
+                         wire:model.lazy="attrs.{{ $i }}.value"/>
+                <x-input-error for="attrs.{{ $i }}.{{ $attr['name'] }}" class="mt-2"/>
             </div>
 
         @endforeach

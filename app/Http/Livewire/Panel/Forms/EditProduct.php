@@ -3,9 +3,10 @@
 namespace App\Http\Livewire\Panel\Forms;
 
 use App\Models\Product;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
-class CreateProduct extends Component
+class EditProduct extends Component
 {
     public string $name = '';
 
@@ -23,10 +24,20 @@ class CreateProduct extends Component
         ],
     ];
 
+    public Product $product;
+
+    public function mount(Product $product)
+    {
+        $this->product = $product;
+
+        $this->name = $product->name;
+        $this->attrs = $product->attrs;
+    }
+
     protected function getRules()
     {
         return [
-            'name' => 'required|string|unique:products,name',
+            'name' => ['required', 'string', Rule::unique('products', 'name')->ignore($this->product->id ?? 0)],
 
             'attrs.*.name' => 'required|string',
             'attrs.*.type' => 'required|string',
@@ -60,10 +71,9 @@ class CreateProduct extends Component
     {
         $this->validate();
 
-        Product::query()->create([
+        $this->product->update([
 
             'name' => $this->name,
-            'code' => strtoupper(dechex(time())),
             'attrs' => $this->attrs,
         ]);
 

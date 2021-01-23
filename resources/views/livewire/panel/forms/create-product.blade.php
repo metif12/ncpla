@@ -18,7 +18,7 @@
             <hr class="col-start-1 col-span-6 sm:col-span-4">
 
             <div class="col-start-1 col-span-6 sm:col-span-4">
-                <x-label for="attrs.{{$i}}.name" value="عنوان ویژگی"/>
+                <x-label for="attrs.{{$i}}.name" value="{{ $i+1 }}. عنوان ویژگی"/>
                 <x-input id="attrs.{{$i}}.name" type="text" class="mt-1 block w-full"
                          wire:model.lazy="attrs.{{$i}}.name"/>
                 <x-input-error for="attrs.{{$i}}.name" class="mt-2"/>
@@ -49,6 +49,12 @@
                 <x-input id="attrs.{{$i}}.default" type="text" class="mt-1 block w-full"
                          wire:model.lazy="attrs.{{$i}}.default"/>
                 <x-input-error for="attrs.{{$i}}.default" class="mt-2"/>
+            </div>
+
+            <div class="col-start-1 col-span-6">
+                <x-button color="red" wire:loading.attr="disabled" class="" type="button" wire:click="remAttr('{{$i}}')">
+                    حذف
+                </x-button>
             </div>
 
         @endforeach

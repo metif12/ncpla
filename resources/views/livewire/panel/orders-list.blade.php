@@ -61,9 +61,7 @@
                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
                     #
                 </th>
-                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
-                    نام محصول
-                </th>
+
                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
                     تاریخ ثبت
                 </th>
@@ -75,7 +73,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($products as $product)
+            @foreach($orders as $order)
                 <tr>
                     <td class="border-dashed border-t border-gray-200 px-3">
                         <label
@@ -87,25 +85,18 @@
 
                     <td class="border-dashed border-t border-gray-200">
                             <span class="text-gray-700 px-2 py-3 flex items-center">
-                                {{ $product->code }}
-                            </span>
-                    </td>
-                    <td class="border-dashed border-t border-gray-200">
-                            <span class="text-gray-700 px-2 py-3 flex items-center">
-                                {{ $product->name }}
-                            </span>
-                    </td>
-                    <td class="border-dashed border-t border-gray-200">
-                            <span class="text-gray-700 px-2 py-3 flex items-center">
-                                {{ verta($product->cretaed_at) }}
+                                {{ $order->code }}
                             </span>
                     </td>
 
                     <td class="border-dashed border-t border-gray-200">
-                        <x-abutton href="{{ route('panel.order-create', $product) }}">
-                            ثبت سفارش
-                        </x-abutton>
-                        <x-abutton color="yellow" href="{{ route('panel.product-edit', $product) }}">
+                            <span class="text-gray-700 px-2 py-3 flex items-center">
+                                {{ verta($order->cretaed_at) }}
+                            </span>
+                    </td>
+
+                    <td class="border-dashed border-t border-gray-200">
+                        <x-abutton color="yellow" href="{{ route('panel.order-edit', $order) }}">
                             ویرایش
                         </x-abutton>
                     </td>
@@ -117,6 +108,6 @@
     </div>
 
     <div class="mt-4">
-        {{ $products->links() }}
+        {{ $orders->links() }}
     </div>
 </div>
