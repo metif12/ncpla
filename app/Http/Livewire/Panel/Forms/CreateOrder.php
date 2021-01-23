@@ -36,7 +36,7 @@ class CreateOrder extends Component
                     break;
 
                 case 'number' :
-                    $rules["attrs.{$attr['name']}"] = "required|numeric";
+                    $rules["attrs.{$attr['name']}"] = "required|regex:/^\d+(\.\d+)?$/";
                     break;
 
             }
