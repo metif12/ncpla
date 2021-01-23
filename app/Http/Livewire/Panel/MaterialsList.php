@@ -3,11 +3,12 @@
 namespace App\Http\Livewire\Panel;
 
 use App\Models\Line;
+use App\Models\Material;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class LinesList extends Component
+class MaterialsList extends Component
 {
     use WithPagination;
 
@@ -15,9 +16,9 @@ class LinesList extends Component
 
     public function render()
     {
-        return view('livewire.panel.lines-list', [
+        return view('livewire.panel.materials-list', [
 
-            'lines' => $this->getLineQuery()->paginate(15),
+            'materials' => $this->getMaterialQuery()->paginate(15),
         ])
         ->layout('panel.layout');
     }
@@ -30,9 +31,9 @@ class LinesList extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    private function getLineQuery(): \Illuminate\Database\Eloquent\Builder
+    private function getMaterialQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return Line::query()
+        return Material::query()
             ->where('name', 'like', "%{$this->search}%")
             ->orWhere('code', 'like', "%{$this->search}%");
     }
