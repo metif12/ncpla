@@ -2,15 +2,19 @@
 
 namespace App\Http\Livewire\Panel\Forms;
 
-use App\Models\Product;
-use Illuminate\Validation\Rule;
+use App\Models\Line;
 use Livewire\Component;
 
-class EditProduct extends Component
+class CreateLine extends Component
 {
     public string $name = '';
 
     public array $attrs = [];
+
+    public array $parent_lines = [];
+    public array $materials = [];
+    public array $inputs = [];
+    public array $outputs = [];
 
     public array  $types = [
 
@@ -24,20 +28,15 @@ class EditProduct extends Component
         ],
     ];
 
-    public Product $product;
-
-    public function mount(Product $product)
-    {
-        $this->product = $product;
-
-        $this->name = $product->name;
-        $this->attrs = $product->attrs;
-    }
-
     protected function getRules()
     {
         return [
-            'name' => ['required', 'string', Rule::unique('products', 'name')->ignore($this->product->id ?? 0)],
+            'name' => 'required|string|unique:lines,name',
+
+            'parent_lines.*' => 'required|integer',
+            'materials.*' => 'required|integer',
+            'inputs.*' => 'required|integer',
+            'outputs.*' => 'required|integer',
 
             'attrs.*.name' => 'required|string',
             'attrs.*.type' => 'required|string',
@@ -54,7 +53,7 @@ class EditProduct extends Component
     {
         $this->attrs [] = [
 
-            'name' => 'عنوان ويژگی',
+            'name' => '',
             'type' => 'text',
             'unit' => '',
             'default' => '',
@@ -71,18 +70,22 @@ class EditProduct extends Component
     {
         $this->validate();
 
-        $this->product->update([
+        Line::query()->create([
 
             'name' => $this->name,
-            'attrs' => $this->attrs,
+            'code' => strtoupper(dechex(time())),
+            'parent_lines' => $this->attrs,
+            'materials' => $this->attrs,
+            'inputs' => $this->attrs,
+            'outputs' => $this->attrs,
         ]);
 
-        $this->redirectRoute('panel.products');
+        $this->redirectRoute('panel.lines');
     }
 
     public function render()
     {
-        return view('livewire.panel.forms.edit-product')
+        return view('livewire.panel.forms.create-line')
             ->layout('panel.layout');
 
     }

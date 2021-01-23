@@ -60,7 +60,7 @@ class EditOrder extends Component
 
     public function render()
     {
-        return view('livewire.panel.forms.create-order')
+        return view('livewire.panel.forms.edit-order')
             ->layout('panel.layout');
     }
 }

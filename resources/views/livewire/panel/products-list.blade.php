@@ -99,9 +99,9 @@
                             </span>
                     </td>
                     <td class="p-2 border-dashed border-t border-gray-200">
-                            <span class="text-gray-700 flex items-center">
-                                {{ $product->name }}
-                            </span>
+                        <a href="{{ route('panel.product-edit', $product) }}"
+                           class="text-gray-700 flex items-center">                                {{ $product->name }}
+                        </a>
                     </td>
                     <td class="p-2 border-dashed border-t border-gray-200">
                             <span class="text-gray-700 flex items-center">
