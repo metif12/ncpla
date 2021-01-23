@@ -43,7 +43,7 @@ class CreateProduct extends Component
     {
         $this->attrs [] = [
 
-            'name' => 'عنوان ويژگی',
+            'name' => '',
             'type' => 'text',
             'unit' => '',
             'default' => '',

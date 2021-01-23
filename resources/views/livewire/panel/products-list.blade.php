@@ -1,5 +1,10 @@
 <div>
-    <div class="mb-4 flex justify-between items-center">
+    <x-section-title>
+        <x-slot name="title">لیست محصولات</x-slot>
+        <x-slot name="description"></x-slot>
+    </x-section-title>
+
+    <div class="mb-4 mt-5 flex justify-between items-center">
         <div class="flex-1 pl-4">
             <div wire:loading.class="bg-gray-100"
                  wire:target="search"
@@ -71,13 +76,16 @@
                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
                     عملیات
                 </th>
+                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
+
+                </th>
 
             </tr>
             </thead>
             <tbody>
             @foreach($products as $product)
-                <tr>
-                    <td class="border-dashed border-t border-gray-200 px-3">
+                <tr class="">
+                    <td class="p-2 border-dashed border-t border-gray-200 px-3">
                         <label
                             class="text-teal-500 inline-flex justify-between items-center hover:bg-gray-200 px-2 py-2 rounded-lg cursor-pointer">
                             <input type="checkbox"
@@ -85,26 +93,28 @@
                         </label>
                     </td>
 
-                    <td class="border-dashed border-t border-gray-200">
-                            <span class="text-gray-700 px-2 py-3 flex items-center">
+                    <td class="p-2 border-dashed border-t border-gray-200">
+                            <span class="text-gray-700 flex items-center">
                                 {{ $product->code }}
                             </span>
                     </td>
-                    <td class="border-dashed border-t border-gray-200">
-                            <span class="text-gray-700 px-2 py-3 flex items-center">
+                    <td class="p-2 border-dashed border-t border-gray-200">
+                            <span class="text-gray-700 flex items-center">
                                 {{ $product->name }}
                             </span>
                     </td>
-                    <td class="border-dashed border-t border-gray-200">
-                            <span class="text-gray-700 px-2 py-3 flex items-center">
+                    <td class="p-2 border-dashed border-t border-gray-200">
+                            <span class="text-gray-700 flex items-center">
                                 {{ verta($product->cretaed_at) }}
                             </span>
                     </td>
 
-                    <td class="border-dashed border-t border-gray-200">
+                    <td class="p-2 border-dashed border-t border-gray-200">
                         <x-abutton href="{{ route('panel.order-create', $product) }}">
                             ثبت سفارش
                         </x-abutton>
+                    </td>
+                    <td class="p-2 border-dashed border-t border-gray-200">
                         <x-abutton color="yellow" href="{{ route('panel.product-edit', $product) }}">
                             ویرایش
                         </x-abutton>

@@ -36,11 +36,11 @@ class CreateOrder extends Component
             switch ($attr['type']){
 
                 case 'text' :
-                    $rules["attrs.*.{$attr['name']}"] = "required|string";
+                    $rules["attrs.*.value"] = "required|string";
                     break;
 
                 case 'number' :
-                    $rules["attrs.*.{$attr['name']}"] = "required|regex:/^\d+(\.\d+)?$/";
+                    $rules["attrs.*.value"] = "required|regex:/^\d+(\.\d+)?$/";
                     break;
 
             }

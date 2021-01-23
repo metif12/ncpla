@@ -9,12 +9,14 @@ use Livewire\Component;
 class EditOrder extends Component
 {
     public Order $order;
+    public Product $product;
 
     public array $attrs = [];
 
     public function mount(Order $order)
     {
         $this->order = $order;
+        $this->product = $order->product;
         $this->attrs = $order->attrs;
     }
 
@@ -30,11 +32,11 @@ class EditOrder extends Component
             switch ($attr['type']){
 
                 case 'text' :
-                    $rules["attrs.*.{$attr['name']}"] = "required|string";
+                    $rules["attrs.*.value"] = "required|string";
                     break;
 
                 case 'number' :
-                    $rules["attrs.*.{$attr['name']}"] = "required|regex:/^\d+(\.\d+)?$/";
+                    $rules["attrs.*.value"] = "required|regex:/^\d+(\.\d+)?$/";
                     break;
 
             }
