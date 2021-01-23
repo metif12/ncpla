@@ -8,6 +8,7 @@ use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
+use App\Http\Livewire\Panel\Forms\CreateOrder;
 use App\Http\Livewire\Panel\Forms\CreateProduct;
 use App\Http\Livewire\Panel\Password;
 use App\Http\Livewire\Panel\ProductsList;
@@ -69,5 +70,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/password', Password::class)->name('password');
             Route::get('/products', ProductsList::class)->name('products');
             Route::get('/products/create', CreateProduct::class)->name('product-create');
+            Route::get('/products/{product}/orders/create', CreateOrder::class)->name('order-create');
         });
 });

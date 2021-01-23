@@ -43,7 +43,7 @@ class Profile extends Component
 
         if ($this->photo) {
 
-            $name = date('YmdHis') . '-' . md5_file($this->photo->getRealPath()) . '.' . $this->photo->getClientOriginalExtension();
+            $name = date('YmdHis') . '-' . md5_file($this->photo->getRealPath()) . '-' . random_bytes(10) . '.' . $this->photo->getClientOriginalExtension();
             $profile_photo = $this->photo->storeAs('profile_photos', $name);
         }
 
