@@ -83,7 +83,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($lines as $product)
+            @foreach($lines as $line)
                 <tr class="">
                     <td class="p-2 border-dashed border-t border-gray-200 px-3">
                         <label
@@ -95,27 +95,27 @@
 
                     <td class="p-2 border-dashed border-t border-gray-200">
                             <span class="text-gray-700 flex items-center">
-                                {{ $product->code }}
+                                {{ $line->code }}
                             </span>
                     </td>
                     <td class="p-2 border-dashed border-t border-gray-200">
-                        <a href="{{ route('panel.product-edit', $product) }}"
-                           class="text-gray-700 flex items-center">                                {{ $product->name }}
+                        <a href="{{ route('panel.product-edit', $line) }}"
+                           class="text-gray-700 flex items-center">                                {{ $line->name }}
                         </a>
                     </td>
                     <td class="p-2 border-dashed border-t border-gray-200">
                             <span class="text-gray-700 flex items-center">
-                                {{ verta($product->cretaed_at) }}
+                                {{ verta($line->cretaed_at) }}
                             </span>
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">
-                        <x-abutton href="{{ route('panel.order-create', $product) }}">
+                        <x-abutton href="{{ route('panel.order-create', $line) }}">
                             ثبت سفارش
                         </x-abutton>
                     </td>
                     <td class="p-2 border-dashed border-t border-gray-200">
-                        <x-abutton color="yellow" href="{{ route('panel.product-edit', $product) }}">
+                        <x-abutton color="yellow" href="{{ route('panel.product-edit', $line) }}">
                             ویرایش
                         </x-abutton>
                     </td>
@@ -127,6 +127,6 @@
     </div>
 
     <div class="mt-4">
-        {{ $products->links() }}
+        {{ $lines->links() }}
     </div>
 </div>
