@@ -55,7 +55,7 @@ class EditOrder extends Component
     {
         $this->validate();
 
-        $names = [];
+        $ids = [];
 
         $this->order->update([
             'line_id', $this->line,
@@ -71,15 +71,16 @@ class EditOrder extends Component
                 [
                     'value' => $attr['value'],
                     'type' => $attr['type'],
+                    'product_id' => $attr['product_id'],
                 ]
             );
 
-            $names[] = $attr['name'];
+            $ids[] = $attr['id'];
         }
 
         OrderAttribute::query()
             ->where('order_id' , $this->order->id)
-            ->whereNotIn('name' , $names)
+            ->whereNotIn('id' , $ids)
             ->delete();
 
         $this->redirectRoute('panel.orders');

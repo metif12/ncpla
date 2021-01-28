@@ -34,6 +34,12 @@
                         class="flex-shrink-0 text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none">
                         سفارشات انتخاب شده
                     </button>
+                    <button
+                        @click="index=3;localStorage.setItem('create_task_index',index);"
+                        :class="{'text-blue-500 border-b-2 font-medium border-blue-500' : index == 3}"
+                        class="flex-shrink-0 text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none">
+                        پردازش
+                    </button>
                 </nav>
             </div>
 
@@ -267,14 +273,14 @@
                     </div>
                 </div>
 
-                <div x-show="index == 7" class="mt-4 mx-2">
+                <div x-show="index == 3" class="mt-4 mx-2">
                     <x-form-section submit="storeTask">
                         <x-slot name="title">
                             ثبت وظیفه جدید
                         </x-slot>
 
                         <x-slot name="description">
-
+                            ایجاد دستور کار برای خطوط درگیر
                         </x-slot>
 
                         <x-slot name="form">

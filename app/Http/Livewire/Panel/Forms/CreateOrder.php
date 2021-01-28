@@ -22,11 +22,36 @@ class CreateOrder extends Component
         foreach ($this->product->product_attributes ?? [] as $attr) {
 
             $attr['value'] = $attr['default'];
+            $attr['product_id'] = $this->product->id;
 
-            $this->attrs[] = $attr;
+            $this->attrs[$this->product->id] = $attr;
         }
 
-        $this->line = $product->lines()->first()?->id ?? 0;
+        $first_line = $product->lines()->first();
+
+        $this->line = $first_line?->id ?? 0;
+
+        $lines[] = $first_line;
+
+        while (!empty($lines)){
+
+            $line = array_pop($lines);
+
+            foreach ($line->inputs as $input){
+
+                $input_product = $input->product;
+                foreach ($input_product->product_attributes ?? [] as $attr) {
+
+                    $attr['value'] = $attr['default'];
+                    $attr['product_id'] = $input_product->id;
+
+                    $this->attrs[$input_product->id] = $attr;
+                }
+
+                $lines[] = $product->lines()->first();
+            }
+        }
+
     }
 
     public function updated()
@@ -76,6 +101,7 @@ class CreateOrder extends Component
                 'name' => $attr['name'],
                 'type' => $attr['type'],
                 'value' => $attr['value'],
+                'product_id' => $attr['product_id'],
             ]);
         }
 

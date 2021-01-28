@@ -39,6 +39,11 @@ class Product extends Model
 
     protected $guarded = ['id'];
 
+    public function uname()
+    {
+        return "{$this->code} {$this->name}";
+    }
+
     public function product_attributes()
     {
         return $this->hasMany(ProductAttribute::class, 'product_id');

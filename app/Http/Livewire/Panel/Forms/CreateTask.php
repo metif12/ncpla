@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Panel\Forms;
 
+use App\Models\LineOutputs;
 use App\Models\Order;
 use App\Models\Task;
 use Livewire\Component;
@@ -40,6 +41,17 @@ class CreateTask extends Component
     {
         $this->validate();
 
+        $data = [];
+
+        foreach ($this->order_list as $id => $cond) {
+            if ($cond) {
+
+                $order = Order::find($id);
+                //$order->product;
+                $this->processTask($order->line, $data);
+            }
+        }
+
 //        Task::query()->create([
 //
 //            'name' => $this->name,
@@ -48,6 +60,17 @@ class CreateTask extends Component
 //        ]);
 
         $this->redirectRoute('panel.materials');
+    }
+
+    protected function processTask($line, $data = []): void
+    {
+
+        foreach ($line->inputs as $input) {
+
+            $sub_line = LineOutputs::query()->where('product_id', $input->product_id)->first()->line;
+
+            $this->processTask($sub_line, $data);
+        }
     }
 
     public function render()

@@ -31,7 +31,8 @@
         @foreach($attrs as $i => $attr)
 
             <div class="col-start-1 col-span-6 sm:col-span-4">
-                <x-label for="attr.{{$i}}.{{ $attr['name'] }}" value="{{ $attr['name'] }}"/>
+                <x-label for="attr.{{$i}}.{{ $attr['name'] }}"
+                         value="{{ \App\Models\Product::find($attr['product_id'])->uname() }}: {{ $attr['name'] }}"/>
                 <x-input id="attr.{{$i}}. $attr['name'] }}" type="{{ $attr['type'] }}" step="any" class="mt-1 block w-full"
                          wire:model.lazy="attrs.{{ $i }}.value"/>
                 <x-input-error for="attr.{{$i}}. $attr['name'] }}" class="mt-2"/>
