@@ -1,6 +1,6 @@
 <x-form-section submit="storeLine">
     <x-slot name="title">
-        ثبت خط تولید جدید
+        ویرایش خط تولید
     </x-slot>
 
     <x-slot name="description">

@@ -8,20 +8,33 @@ use App\Models\LineMaterials;
 use App\Models\LineOutputs;
 use App\Models\Material;
 use App\Models\Product;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
-class CreateLine extends Component
+class EditLine extends Component
 {
+    public Line $line;
+
     public string $name = '';
 
     public array $materials = [];
     public array $inputs = [];
     public array $outputs = [];
 
+    public function mount(Line $line)
+    {
+        $this->line = $line;
+        $this->name = $line->name;
+
+        $this->materials = $line->materials()->pluck('material_id')->toArray();
+        $this->inputs = $line->inputs()->pluck('product_id')->toArray();
+        $this->outputs = $line->outputs()->pluck('product_id')->toArray();
+    }
+
     protected function getRules()
     {
         return [
-            'name' => 'required|string|unique:lines,name',
+            'name' => ['required', 'string', Rule::unique('lines','name')->ignore($this->line?->id ?? 0)],
 
             'materials.*' => 'required|integer',
             'inputs.*' => 'required|integer',
@@ -71,45 +84,60 @@ class CreateLine extends Component
         //todo check at least one (material||input)
         //todo check at least one output
 
-        $line = Line::query()->create([
+        $this->line->update([
 
             'name' => $this->name,
-            'code' => strtoupper(dechex(time())),
         ]);
 
-        foreach ($this->materials as $material){
+        foreach ($this->materials as $material) {
 
-            LineMaterials::query()->create([
-
-                'line_id' => $line->id,
-                'material_id' => $material,
-            ]);
+            LineMaterials::query()->updateOrCreate(
+                [
+                    'line_id' => $this->line->id,
+                    'material_id' => $material,
+                ]
+            );
         }
 
-        foreach ($this->inputs as $input){
+        LineMaterials::query()
+            ->where('line_id', $this->line->id,)
+            ->whereNotIn('material_id', $this->materials)
+            ->delete();
 
-            LineInputs::query()->create([
+        foreach ($this->inputs as $input) {
 
-                'line_id' => $line->id,
+            LineInputs::query()->updateOrCreate([
+
+                'line_id' => $this->line->id,
                 'product_id' => $input,
             ]);
         }
 
-        foreach ($this->outputs as $output){
+        LineInputs::query()
+            ->where('line_id', $this->line->id,)
+            ->whereNotIn('product_id', $this->inputs)
+            ->delete();
 
-            LineOutputs::query()->create([
+        foreach ($this->outputs as $output) {
 
-                'line_id' => $line->id,
+            LineOutputs::query()->updateOrCreate([
+
+                'line_id' => $this->line->id,
                 'product_id' => $output,
             ]);
         }
+
+        LineOutputs::query()
+            ->where('line_id', $this->line->id,)
+            ->whereNotIn('product_id', $this->outputs)
+            ->delete();
 
         $this->redirectRoute('panel.lines');
     }
 
     public function render()
     {
-        return view('livewire.panel.forms.create-line', [
+        return view('livewire.panel.forms.edit-line', [
 
             'materials_list' => Material::all(),
             'product_list' => Product::all(),

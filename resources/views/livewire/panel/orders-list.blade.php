@@ -72,6 +72,10 @@
                 </th>
 
                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
+                    خط تولید
+                </th>
+
+                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
                     تاریخ ثبت
                 </th>
 
@@ -103,6 +107,13 @@
                                class="text-gray-700 flex items-center">
                                 {{ $order->product->code }} - {{ $order->product->name }}
                             </a>
+                    </td>
+
+                    <td class="p-2 border-dashed border-t border-gray-200">
+                        <a href="{{ route('panel.line-edit', $order->line) }}"
+                           class="text-gray-700 flex items-center">
+                            {{ $order->line->code }} - {{ $order->line->name }}
+                        </a>
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">

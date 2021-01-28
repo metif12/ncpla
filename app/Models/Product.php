@@ -9,10 +9,43 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $casts = [
+    public static array $types = [
 
-        'attrs' => 'array',
+        [
+            'name' => 'متنی',
+            'value' => 'text',
+        ],
+        [
+            'name' => 'عددی',
+            'value' => 'number',
+        ],
+    ];
+
+    public static array $merge_types = [
+
+        [
+            'name' => 'جلوگیری از ادغام',
+            'value' => 'skip',
+        ],
+        [
+            'name' => 'مجموع',
+            'value' => 'sum',
+        ],
+        [
+            'name' => 'جایگزینی',
+            'value' => 'replace',
+        ],
     ];
 
     protected $guarded = ['id'];
+
+    public function product_attributes()
+    {
+        return $this->hasMany(ProductAttribute::class, 'product_id');
+    }
+
+    public function lines()
+    {
+        return $this->hasManyThrough(Line::class, LineOutputs::class, 'line_id', 'id');
+    }
 }

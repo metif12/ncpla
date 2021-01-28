@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Panel\Forms;
 
 use App\Models\Order;
+use App\Models\OrderAttribute;
 use App\Models\Product;
 use Livewire\Component;
 
@@ -10,14 +11,16 @@ class EditOrder extends Component
 {
     public Order $order;
     public Product $product;
+    public int $line;
 
     public array $attrs = [];
 
     public function mount(Order $order)
     {
         $this->order = $order;
+        $this->line = $order->line_id;
         $this->product = $order->product;
-        $this->attrs = $order->attrs;
+        $this->attrs = $order->order_attributes?->toArray() ?? [];
     }
 
     public function updated()
@@ -27,7 +30,9 @@ class EditOrder extends Component
 
     protected function getRules()
     {
-        foreach ($this->order->attrs as $i => $attr) {
+        $rules['line'] = 'required';
+
+        foreach ($this->order->order_attributes ?? [] as $i => $attr) {
 
             switch ($attr['type']){
 
@@ -50,10 +55,32 @@ class EditOrder extends Component
     {
         $this->validate();
 
-        $this->order->update([
+        $names = [];
 
-            'attrs' => $this->attrs,
+        $this->order->update([
+            'line_id', $this->line,
         ]);
+
+        foreach ($this->attrs as $attr){
+
+            OrderAttribute::query()->updateOrCreate(
+                [
+                    'order_id' => $this->order->id,
+                    'name' => $attr['name'],
+                ],
+                [
+                    'value' => $attr['value'],
+                    'type' => $attr['type'],
+                ]
+            );
+
+            $names[] = $attr['name'];
+        }
+
+        OrderAttribute::query()
+            ->where('order_id' , $this->order->id)
+            ->whereNotIn('name' , $names)
+            ->delete();
 
         $this->redirectRoute('panel.orders');
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Panel\Forms;
 
 use App\Models\Product;
+use App\Models\ProductAttribute;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -12,18 +13,6 @@ class EditProduct extends Component
 
     public array $attrs = [];
 
-    public array  $types = [
-
-        [
-            'name' => 'متنی',
-            'value' => 'text',
-        ],
-        [
-            'name' => 'عددی',
-            'value' => 'number',
-        ],
-    ];
-
     public Product $product;
 
     public function mount(Product $product)
@@ -31,7 +20,7 @@ class EditProduct extends Component
         $this->product = $product;
 
         $this->name = $product->name;
-        $this->attrs = $product->attrs;
+        $this->attrs = $product->product_attributes->toArray() ?? [];
     }
 
     protected function getRules()
@@ -54,11 +43,11 @@ class EditProduct extends Component
     {
         $this->attrs [] = [
 
-            'name' => 'عنوان ويژگی',
-            'type' => 'text',
+            'name' => '',
+            'type' => Product::$types[0]['value'],
             'unit' => '',
             'default' => '',
-
+            'merge_type' => Product::$merge_types[0]['value'],
         ];
     }
 
@@ -74,8 +63,32 @@ class EditProduct extends Component
         $this->product->update([
 
             'name' => $this->name,
-            'attrs' => $this->attrs,
         ]);
+
+        $names = [];
+
+        foreach ($this->attrs as $attr){
+
+            ProductAttribute::query()->updateOrCreate(
+                [
+                    'product_id' => $this->product->id,
+                    'name' => $attr['name'],
+                ],
+                [
+                    'type' => $attr['type'],
+                    'merge_type' => $attr['merge_type'],
+                    'default' => $attr['default'],
+                    'unit' => $attr['unit'],
+                ]
+            );
+
+            $names[] = $attr['name'];
+        }
+
+        ProductAttribute::query()
+            ->where('product_id' , $this->product->id)
+            ->whereNotIn('name' , $names)
+            ->delete();
 
         $this->redirectRoute('panel.products');
     }

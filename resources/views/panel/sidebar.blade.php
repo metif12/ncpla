@@ -60,12 +60,18 @@
                     />
                 </svg>
             </x-sidebar-item>
-            <x-sidebar-item route="panel.products" name="محصولات">
-                <x-icons.product class="w-6 h-6"/>
-            </x-sidebar-item>
+
             <x-sidebar-item route="panel.orders" name="سفارش ها">
                 <x-icons.order class="w-6 h-6"/>
             </x-sidebar-item>
+            <x-sidebar-item route="panel.tasks" name="وظایف ها">
+                <x-icons.order class="w-6 h-6"/>
+            </x-sidebar-item>
+
+            <x-sidebar-item route="panel.products" name="محصولات">
+                <x-icons.product class="w-6 h-6"/>
+            </x-sidebar-item>
+
             <x-sidebar-item route="panel.lines" name="خطوط تولید">
                 <x-icons.line class="w-6 h-6"/>
             </x-sidebar-item>

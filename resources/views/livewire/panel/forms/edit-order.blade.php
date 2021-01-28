@@ -14,6 +14,20 @@
             <x-input-error for="product" class="mt-2"/>
         </div>
 
+        <div class="col-start-1 col-span-6 sm:col-span-4">
+            <x-label for="line" value="خط تولید"/>
+            <select
+                class="form-output rounded-md shadow-sm mt-1 block w-full"
+                id="line" wire:model.lazy="line">
+                @foreach($product->lines as $line)
+                    <option
+                        value="{{ $line->id }}"
+                    >{{ $line->code }} - {{ $line->name }}</option>
+                @endforeach
+            </select>
+            <x-input-error for="line" class="mt-2"/>
+        </div>
+
         @foreach($attrs as $i => $attr)
 
             <div class="col-start-1 col-span-6 sm:col-span-4">

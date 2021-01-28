@@ -17,7 +17,6 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('code');
             $table->string('name');
-            $table->jsonb('attrs')->nullable();
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ class ProductsList extends Component
     {
         return view('livewire.panel.products-list', [
 
-            'products' => $this->getProductQuery()->paginate(15),
+            'products' => $this->getProductQuery()->with('lines')->paginate(15),
         ])
         ->layout('panel.layout');
     }

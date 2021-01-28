@@ -12,6 +12,8 @@ use App\Http\Livewire\Panel\Forms\CreateLine;
 use App\Http\Livewire\Panel\Forms\CreateMaterial;
 use App\Http\Livewire\Panel\Forms\CreateOrder;
 use App\Http\Livewire\Panel\Forms\CreateProduct;
+use App\Http\Livewire\Panel\Forms\CreateTask;
+use App\Http\Livewire\Panel\Forms\EditLine;
 use App\Http\Livewire\Panel\Forms\EditMaterial;
 use App\Http\Livewire\Panel\Forms\EditOrder;
 use App\Http\Livewire\Panel\Forms\EditProduct;
@@ -21,6 +23,7 @@ use App\Http\Livewire\Panel\OrdersList;
 use App\Http\Livewire\Panel\Password;
 use App\Http\Livewire\Panel\ProductsList;
 use App\Http\Livewire\Panel\Profile;
+use App\Http\Livewire\Panel\TasksList;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -79,12 +82,15 @@ Route::middleware('auth')->group(function () {
             Route::get('/products', ProductsList::class)->name('products');
             Route::get('/orders', OrdersList::class)->name('orders');
             Route::get('/lines', LinesList::class)->name('lines');
+            Route::get('/tasks', TasksList::class)->name('tasks');
             Route::get('/materials', MaterialsList::class)->name('materials');
             Route::get('/orders/{order}/edit', EditOrder::class)->name('order-edit');
             Route::get('/materials/{material}/edit', EditMaterial::class)->name('material-edit');
             Route::get('/materials/create', CreateMaterial::class)->name('material-create');
             Route::get('/products/create', CreateProduct::class)->name('product-create');
+            Route::get('/tasks/create', CreateTask::class)->name('task-create');
             Route::get('/lines/create', CreateLine::class)->name('line-create');
+            Route::get('/lines/{line}/edit', EditLine::class)->name('line-edit');
             Route::get('/products/{product}/edit', EditProduct::class)->name('product-edit');
             Route::get('/products/{product}/orders/create', CreateOrder::class)->name('order-create');
         });

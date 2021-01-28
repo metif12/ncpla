@@ -2,12 +2,11 @@
 
 namespace App\Http\Livewire\Panel;
 
-use App\Models\Order;
-use App\Models\Product;
+use App\Models\Task;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class OrdersList extends Component
+class TasksList extends Component
 {
     use WithPagination;
 
@@ -15,9 +14,9 @@ class OrdersList extends Component
 
     public function render()
     {
-        return view('livewire.panel.orders-list', [
+        return view('livewire.panel.tasks-list', [
 
-            'orders' => $this->getOrderQuery()->with(['product','line'])->paginate(15),
+            'tasks' => $this->getTaskQuery()->paginate(15),
         ])
         ->layout('panel.layout');
     }
@@ -30,9 +29,10 @@ class OrdersList extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    private function getOrderQuery(): \Illuminate\Database\Eloquent\Builder
+    private function getTaskQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return Order::query()
-            ->Where('code', 'like', "%{$this->search}%");
+        return Task::query()
+            ->where('code', 'like', "%{$this->search}%");
+            //->orWhere('name', 'like', "%{$this->search}%");
     }
 }
