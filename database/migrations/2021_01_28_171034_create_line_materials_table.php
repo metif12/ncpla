@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubtasksTable extends Migration
+class CreateLineMaterialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateSubtasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('subtasks', function (Blueprint $table) {
+        Schema::create('line_materials', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Task::class);
             $table->foreignIdFor(\App\Models\Line::class);
-            $table->string('code');
-            $table->jsonb('attrs');
+            $table->foreignIdFor(\App\Models\Material::class);
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateSubtasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subtasks');
+        Schema::dropIfExists('line_materials');
     }
 }

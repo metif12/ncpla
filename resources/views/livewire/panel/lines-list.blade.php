@@ -1,6 +1,6 @@
 <div>
     <x-section-title>
-        <x-slot name="title">لیست محصولات</x-slot>
+        <x-slot name="title">لیست خطوط تولید</x-slot>
         <x-slot name="description"></x-slot>
     </x-section-title>
 
@@ -28,8 +28,8 @@
         <div>
             <div class="flex">
                 <div class="shadow rounded-lg relative">
-                    <a href="{{ route('panel.product-create') }}"
-                       class="rounded-lg inline-flex items-center bg-white hover:text-green-500 focus:outline-none focus:shadow-outline text-gray-500 font-semibold py-2 px-2 md:px-4">
+                    <a href="{{ route('panel.line-create') }}"
+                            class="rounded-lg inline-flex items-center bg-white hover:text-green-500 focus:outline-none focus:shadow-outline text-gray-500 font-semibold py-2 px-2 md:px-4">
                         <span class="hidden md:block">افزودن</span>
                         <svg class="w-5 h-5 md:mr-2" xmlns="http://www.w3.org/2000/svg"
                              xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -76,14 +76,12 @@
                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
                     عملیات
                 </th>
-                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
 
-                </th>
 
             </tr>
             </thead>
             <tbody>
-            @foreach($products as $product)
+            @foreach($lines as $line)
                 <tr class="">
                     <td class="p-2 border-dashed border-t border-gray-200 px-3">
                         <label
@@ -95,31 +93,22 @@
 
                     <td class="p-2 border-dashed border-t border-gray-200">
                             <span class="text-gray-700 flex items-center">
-                                {{ $product->code }}
+                                {{ $line->code }}
                             </span>
                     </td>
                     <td class="p-2 border-dashed border-t border-gray-200">
-                        <a href="{{ route('panel.product-edit', $product) }}"
-                           class="text-gray-700 flex items-center">                                {{ $product->name }}
+                        <a href="{{ route('panel.product-edit', $line) }}"
+                           class="text-gray-700 flex items-center">                                {{ $line->name }}
                         </a>
                     </td>
                     <td class="p-2 border-dashed border-t border-gray-200">
                             <span class="text-gray-700 flex items-center">
-                                {{ verta($product->cretaed_at) }}
+                                {{ verta($line->cretaed_at) }}
                             </span>
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">
-                        @if($product->lines->count() > 0)
-                            <x-abutton href="{{ route('panel.order-create', $product) }}">
-                                ثبت سفارش
-                            </x-abutton>
-                        @else
-                            خط تولید تعریف نشده است!
-                        @endif
-                    </td>
-                    <td class="p-2 border-dashed border-t border-gray-200">
-                        <x-abutton color="yellow" href="{{ route('panel.product-edit', $product) }}">
+                        <x-abutton color="yellow" href="{{ route('panel.line-edit', $line) }}">
                             ویرایش
                         </x-abutton>
                     </td>
@@ -131,6 +120,6 @@
     </div>
 
     <div class="mt-4">
-        {{ $products->links() }}
+        {{ $lines->links() }}
     </div>
 </div>

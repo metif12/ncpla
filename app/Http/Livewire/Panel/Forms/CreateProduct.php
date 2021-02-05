@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Panel\Forms;
 
 use App\Models\Product;
+use App\Models\ProductAttribute;
 use Livewire\Component;
 
 class CreateProduct extends Component
@@ -10,18 +11,6 @@ class CreateProduct extends Component
     public string $name = '';
 
     public array $attrs = [];
-
-    public array  $types = [
-
-        [
-            'name' => 'متنی',
-            'value' => 'text',
-        ],
-        [
-            'name' => 'عددی',
-            'value' => 'number',
-        ],
-    ];
 
     protected function getRules()
     {
@@ -43,24 +32,35 @@ class CreateProduct extends Component
     {
         $this->attrs [] = [
 
-            'name' => 'عنوان ويژگی',
-            'type' => 'text',
+            'name' => '',
+            'type' => Product::$types[0]['value'],
             'unit' => '',
             'default' => '',
+            'merge_type' => Product::$merge_types[0]['value'],
 
         ];
+    }
+
+    public function remAttr($i)
+    {
+        array_splice($this->attrs, $i,1);
     }
 
     public function storeProduct()
     {
         $this->validate();
 
-        Product::query()->create([
+        $product = Product::query()->create([
 
             'name' => $this->name,
             'code' => strtoupper(dechex(time())),
-            'attrs' => $this->attrs,
         ]);
+
+        foreach ($this->attrs as $attr){
+
+            $attr['product_id'] = $product->id;
+            ProductAttribute::query()->create($attr);
+        }
 
         $this->redirectRoute('panel.products');
     }

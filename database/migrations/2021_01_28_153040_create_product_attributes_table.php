@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubtasksTable extends Migration
+class CreateProductAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateSubtasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('subtasks', function (Blueprint $table) {
+        Schema::create('product_attributes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Task::class);
-            $table->foreignIdFor(\App\Models\Line::class);
-            $table->string('code');
-            $table->jsonb('attrs');
+            $table->foreignIdFor(\App\Models\Product::class);
+            $table->string('name');
+            $table->string('type');
+            $table->string('unit');
+            $table->string('default');
+            $table->string('merge_type');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateSubtasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subtasks');
+        Schema::dropIfExists('product_attributes');
     }
 }

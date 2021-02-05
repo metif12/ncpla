@@ -1,6 +1,6 @@
 <x-form-section submit="storeProduct">
     <x-slot name="title">
-        ثبت محصول جدید
+        ویرایش محصول
     </x-slot>
 
     <x-slot name="description">

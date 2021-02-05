@@ -1,6 +1,6 @@
 <x-form-section submit="storeOrder">
     <x-slot name="title">
-        ثبت سفارش جدید
+        ویرایش سفارش
     </x-slot>
 
     <x-slot name="description">
