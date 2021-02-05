@@ -40,6 +40,7 @@ class CreateOrder extends Component
             foreach ($line->inputs as $input){
 
                 $input_product = $input->product;
+
                 foreach ($input_product->product_attributes ?? [] as $attr) {
 
                     $attr['value'] = $attr['default'];

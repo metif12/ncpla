@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Line;
+use App\Models\LineInputs;
 use App\Models\LineMaterials;
 use App\Models\LineOutputs;
 use App\Models\Material;
@@ -93,6 +94,12 @@ class DatabaseSeeder extends Seeder
             'product_id' => $product->id,
         ]);
 
+//        LineInputs::query()->create([
+//
+//            'line_id' => $line->id,
+//            'product_id' => $product->id,
+//        ]);
+
         $order = Order::query()->create([
 
             'product_id' => $product->id,
@@ -106,6 +113,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'طول',
             'type' => 'number',
             'value' => 250,
+            'product_id' => $product->id,
         ]);
 
         // \App\Models\User::factory(10)->create();

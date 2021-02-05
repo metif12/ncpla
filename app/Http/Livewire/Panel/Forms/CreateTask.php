@@ -42,13 +42,16 @@ class CreateTask extends Component
         $this->validate();
 
         $data = [];
+        $lines = [];
 
         foreach ($this->order_list as $id => $cond) {
             if ($cond) {
 
                 $order = Order::find($id);
-                //$order->product;
-                $this->processTask($order->line, $data);
+                $product = $order->product;
+                $line = $order->line;
+
+
             }
         }
 
