@@ -15,6 +15,63 @@
             <x-input-error for="name" class="mt-2"/>
         </div>
 
+        @foreach($attrs as $i => $attr)
+            <hr class="col-start-1 col-span-6 sm:col-span-4">
+
+            <div class="col-start-1 col-span-6 sm:col-span-4">
+                <x-label for="attrs.{{$i}}.name" value="{{ $i+1 }}. عنوان ویژگی"/>
+                <x-input id="attrs.{{$i}}.name" type="text" class="mt-1 block w-full"
+                         wire:model.lazy="attrs.{{$i}}.name"/>
+                <x-input-error for="attrs.{{$i}}.name" class="mt-2"/>
+            </div>
+
+            <div class="col-start-1 col-span-6 sm:col-span-3 sm:col-start-1">
+                <x-label for="attrs.{{$i}}.type" value="نوع مقدار"/>
+                <select
+                    class="form-input rounded-md shadow-sm mt-1 block w-full"
+                    id="attrs.{{$i}}.type" wire:model.lazy="attrs.{{$i}}.type">
+                    @foreach(\App\Models\Product::$types as $type)
+                        <option value="{{ $type['value'] }}">{{ $type['name'] }}</option>
+                    @endforeach
+                </select>
+                <x-input-error for="attrs.{{$i}}.type" class="mt-2"/>
+            </div>
+
+            <div class="col-start-1 col-span-6 sm:col-span-3 sm:col-start-4">
+                <x-label for="attrs.{{$i}}.merge_type" value="نوع ادغام"/>
+                <select
+                    class="form-input rounded-md shadow-sm mt-1 block w-full"
+                    id="attrs.{{$i}}.merge_type" wire:model.lazy="attrs.{{$i}}.merge_type">
+                    @foreach(\App\Models\Product::$merge_types as $type)
+                        <option value="{{ $type['value'] }}">{{ $type['name'] }}</option>
+                    @endforeach
+                </select>
+                <x-input-error for="attrs.{{$i}}.merge_type" class="mt-2"/>
+            </div>
+
+            <div class="col-start-1 col-span-6 sm:col-span-3 sm:col-start-1">
+                <x-label for="attrs.{{$i}}.unit" value="واحد"/>
+                <x-input id="attrs.{{$i}}.unit" type="text"
+                         class="mt-1 block w-full"
+                         wire:model.lazy="attrs.{{$i}}.unit"/>
+                <x-input-error for="attrs.{{$i}}.unit" class="mt-2"/>
+            </div>
+
+            <div class="col-start-1 col-span-6 sm:col-span-3 sm:col-start-4">
+                <x-label for="attrs.{{$i}}.default" value="مقدار پیش فرض"/>
+                <x-input id="attrs.{{$i}}.default" type="text" class="mt-1 block w-full"
+                         wire:model.lazy="attrs.{{$i}}.default"/>
+                <x-input-error for="attrs.{{$i}}.default" class="mt-2"/>
+            </div>
+
+            <div class="col-start-1 col-span-6">
+                <x-button color="red" wire:loading.attr="disabled" class="" type="button" wire:click="remAttr('{{$i}}')">
+                    حذف
+                </x-button>
+            </div>
+
+        @endforeach
+
         @foreach($materials as $i => $material)
             <hr class="col-start-1 col-span-6 sm:col-span-4">
 
@@ -34,6 +91,12 @@
                 </select>
                 <x-input-error for="materials.{{$i}}" class="mt-2"/>
             </div>
+
+            <div class="col-start-1 col-span-6">
+                <x-button color="red" wire:loading.attr="disabled" class="" type="button" wire:click="remMaterial('{{$i}}')">
+                    حذف
+                </x-button>
+            </div>
         @endforeach
 
         @foreach($inputs as $i => $input)
@@ -47,7 +110,7 @@
                     @foreach($product_list as $product)
                         <option
                             value="{{ $product->id }}"
-                            @if((in_array($product->id,$inputs)||in_array($product->id,$outputs)) && $product->id!=$input)
+                            @if((in_array($product->id,$inputs)||$product->id==$output) && $product->id!=$input)
                             disabled
                             @endif
                         >{{ $product->code }} - {{ $product->name }}</option>
@@ -55,28 +118,32 @@
                 </select>
                 <x-input-error for="inputs.{{$i}}" class="mt-2"/>
             </div>
-        @endforeach
 
-        @foreach($outputs as $i => $output)
-            <hr class="col-start-1 col-span-6 sm:col-span-4">
-
-            <div class="col-start-1 col-span-6 sm:col-span-4">
-                <x-label for="outputs.{{$i}}" value="{{ $i+1 }}. خروجی"/>
-                <select
-                    class="form-output rounded-md shadow-sm mt-1 block w-full"
-                    id="outputs.{{$i}}" wire:model.lazy="outputs.{{$i}}">
-                    @foreach($product_list as $product)
-                        <option
-                            value="{{ $product->id }}"
-                            @if((in_array($product->id,$inputs)||in_array($product->id,$outputs)) && $product->id!=$output)
-                            disabled
-                            @endif
-                        >{{ $product->code }} - {{ $product->name }}</option>
-                    @endforeach
-                </select>
-                <x-input-error for="outputs.{{$i}}" class="mt-2"/>
+            <div class="col-start-1 col-span-6">
+                <x-button color="red" wire:loading.attr="disabled" class="" type="button" wire:click="remInput('{{$i}}')">
+                    حذف
+                </x-button>
             </div>
         @endforeach
+
+        <hr class="col-start-1 col-span-6 sm:col-span-4">
+
+        <div class="col-start-1 col-span-6 sm:col-span-4">
+            <x-label for="output" value="خروجی"/>
+            <select
+                class="form-output rounded-md shadow-sm mt-1 block w-full"
+                id="output" wire:model.lazy="output">
+                @foreach($product_list as $product)
+                    <option
+                        value="{{ $product->id }}"
+                        @if(in_array($product->id,$inputs))
+                            disabled
+                        @endif
+                    >{{ $product->uname() }}</option>
+                @endforeach
+            </select>
+            <x-input-error for="output" class="mt-2"/>
+        </div>
 
     </x-slot>
 
@@ -94,8 +161,8 @@
             ورودی
         </x-button>
 
-        <x-button color="red" wire:loading.attr="disabled" class="ml-3" type="button" wire:click="addOutput">
-            خروجی
+        <x-button color="green" wire:loading.attr="disabled" class="ml-3" type="button" wire:click="addAttr">
+            افزودن ویژگی
         </x-button>
 
         <x-button>

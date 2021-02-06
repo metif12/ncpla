@@ -16,7 +16,6 @@ class CreateOrderAttributesTable extends Migration
         Schema::create('order_attributes', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Order::class);
-            $table->foreignIdFor(\App\Models\Product::class);
             $table->string('name');
             $table->string('type');
             $table->string('value');

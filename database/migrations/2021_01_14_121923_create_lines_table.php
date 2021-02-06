@@ -15,8 +15,12 @@ class CreateLinesTable extends Migration
     {
         Schema::create('lines', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignIdFor(\App\Models\Product::class);
+
             $table->string('name');
             $table->string('code');
+
             $table->timestamps();
         });
     }

@@ -20,7 +20,7 @@ class EditOrder extends Component
         $this->order = $order;
         $this->line = $order->line_id;
         $this->product = $order->product;
-        $this->attrs = $order->order_attributes?->toArray() ?? [];
+        $this->attrs = $order->order_attributes ? $order->order_attributes->toArray() : [];
     }
 
     public function updated()
@@ -71,7 +71,6 @@ class EditOrder extends Component
                 [
                     'value' => $attr['value'],
                     'type' => $attr['type'],
-                    'product_id' => $attr['product_id'],
                 ]
             );
 

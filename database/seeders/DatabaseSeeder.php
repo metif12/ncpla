@@ -54,15 +54,21 @@ class DatabaseSeeder extends Seeder
             'code' => strtoupper(dechex(time())),
         ]);
 
-        $product = Product::query()->create([
+        $product1 = Product::query()->create([
 
             'name' => 'کابل شبکه UTP',
             'code' => strtoupper(dechex(time())),
         ]);
 
+        $product2 = Product::query()->create([
+
+            'name' => 'کابل شبکه STP',
+            'code' => strtoupper(dechex(time())),
+        ]);
+
         ProductAttribute::query()->create([
 
-            'product_id' => $product->id,
+            'product_id' => $product1->id,
             'name' => 'طول',
             'type' => 'number',
             'merge_type' => 'sum',
@@ -70,50 +76,66 @@ class DatabaseSeeder extends Seeder
             'default' => '100',
         ]);
 
-        $line = Line::query()->create([
+        ProductAttribute::query()->create([
 
-            'name' => 'خط یک',
+            'product_id' => $product2->id,
+            'name' => 'طول',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'متر',
+            'default' => '100',
+        ]);
+
+        $line1 = Line::query()->create([
+
+            'name' => 'خط UTP',
+            'code' => strtoupper(dechex(time())),
+
+            'product_id' => $product1->id,
+        ]);
+
+        $line1->materials()->sync([$material1->id,$material2->id]);
+
+        $line2 = Line::query()->create([
+
+            'name' => 'خط STP',
+            'code' => strtoupper(dechex(time())),
+
+            'product_id' => $product2->id,
+        ]);
+
+        $line2->inputs()->sync([$product1->id]);
+
+        $order1 = Order::query()->create([
+
+            'product_id' => $product1->id,
+            'line_id' => $line1->id,
             'code' => strtoupper(dechex(time())),
         ]);
 
-        LineMaterials::query()->create([
+        $order2 = Order::query()->create([
 
-            'line_id' => $line->id,
-            'material_id' => $material1->id,
-        ]);
-
-        LineMaterials::query()->create([
-
-            'line_id' => $line->id,
-            'material_id' => $material2->id,
-        ]);
-
-        LineOutputs::query()->create([
-
-            'line_id' => $line->id,
-            'product_id' => $product->id,
-        ]);
-
-//        LineInputs::query()->create([
-//
-//            'line_id' => $line->id,
-//            'product_id' => $product->id,
-//        ]);
-
-        $order = Order::query()->create([
-
-            'product_id' => $product->id,
-            'line_id' => $line->id,
+            'product_id' => $product2->id,
+            'line_id' => $line2->id,
             'code' => strtoupper(dechex(time())),
         ]);
 
         OrderAttribute::query()->create([
 
-            'order_id' => $order->id,
+            'order_id' => $order1->id,
+            'product_id' => $product1->id,
             'name' => 'طول',
             'type' => 'number',
             'value' => 250,
-            'product_id' => $product->id,
+        ]);
+
+        OrderAttribute::query()->create([
+
+            'order_id' => $order2->id,
+            'product_id' => $product2->id,
+            'name' => 'طول',
+            'type' => 'number',
+            'value' => 250,
         ]);
 
         // \App\Models\User::factory(10)->create();

@@ -13,8 +13,8 @@ class OrderAttribute extends Model
 
     protected $guarded = ['id'];
 
-    public function product()
+    public function order()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Order::class);
     }
 }

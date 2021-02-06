@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Panel\Forms;
 
 use App\Models\Line;
+use App\Models\LineAttributes;
 use App\Models\LineInputs;
 use App\Models\LineMaterials;
 use App\Models\LineOutputs;
@@ -13,25 +14,49 @@ use Livewire\Component;
 class CreateLine extends Component
 {
     public string $name = '';
+    public int $output = 0;
 
     public array $materials = [];
     public array $inputs = [];
-    public array $outputs = [];
+
+    public array $attrs = [];
 
     protected function getRules()
     {
         return [
             'name' => 'required|string|unique:lines,name',
+            'output' => 'required|integer',
 
             'materials.*' => 'required|integer',
             'inputs.*' => 'required|integer',
-            'outputs.*' => 'required|integer',
+
+            'attrs.*.name' => 'required|string',
+            'attrs.*.type' => 'required|string',
+            'attrs.*.default' => 'nullable',
         ];
     }
 
     public function updated()
     {
         $this->validate();
+    }
+
+    public function addAttr()
+    {
+        $this->attrs [] = [
+
+            'name' => '',
+            'type' => Line::$types[0]['value'],
+            'unit' => '',
+            'default' => '',
+            'merge_type' => Line::$merge_types[0]['value'],
+
+        ];
+    }
+
+    public function remAttr($i)
+    {
+        array_splice($this->attrs, $i,1);
     }
 
     public function addMaterial()
@@ -44,14 +69,9 @@ class CreateLine extends Component
         }
     }
 
-    public function addOutput()
+    public function remMaterial($i)
     {
-        $available = $this->getAvailableOutputsQuery()->pluck('id');
-
-        if ($available->isNotEmpty()) {
-
-            $this->outputs [] = $available[0];
-        }
+        array_splice($this->materials, $i,1);
     }
 
     public function addInput()
@@ -62,6 +82,11 @@ class CreateLine extends Component
 
             $this->inputs [] = $available[0];
         }
+    }
+
+    public function remIntput($i)
+    {
+        array_splice($this->inputs, $i,1);
     }
 
     public function storeLine()
@@ -75,33 +100,17 @@ class CreateLine extends Component
 
             'name' => $this->name,
             'code' => strtoupper(dechex(time())),
+
+            'product_id' => $this->output,
         ]);
 
-        foreach ($this->materials as $material){
+        $line->inputs()->sync($this->inputs);
+        $line->materials()->sync($this->materials);
 
-            LineMaterials::query()->create([
+        foreach ($this->attrs as $attr){
 
-                'line_id' => $line->id,
-                'material_id' => $material,
-            ]);
-        }
-
-        foreach ($this->inputs as $input){
-
-            LineInputs::query()->create([
-
-                'line_id' => $line->id,
-                'product_id' => $input,
-            ]);
-        }
-
-        foreach ($this->outputs as $output){
-
-            LineOutputs::query()->create([
-
-                'line_id' => $line->id,
-                'product_id' => $output,
-            ]);
+            $attr['product_id'] = $line->id;
+            LineAttributes::query()->create($attr);
         }
 
         $this->redirectRoute('panel.lines');
@@ -130,14 +139,6 @@ class CreateLine extends Component
      */
     protected function getAvailableInputsQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return Product::query()->whereNotIn('id', $this->inputs)->whereNotIn('id', $this->outputs);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    protected function getAvailableOutputsQuery(): \Illuminate\Database\Eloquent\Builder
-    {
-        return Product::query()->whereNotIn('id', $this->outputs)->whereNotIn('id', $this->inputs);
+        return Product::query()->whereNotIn('id', $this->inputs)->where('id', '<>', $this->output);
     }
 }
