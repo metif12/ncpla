@@ -88,9 +88,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/materials/{material}/edit', EditMaterial::class)->name('material-edit');
             Route::get('/materials/create', CreateMaterial::class)->name('material-create');
             Route::get('/products/create', CreateProduct::class)->name('product-create');
-            Route::get('/tasks/create', CreateTask::class)->name('task-create');
             Route::get('/lines/create', CreateLine::class)->name('line-create');
             Route::get('/lines/{line}/edit', EditLine::class)->name('line-edit');
+            Route::get('/lines/{line}/tasks/create', CreateTask::class)->name('task-create');
             Route::get('/products/{product}/edit', EditProduct::class)->name('product-edit');
             Route::get('/products/{product}/orders/create', CreateOrder::class)->name('order-create');
         });

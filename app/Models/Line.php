@@ -39,13 +39,6 @@ class Line extends Model
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-
-        'inputs' => 'array',
-        'outputs' => 'array',
-        'materials' => 'array',
-    ];
-
     public function uname()
     {
         return "{$this->code} {$this->name}";
@@ -58,7 +51,7 @@ class Line extends Model
 
     public function output()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function inputs()

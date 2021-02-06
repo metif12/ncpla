@@ -10,7 +10,7 @@
     <x-slot name="form">
         <div class="col-span-6 sm:col-span-4">
             <x-label for="product" value="محصول"/>
-            <x-input id="product" type="text" disabled class="mt-1 block w-full" value="{{ $product->code }} - {{ $product->name }}"/>
+            <x-input id="product" type="text" disabled class="mt-1 block w-full" value="{{ $product->uname() }}"/>
             <x-input-error for="product" class="mt-2"/>
         </div>
 

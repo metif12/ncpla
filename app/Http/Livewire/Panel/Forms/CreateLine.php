@@ -109,7 +109,7 @@ class CreateLine extends Component
 
         foreach ($this->attrs as $attr){
 
-            $attr['product_id'] = $line->id;
+            $attr['line_id'] = $line->id;
             LineAttributes::query()->create($attr);
         }
 

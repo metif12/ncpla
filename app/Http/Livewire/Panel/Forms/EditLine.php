@@ -125,7 +125,7 @@ class EditLine extends Component
 
             LineAttributes::query()->updateOrCreate(
                 [
-                    'product_id' => $this->line->id,
+                    'line_id' => $this->line->id,
                     'name' => $attr['name'],
                 ],
                 [
@@ -140,7 +140,7 @@ class EditLine extends Component
         }
 
         LineAttributes::query()
-            ->where('product_id' , $this->product->id)
+            ->where('line_id' , $this->line->id)
             ->whereNotIn('name' , $names)
             ->delete();
 
