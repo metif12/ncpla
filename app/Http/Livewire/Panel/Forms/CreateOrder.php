@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Panel\Forms;
 use App\Models\Order;
 use App\Models\OrderAttribute;
 use App\Models\Product;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class CreateOrder extends Component
@@ -18,6 +19,7 @@ class CreateOrder extends Component
     public function mount(Product $product)
     {
         $this->product = $product;
+        $this->line = $product->lines()->value('id');
 
         foreach ($this->product->product_attributes ?? [] as $attr) {
 
@@ -64,7 +66,7 @@ class CreateOrder extends Component
 
             'product_id' => $this->product->id,
             'line_id' => $this->line,
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
         ]);
 
         foreach ($this->attrs as $attr){

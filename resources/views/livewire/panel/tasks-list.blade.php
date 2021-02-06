@@ -1,6 +1,6 @@
 <div>
     <x-section-title>
-        <x-slot name="title">لیست وظایف</x-slot>
+        <x-slot name="title">لیست دستور کارها</x-slot>
         <x-slot name="description"></x-slot>
     </x-section-title>
 

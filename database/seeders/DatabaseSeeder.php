@@ -37,33 +37,33 @@ class DatabaseSeeder extends Seeder
 
             'name' => 'مس',
             'unit' => 'کیلوگرم',
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
         ]);
 
         $material2 = Material::query()->create([
 
             'name' => 'پلیمر',
             'unit' => 'کیلوگرم',
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
         ]);
 
         $material3 = Material::query()->create([
 
             'name' => 'قرقره',
             'unit' => 'عدد',
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
         ]);
 
         $product1 = Product::query()->create([
 
             'name' => 'کابل شبکه UTP',
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
         ]);
 
         $product2 = Product::query()->create([
 
             'name' => 'کابل شبکه STP',
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
         ]);
 
         ProductAttribute::query()->create([
@@ -89,7 +89,7 @@ class DatabaseSeeder extends Seeder
         $line1 = Line::query()->create([
 
             'name' => 'خط UTP',
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
 
             'product_id' => $product1->id,
         ]);
@@ -99,7 +99,7 @@ class DatabaseSeeder extends Seeder
         $line2 = Line::query()->create([
 
             'name' => 'خط STP',
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
 
             'product_id' => $product2->id,
         ]);
@@ -110,20 +110,19 @@ class DatabaseSeeder extends Seeder
 
             'product_id' => $product1->id,
             'line_id' => $line1->id,
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
         ]);
 
         $order2 = Order::query()->create([
 
             'product_id' => $product2->id,
             'line_id' => $line2->id,
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
         ]);
 
         OrderAttribute::query()->create([
 
             'order_id' => $order1->id,
-            'product_id' => $product1->id,
             'name' => 'طول',
             'type' => 'number',
             'value' => 250,
@@ -132,7 +131,6 @@ class DatabaseSeeder extends Seeder
         OrderAttribute::query()->create([
 
             'order_id' => $order2->id,
-            'product_id' => $product2->id,
             'name' => 'طول',
             'type' => 'number',
             'value' => 250,

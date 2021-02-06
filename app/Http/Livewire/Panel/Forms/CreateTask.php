@@ -59,7 +59,7 @@ class CreateTask extends Component
 //
 //            'name' => $this->name,
 //            'unit' => $this->unit,
-//            'code' => strtoupper(dechex(time())),
+//            'code' => generateCode(),
 //        ]);
 
         $this->redirectRoute('panel.materials');

@@ -99,7 +99,7 @@ class CreateLine extends Component
         $line = Line::query()->create([
 
             'name' => $this->name,
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
 
             'product_id' => $this->output,
         ]);

@@ -276,7 +276,7 @@
                 <div x-show="index == 3" class="mt-4 mx-2">
                     <x-form-section submit="storeTask">
                         <x-slot name="title">
-                            ثبت وظیفه جدید
+                            ثبت دستورکار جدید
                         </x-slot>
 
                         <x-slot name="description">

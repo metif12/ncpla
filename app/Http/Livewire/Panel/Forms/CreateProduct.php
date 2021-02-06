@@ -53,7 +53,7 @@ class CreateProduct extends Component
         $product = Product::query()->create([
 
             'name' => $this->name,
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
         ]);
 
         foreach ($this->attrs as $attr){
