@@ -3,8 +3,8 @@
 namespace App\Http\Livewire\Panel\Forms;
 
 use App\Models\Line;
-use App\Models\Order;
 use App\Models\Task;
+use App\Models\TaskAttribute;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,7 +14,8 @@ class CreateTask extends Component
     public Line $line;
 
     public array $attrs = [];
-    public array $pattrs = [];
+
+//    public array $pattrs = [];
 
     public function mount(Line $line)
     {
@@ -27,49 +28,49 @@ class CreateTask extends Component
             $this->attrs[$this->line->id] = $attr;
         }
 
-        foreach ($this->line->output->product_attributes ?? [] as $attr) {
-
-            $attr['value'] = $attr['default'];
-
-            $this->pattrs[$this->line->output->id] = $attr;
-        }
+//        foreach ($this->line->output->product_attributes ?? [] as $attr) {
+//
+//            $attr['value'] = $attr['default'];
+//
+//            $this->pattrs[$this->line->output->id] = $attr;
+//        }
     }
 
     protected function getRules()
     {
         $rules = [];
 
-        foreach ($this->line->line_attributes ?? [] as $i => $attr) {
+        foreach ($this->attrs ?? [] as $i => $attr) {
 
-            switch ($attr['type']){
+            switch ($attr['type']) {
 
                 case 'text' :
-                    $rules["attrs.*.value"] = "required|string";
+                    $rules["attrs.$i.value"] = "required|string";
                     break;
 
                 case 'number' :
-                    $rules["attrs.*.value"] = "required|regex:/^\d+(\.\d+)?$/";
+                    $rules["attrs.$i.value"] = "required|regex:/^\d+(\.\d+)?$/";
                     break;
 
             }
 
         }
 
-        foreach ($this->line->output->product_attributes ?? [] as $i => $attr) {
-
-            switch ($attr['type']){
-
-                case 'text' :
-                    $rules["pattrs.*.value"] = "required|string";
-                    break;
-
-                case 'number' :
-                    $rules["pattrs.*.value"] = "required|regex:/^\d+(\.\d+)?$/";
-                    break;
-
-            }
-
-        }
+//        foreach ($this->line->output->product_attributes ?? [] as $i => $attr) {
+//
+//            switch ($attr['type']){
+//
+//                case 'text' :
+//                    $rules["pattrs.*.value"] = "required|string";
+//                    break;
+//
+//                case 'number' :
+//                    $rules["pattrs.*.value"] = "required|regex:/^\d+(\.\d+)?$/";
+//                    break;
+//
+//            }
+//
+//        }
 
         return $rules;
     }
@@ -83,16 +84,30 @@ class CreateTask extends Component
     {
         $this->validate();
 
+        $task = Task::query()->create([
+
+            'code' => generateCode(),
+            'line_id' => $this->line->id,
+        ]);
+
+        foreach ($this->attrs as $attr) {
+
+            $attr['task_id'] = $task->id;
+            $attr['line_id'] = $this->line->id;
+
+            TaskAttribute::query()->create($attr);
+        }
+
         $this->redirectRoute('panel.tasks');
     }
 
     public function render()
     {
 
-        return view('livewire.panel.forms.create-task',[
+        return view('livewire.panel.forms.create-task', [
 
         ])
-            ->layout('panel.layout');
+        ->layout('panel.layout');
 
     }
 }

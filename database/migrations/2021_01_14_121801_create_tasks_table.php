@@ -15,9 +15,8 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Line::class);
             $table->string('code');
-            $table->jsonb('orders');
-            $table->jsonb('attrs');
             $table->timestamps();
         });
     }

@@ -3,9 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Line;
-use App\Models\LineInputs;
-use App\Models\LineMaterials;
-use App\Models\LineOutputs;
+use App\Models\LineAttributes;
 use App\Models\Material;
 use App\Models\Order;
 use App\Models\OrderAttribute;
@@ -69,21 +67,21 @@ class DatabaseSeeder extends Seeder
         ProductAttribute::query()->create([
 
             'product_id' => $product1->id,
-            'name' => 'طول',
-            'type' => 'number',
-            'merge_type' => 'sum',
-            'unit' => 'متر',
-            'default' => '100',
+            'name' => 'stamp',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'unit' => '',
+            'default' => '',
         ]);
 
         ProductAttribute::query()->create([
 
             'product_id' => $product2->id,
-            'name' => 'طول',
-            'type' => 'number',
-            'merge_type' => 'sum',
-            'unit' => 'متر',
-            'default' => '100',
+            'name' => 'stamp',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'unit' => '',
+            'default' => '',
         ]);
 
         $line1 = Line::query()->create([
@@ -106,6 +104,16 @@ class DatabaseSeeder extends Seeder
 
         $line2->inputs()->sync([$product1->id]);
 
+        LineAttributes::query()->create([
+
+            'line_id' => $line2->id,
+            'name' => 'طول',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'متر',
+            'default' => '100',
+        ]);
+
         $order1 = Order::query()->create([
 
             'product_id' => $product1->id,
@@ -123,17 +131,19 @@ class DatabaseSeeder extends Seeder
         OrderAttribute::query()->create([
 
             'order_id' => $order1->id,
-            'name' => 'طول',
-            'type' => 'number',
-            'value' => 250,
+            'name' => 'stamp',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'value' => 'MY AMAZING UTP CABLE',
         ]);
 
         OrderAttribute::query()->create([
 
             'order_id' => $order2->id,
-            'name' => 'طول',
-            'type' => 'number',
-            'value' => 250,
+            'name' => 'stamp',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'value' => 'MY AWESOME STP CABLE',
         ]);
 
         // \App\Models\User::factory(10)->create();

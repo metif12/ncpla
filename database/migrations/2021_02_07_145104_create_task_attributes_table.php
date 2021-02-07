@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLineAttributesTable extends Migration
+class CreateTaskAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,17 @@ class CreateLineAttributesTable extends Migration
      */
     public function up()
     {
-        Schema::create('line_attributes', function (Blueprint $table) {
+        Schema::create('task_attributes', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Task::class);
             $table->foreignIdFor(\App\Models\Line::class);
+
             $table->string('name');
             $table->string('type');
             $table->string('unit')->nullable();
-            $table->string('default')->nullable();
+            $table->string('value');
             $table->string('merge_type');
+
             $table->timestamps();
         });
     }
@@ -32,6 +35,6 @@ class CreateLineAttributesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('line_attributes');
+        Schema::dropIfExists('task_attributes');
     }
 }

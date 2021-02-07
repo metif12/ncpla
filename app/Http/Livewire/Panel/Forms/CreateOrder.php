@@ -39,16 +39,16 @@ class CreateOrder extends Component
     {
         $rules = [];
 
-        foreach ($this->product->product_attributes ?? [] as $i => $attr) {
+        foreach ($this->attrs ?? [] as $i => $attr) {
 
             switch ($attr['type']){
 
                 case 'text' :
-                    $rules["attrs.*.value"] = "required|string";
+                    $rules["attrs.$i.value"] = "required|string";
                     break;
 
                 case 'number' :
-                    $rules["attrs.*.value"] = "required|regex:/^\d+(\.\d+)?$/";
+                    $rules["attrs.$i.value"] = "required|regex:/^\d+(\.\d+)?$/";
                     break;
 
             }

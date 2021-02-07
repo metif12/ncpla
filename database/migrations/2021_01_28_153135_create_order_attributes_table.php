@@ -18,7 +18,9 @@ class CreateOrderAttributesTable extends Migration
             $table->foreignIdFor(\App\Models\Order::class);
             $table->string('name');
             $table->string('type');
+            $table->string('unit')->nullable();
             $table->string('value');
+            $table->string('merge_type');
             $table->timestamps();
         });
     }

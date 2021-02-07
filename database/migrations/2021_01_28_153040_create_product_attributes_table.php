@@ -18,8 +18,8 @@ class CreateProductAttributesTable extends Migration
             $table->foreignIdFor(\App\Models\Product::class);
             $table->string('name');
             $table->string('type');
-            $table->string('unit');
-            $table->string('default');
+            $table->string('unit')->nullable();
+            $table->string('default')->nullable();
             $table->string('merge_type');
             $table->timestamps();
         });

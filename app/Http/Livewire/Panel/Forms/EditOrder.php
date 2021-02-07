@@ -32,16 +32,16 @@ class EditOrder extends Component
     {
         $rules['line'] = 'required';
 
-        foreach ($this->order->order_attributes ?? [] as $i => $attr) {
+        foreach ($this->attrs ?? [] as $i => $attr) {
 
             switch ($attr['type']){
 
                 case 'text' :
-                    $rules["attrs.*.value"] = "required|string";
+                    $rules["attrs.$i.value"] = "required|string";
                     break;
 
                 case 'number' :
-                    $rules["attrs.*.value"] = "required|regex:/^\d+(\.\d+)?$/";
+                    $rules["attrs.$i.value"] = "required|regex:/^\d+(\.\d+)?$/";
                     break;
 
             }
