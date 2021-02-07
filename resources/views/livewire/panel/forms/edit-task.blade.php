@@ -1,6 +1,6 @@
-<x-form-section submit="storeTask">
+<x-form-section submit="updateTask">
     <x-slot name="title">
-        ثبت دستورکار جدید
+        ویرایش دستورکار
     </x-slot>
 
     <x-slot name="description">

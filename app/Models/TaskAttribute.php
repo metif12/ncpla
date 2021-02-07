@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class TaskAttribute extends Model
 {
     use HasFactory;
 
+    protected $table = 'task_attributes';
+
     protected $guarded = ['id'];
 
-    public function task_attributes()
+    public function task()
     {
-        return $this->hasMany(TaskAttribute::class);
+        return $this->belongsTo(Task::class);
     }
 
     public function line()

@@ -1,6 +1,6 @@
 <div>
     <x-section-title>
-        <x-slot name="title">لیست وظایف</x-slot>
+        <x-slot name="title">لیست دستور کارها</x-slot>
         <x-slot name="description"></x-slot>
     </x-section-title>
 
@@ -22,29 +22,6 @@
                         <circle cx="10" cy="10" r="7"/>
                         <line x1="21" y1="21" x2="15" y2="15"/>
                     </svg>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="flex">
-                <div class="shadow rounded-lg relative">
-                    <a href="{{ route('panel.task-create') }}"
-                            class="rounded-lg inline-flex items-center bg-white hover:text-green-500 focus:outline-none focus:shadow-outline text-gray-500 font-semibold py-2 px-2 md:px-4">
-                        <span class="hidden md:block">افزودن</span>
-                        <svg class="w-5 h-5 md:mr-2" xmlns="http://www.w3.org/2000/svg"
-                             xmlns:xlink="http://www.w3.org/1999/xlink"
-                             focusable="false" width="1em" height="1em"
-                             stroke="currentColor"
-                             style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"
-                             preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16">
-                            <g fill="black">
-                                <path fill-rule="evenodd"
-                                      d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
-                                <path fill-rule="evenodd"
-                                      d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
-                            </g>
-                        </svg>
-                    </a>
                 </div>
             </div>
         </div>
@@ -102,7 +79,7 @@
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">
-                        <x-abutton color="yellow" href="{{ route('panel.line-edit', $task) }}">
+                        <x-abutton color="yellow" href="{{ route('panel.task-edit', $task) }}">
                             ویرایش
                         </x-abutton>
                     </td>

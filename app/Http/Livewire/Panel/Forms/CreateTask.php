@@ -2,34 +2,77 @@
 
 namespace App\Http\Livewire\Panel\Forms;
 
-use App\Models\LineOutputs;
-use App\Models\Order;
+use App\Models\Line;
 use App\Models\Task;
+use App\Models\TaskAttribute;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class CreateTask extends Component
 {
-    use WithPagination;
 
-    public string $search = '';
-    public array $order_list = [];
+    public Line $line;
 
-    public function mount()
+    public array $attrs = [];
+
+//    public array $pattrs = [];
+
+    public function mount(Line $line)
     {
-        foreach (Order::pluck('id') as $id) $this->order_list[$id] = false;
+        $this->line = $line;
+
+        foreach ($this->line->line_attributes ?? [] as $attr) {
+
+            $attr['value'] = $attr['default'];
+
+            $this->attrs[$this->line->id] = $attr;
+        }
+
+//        foreach ($this->line->output->product_attributes ?? [] as $attr) {
+//
+//            $attr['value'] = $attr['default'];
+//
+//            $this->pattrs[$this->line->output->id] = $attr;
+//        }
     }
 
     protected function getRules()
     {
-        return [
-            'order_list.*' => 'required'
-        ];
-    }
+        $rules = [];
 
-    public function updatingSearch()
-    {
-        $this->resetPage();
+        foreach ($this->attrs ?? [] as $i => $attr) {
+
+            switch ($attr['type']) {
+
+                case 'text' :
+                    $rules["attrs.$i.value"] = "required|string";
+                    break;
+
+                case 'number' :
+                    $rules["attrs.$i.value"] = "required|regex:/^\d+(\.\d+)?$/";
+                    break;
+
+            }
+
+        }
+
+//        foreach ($this->line->output->product_attributes ?? [] as $i => $attr) {
+//
+//            switch ($attr['type']){
+//
+//                case 'text' :
+//                    $rules["pattrs.*.value"] = "required|string";
+//                    break;
+//
+//                case 'number' :
+//                    $rules["pattrs.*.value"] = "required|regex:/^\d+(\.\d+)?$/";
+//                    break;
+//
+//            }
+//
+//        }
+
+        return $rules;
     }
 
     public function updated()
@@ -41,53 +84,30 @@ class CreateTask extends Component
     {
         $this->validate();
 
-        $data = [];
-        $lines = [];
+        $task = Task::query()->create([
 
-        foreach ($this->order_list as $id => $cond) {
-            if ($cond) {
+            'code' => generateCode(),
+            'line_id' => $this->line->id,
+        ]);
 
-                $order = Order::find($id);
-                $product = $order->product;
-                $line = $order->line;
+        foreach ($this->attrs as $attr) {
 
+            $attr['task_id'] = $task->id;
+            $attr['line_id'] = $this->line->id;
 
-            }
+            TaskAttribute::query()->create($attr);
         }
 
-//        Task::query()->create([
-//
-//            'name' => $this->name,
-//            'unit' => $this->unit,
-//            'code' => strtoupper(dechex(time())),
-//        ]);
-
-        $this->redirectRoute('panel.materials');
-    }
-
-    protected function processTask($line, $data = []): void
-    {
-
-        foreach ($line->inputs as $input) {
-
-            $sub_line = LineOutputs::query()->where('product_id', $input->product_id)->first()->line;
-
-            $this->processTask($sub_line, $data);
-        }
+        $this->redirectRoute('panel.tasks');
     }
 
     public function render()
     {
-        $selected_order_ids = [];
 
-        foreach ($this->order_list as $id => $cond) if($cond) $selected_order_ids[] = $id;
+        return view('livewire.panel.forms.create-task', [
 
-        return view('livewire.panel.forms.create-task',[
-
-            'orders' => Order::where('code', 'like', "%{$this->search}%")->with('line')->paginate(10),
-            'selected_orders' => Order::find($selected_order_ids)->load('line'),
         ])
-            ->layout('panel.layout');
+        ->layout('panel.layout');
 
     }
 }

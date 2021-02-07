@@ -20,7 +20,7 @@ class EditOrder extends Component
         $this->order = $order;
         $this->line = $order->line_id;
         $this->product = $order->product;
-        $this->attrs = $order->order_attributes?->toArray() ?? [];
+        $this->attrs = $order->order_attributes ? $order->order_attributes->toArray() : [];
     }
 
     public function updated()
@@ -32,16 +32,16 @@ class EditOrder extends Component
     {
         $rules['line'] = 'required';
 
-        foreach ($this->order->order_attributes ?? [] as $i => $attr) {
+        foreach ($this->attrs ?? [] as $i => $attr) {
 
             switch ($attr['type']){
 
                 case 'text' :
-                    $rules["attrs.*.value"] = "required|string";
+                    $rules["attrs.$i.value"] = "required|string";
                     break;
 
                 case 'number' :
-                    $rules["attrs.*.value"] = "required|regex:/^\d+(\.\d+)?$/";
+                    $rules["attrs.$i.value"] = "required|regex:/^\d+(\.\d+)?$/";
                     break;
 
             }
@@ -71,7 +71,6 @@ class EditOrder extends Component
                 [
                     'value' => $attr['value'],
                     'type' => $attr['type'],
-                    'product_id' => $attr['product_id'],
                 ]
             );
 

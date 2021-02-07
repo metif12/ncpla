@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Panel\Forms;
 
 use App\Models\Line;
+use App\Models\LineAttributes;
 use App\Models\LineInputs;
 use App\Models\LineMaterials;
 use App\Models\LineOutputs;
@@ -16,35 +17,83 @@ class EditLine extends Component
     public Line $line;
 
     public string $name = '';
+    public int $output = 0;
 
     public array $materials = [];
     public array $inputs = [];
-    public array $outputs = [];
+
+    public array $attrs = [];
 
     public function mount(Line $line)
     {
         $this->line = $line;
         $this->name = $line->name;
+        $this->output = $line->product_id;
 
-        $this->materials = $line->materials()->pluck('material_id')->toArray();
-        $this->inputs = $line->inputs()->pluck('product_id')->toArray();
-        $this->outputs = $line->outputs()->pluck('product_id')->toArray();
+        $this->materials = $line->materials()->pluck('materials.id')->toArray();
+        $this->inputs = $line->inputs()->pluck('products.id')->toArray();
+
+        $this->attrs = $line->line_attributes->toArray() ?? [];
+
     }
 
     protected function getRules()
     {
-        return [
-            'name' => ['required', 'string', Rule::unique('lines','name')->ignore($this->line?->id ?? 0)],
+        $rules = [
+            'name' => ['required', 'string', Rule::unique('lines','name')->ignore($this->line ? $this->line->id : 0)],
+            'output' => 'required|integer',
 
             'materials.*' => 'required|integer',
             'inputs.*' => 'required|integer',
-            'outputs.*' => 'required|integer',
+
+//            'attrs.*.name' => 'required|string',
+//            'attrs.*.type' => 'required|string',
+//            'attrs.*.default' => 'nullable',
         ];
+
+        foreach ($this->attrs ?? [] as $i => $attr) {
+
+            $rules["attrs.$i.name"] = "required|string";
+            $rules["attrs.$i.unit"] = "nullable|string";
+            $rules["attrs.$i.merge_type"] = "required|string";
+
+            switch ($attr['type']){
+
+                case 'text' :
+                    $rules["attrs.$i.default"] = "nullable|string";
+                    break;
+
+                case 'number' :
+                    $rules["attrs.$i.default"] = "nullable|regex:/^\d+(\.\d+)?$/";
+                    break;
+
+            }
+
+        }
+
+        return $rules;
     }
 
     public function updated()
     {
         $this->validate();
+    }
+
+    public function addAttr()
+    {
+        $this->attrs [] = [
+
+            'name' => '',
+            'type' => Line::$types[0]['value'],
+            'unit' => '',
+            'default' => '',
+            'merge_type' => Line::$merge_types[0]['value'],
+        ];
+    }
+
+    public function remAttr($i)
+    {
+        array_splice($this->attrs, $i,1);
     }
 
     public function addMaterial()
@@ -57,14 +106,9 @@ class EditLine extends Component
         }
     }
 
-    public function addOutput()
+    public function remMaterial($i)
     {
-        $available = $this->getAvailableOutputsQuery()->pluck('id');
-
-        if ($available->isNotEmpty()) {
-
-            $this->outputs [] = $available[0];
-        }
+        array_splice($this->materials, $i,1);
     }
 
     public function addInput()
@@ -77,6 +121,11 @@ class EditLine extends Component
         }
     }
 
+    public function remInput($i)
+    {
+        array_splice($this->inputs, $i,1);
+    }
+
     public function storeLine()
     {
         $this->validate();
@@ -87,49 +136,34 @@ class EditLine extends Component
         $this->line->update([
 
             'name' => $this->name,
+
+            'product_id' => $this->output,
         ]);
 
-        foreach ($this->materials as $material) {
+        $this->line->inputs()->sync($this->inputs);
+        $this->line->materials()->sync($this->materials);
 
-            LineMaterials::query()->updateOrCreate(
+        foreach ($this->attrs as $attr){
+
+            LineAttributes::query()->updateOrCreate(
                 [
                     'line_id' => $this->line->id,
-                    'material_id' => $material,
+                    'name' => $attr['name'],
+                ],
+                [
+                    'type' => $attr['type'],
+                    'merge_type' => $attr['merge_type'],
+                    'default' => $attr['default'],
+                    'unit' => $attr['unit'],
                 ]
             );
+
+            $names[] = $attr['name'];
         }
 
-        LineMaterials::query()
-            ->where('line_id', $this->line->id,)
-            ->whereNotIn('material_id', $this->materials)
-            ->delete();
-
-        foreach ($this->inputs as $input) {
-
-            LineInputs::query()->updateOrCreate([
-
-                'line_id' => $this->line->id,
-                'product_id' => $input,
-            ]);
-        }
-
-        LineInputs::query()
-            ->where('line_id', $this->line->id,)
-            ->whereNotIn('product_id', $this->inputs)
-            ->delete();
-
-        foreach ($this->outputs as $output) {
-
-            LineOutputs::query()->updateOrCreate([
-
-                'line_id' => $this->line->id,
-                'product_id' => $output,
-            ]);
-        }
-
-        LineOutputs::query()
-            ->where('line_id', $this->line->id,)
-            ->whereNotIn('product_id', $this->outputs)
+        LineAttributes::query()
+            ->where('line_id' , $this->line->id)
+            ->whereNotIn('name' , $names)
             ->delete();
 
         $this->redirectRoute('panel.lines');
@@ -158,14 +192,6 @@ class EditLine extends Component
      */
     protected function getAvailableInputsQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return Product::query()->whereNotIn('id', $this->inputs)->whereNotIn('id', $this->outputs);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    protected function getAvailableOutputsQuery(): \Illuminate\Database\Eloquent\Builder
-    {
-        return Product::query()->whereNotIn('id', $this->outputs)->whereNotIn('id', $this->inputs);
+        return Product::query()->whereNotIn('id', $this->inputs)->where('id', '<>', $this->output);
     }
 }

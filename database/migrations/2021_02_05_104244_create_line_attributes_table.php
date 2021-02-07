@@ -15,6 +15,12 @@ class CreateLineAttributesTable extends Migration
     {
         Schema::create('line_attributes', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Line::class);
+            $table->string('name');
+            $table->string('type');
+            $table->string('unit')->nullable();
+            $table->string('default')->nullable();
+            $table->string('merge_type');
             $table->timestamps();
         });
     }

@@ -76,6 +76,9 @@
                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
                     عملیات
                 </th>
+                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
+
+                </th>
 
 
             </tr>
@@ -98,13 +101,21 @@
                     </td>
                     <td class="p-2 border-dashed border-t border-gray-200">
                         <a href="{{ route('panel.product-edit', $line) }}"
-                           class="text-gray-700 flex items-center">                                {{ $line->name }}
+                           class="text-gray-700 flex items-center">
+                            {{ $line->name }}
                         </a>
                     </td>
+
                     <td class="p-2 border-dashed border-t border-gray-200">
                             <span class="text-gray-700 flex items-center">
                                 {{ verta($line->cretaed_at) }}
                             </span>
+                    </td>
+
+                    <td class="p-2 border-dashed border-t border-gray-200">
+                        <x-abutton color="green" href="{{ route('panel.task-create', $line) }}">
+                            ایجاد دستور کار
+                        </x-abutton>
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">

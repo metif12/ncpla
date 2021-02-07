@@ -51,6 +51,6 @@ class Product extends Model
 
     public function lines()
     {
-        return $this->hasManyThrough(Line::class, LineOutputs::class, 'line_id', 'id');
+        return $this->hasMany(Line::class);
     }
 }

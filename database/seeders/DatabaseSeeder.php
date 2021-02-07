@@ -3,9 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Line;
-use App\Models\LineInputs;
-use App\Models\LineMaterials;
-use App\Models\LineOutputs;
+use App\Models\LineAttributes;
 use App\Models\Material;
 use App\Models\Order;
 use App\Models\OrderAttribute;
@@ -37,32 +35,78 @@ class DatabaseSeeder extends Seeder
 
             'name' => 'مس',
             'unit' => 'کیلوگرم',
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
         ]);
 
         $material2 = Material::query()->create([
 
             'name' => 'پلیمر',
             'unit' => 'کیلوگرم',
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
         ]);
 
         $material3 = Material::query()->create([
 
             'name' => 'قرقره',
             'unit' => 'عدد',
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
         ]);
 
-        $product = Product::query()->create([
+        $product1 = Product::query()->create([
 
             'name' => 'کابل شبکه UTP',
-            'code' => strtoupper(dechex(time())),
+            'code' => generateCode(),
+        ]);
+
+        $product2 = Product::query()->create([
+
+            'name' => 'کابل شبکه STP',
+            'code' => generateCode(),
         ]);
 
         ProductAttribute::query()->create([
 
-            'product_id' => $product->id,
+            'product_id' => $product1->id,
+            'name' => 'stamp',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'unit' => '',
+            'default' => '',
+        ]);
+
+        ProductAttribute::query()->create([
+
+            'product_id' => $product2->id,
+            'name' => 'stamp',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'unit' => '',
+            'default' => '',
+        ]);
+
+        $line1 = Line::query()->create([
+
+            'name' => 'خط UTP',
+            'code' => generateCode(),
+
+            'product_id' => $product1->id,
+        ]);
+
+        $line1->materials()->sync([$material1->id,$material2->id]);
+
+        $line2 = Line::query()->create([
+
+            'name' => 'خط STP',
+            'code' => generateCode(),
+
+            'product_id' => $product2->id,
+        ]);
+
+        $line2->inputs()->sync([$product1->id]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line2->id,
             'name' => 'طول',
             'type' => 'number',
             'merge_type' => 'sum',
@@ -70,50 +114,36 @@ class DatabaseSeeder extends Seeder
             'default' => '100',
         ]);
 
-        $line = Line::query()->create([
+        $order1 = Order::query()->create([
 
-            'name' => 'خط یک',
-            'code' => strtoupper(dechex(time())),
+            'product_id' => $product1->id,
+            'line_id' => $line1->id,
+            'code' => generateCode(),
         ]);
 
-        LineMaterials::query()->create([
+        $order2 = Order::query()->create([
 
-            'line_id' => $line->id,
-            'material_id' => $material1->id,
-        ]);
-
-        LineMaterials::query()->create([
-
-            'line_id' => $line->id,
-            'material_id' => $material2->id,
-        ]);
-
-        LineOutputs::query()->create([
-
-            'line_id' => $line->id,
-            'product_id' => $product->id,
-        ]);
-
-//        LineInputs::query()->create([
-//
-//            'line_id' => $line->id,
-//            'product_id' => $product->id,
-//        ]);
-
-        $order = Order::query()->create([
-
-            'product_id' => $product->id,
-            'line_id' => $line->id,
-            'code' => strtoupper(dechex(time())),
+            'product_id' => $product2->id,
+            'line_id' => $line2->id,
+            'code' => generateCode(),
         ]);
 
         OrderAttribute::query()->create([
 
-            'order_id' => $order->id,
-            'name' => 'طول',
-            'type' => 'number',
-            'value' => 250,
-            'product_id' => $product->id,
+            'order_id' => $order1->id,
+            'name' => 'stamp',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'value' => 'MY AMAZING UTP CABLE',
+        ]);
+
+        OrderAttribute::query()->create([
+
+            'order_id' => $order2->id,
+            'name' => 'stamp',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'value' => 'MY AWESOME STP CABLE',
         ]);
 
         // \App\Models\User::factory(10)->create();

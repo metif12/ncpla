@@ -25,13 +25,31 @@ class EditProduct extends Component
 
     protected function getRules()
     {
-        return [
+        $rules = [
             'name' => ['required', 'string', Rule::unique('products', 'name')->ignore($this->product->id ?? 0)],
-
-            'attrs.*.name' => 'required|string',
-            'attrs.*.type' => 'required|string',
-            'attrs.*.default' => 'nullable',
         ];
+
+        foreach ($this->attrs ?? [] as $i => $attr) {
+
+            $rules["attrs.$i.name"] = "required|string";
+            $rules["attrs.$i.unit"] = "nullable|string";
+            $rules["attrs.$i.merge_type"] = "required|string";
+
+            switch ($attr['type']){
+
+                case 'text' :
+                    $rules["attrs.$i.default"] = "nullable|string";
+                    break;
+
+                case 'number' :
+                    $rules["attrs.$i.default"] = "nullable|regex:/^\d+(\.\d+)?$/";
+                    break;
+
+            }
+
+        }
+
+        return $rules;
     }
 
     public function updated()
