@@ -23,6 +23,8 @@
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        @stack('head-end')
     </head>
 
     <body dir="rtl">
