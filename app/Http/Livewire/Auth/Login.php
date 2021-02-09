@@ -32,6 +32,8 @@ class Login extends Component
             return;
         }
 
+        if(empty(Auth::user()->activated_at)) Auth::logout();
+
         return redirect()->intended(route('panel.dashboard'));
     }
 

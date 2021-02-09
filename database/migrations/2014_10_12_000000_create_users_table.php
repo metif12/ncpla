@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('profile_photo')->default('img/profile.png');
             $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('mobile_verified_at')->nullable();
+            $table->timestamp('activated_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

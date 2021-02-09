@@ -65,7 +65,7 @@
             </div>
 
             <div class="col-start-1 col-span-6">
-                <x-button color="red" wire:loading.attr="disabled" class="" type="button" wire:click="remAttr('{{$i}}')">
+                <x-button class="p-2" color="red" wire:loading.attr="disabled" class="" type="button" wire:click="remAttr('{{$i}}')">
                     حذف
                 </x-button>
             </div>
@@ -93,7 +93,7 @@
             </div>
 
             <div class="col-start-1 col-span-6">
-                <x-button color="red" wire:loading.attr="disabled" class="" type="button" wire:click="remMaterial('{{$i}}')">
+                <x-button class="p-2" color="red" wire:loading.attr="disabled" class="" type="button" wire:click="remMaterial('{{$i}}')">
                     حذف
                 </x-button>
             </div>
@@ -120,7 +120,7 @@
             </div>
 
             <div class="col-start-1 col-span-6">
-                <x-button color="red" wire:loading.attr="disabled" class="" type="button" wire:click="remInput('{{$i}}')">
+                <x-button class="p-2" color="red" wire:loading.attr="disabled" class="" type="button" wire:click="remInput('{{$i}}')">
                     حذف
                 </x-button>
             </div>
@@ -153,19 +153,19 @@
             ذخیره شد.
         </x-action-message>
 
-        <x-button color="pink" wire:loading.attr="disabled" class="ml-3" type="button" wire:click="addMaterial">
+        <x-button class="px-4 py-2" color="pink" wire:loading.attr="disabled" class="ml-3" type="button" wire:click="addMaterial">
             ماده اولیه
         </x-button>
 
-        <x-button color="purple" wire:loading.attr="disabled" class="ml-3" type="button" wire:click="addInput">
+        <x-button class="px-4 py-2" color="purple" wire:loading.attr="disabled" class="ml-3" type="button" wire:click="addInput">
             ورودی
         </x-button>
 
-        <x-button color="green" wire:loading.attr="disabled" class="ml-3" type="button" wire:click="addAttr">
+        <x-button class="px-4 py-2" color="green" wire:loading.attr="disabled" class="ml-3" type="button" wire:click="addAttr">
             افزودن ویژگی
         </x-button>
 
-        <x-button>
+        <x-button class="px-4 py-2">
             ذخیره
         </x-button>
     </x-slot>

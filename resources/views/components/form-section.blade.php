@@ -1,10 +1,15 @@
 @props(['submit'])
 
 <div {{ $attributes->merge(['class' => 'md:grid md:grid-cols-3 md:gap-6']) }}>
+
+    @isset($title)
     <x-section-title>
         <x-slot name="title">{{ $title }}</x-slot>
+        @isset($description)
         <x-slot name="description">{{ $description }}</x-slot>
+        @endisset
     </x-section-title>
+    @endisset
 
     <div class="mt-5 md:mt-0  md:col-span-2 md:col-start-1">
         <form wire:submit.prevent="{{ $submit }}">

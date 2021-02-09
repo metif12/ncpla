@@ -65,7 +65,7 @@
                 <x-icons.order class="w-6 h-6"/>
             </x-sidebar-item>
             <x-sidebar-item route="panel.tasks" name="دستور کارها">
-                <x-icons.order class="w-6 h-6"/>
+                <x-icons.tasks class="w-6 h-6"/>
             </x-sidebar-item>
 
             <x-sidebar-item route="panel.products" name="محصولات">
@@ -75,8 +75,19 @@
             <x-sidebar-item route="panel.lines" name="خطوط تولید">
                 <x-icons.line class="w-6 h-6"/>
             </x-sidebar-item>
+
             <x-sidebar-item route="panel.materials" name="مواد اولیه">
                 <x-icons.material class="w-6 h-6"/>
+            </x-sidebar-item>
+
+            <x-sidebar-item route="panel.users" name="افراد">
+                <x-icons.users class="w-6 h-6"/>
+            </x-sidebar-item>
+            <x-sidebar-item route="panel.groups" name="گروه ها">
+                <x-icons.groups class="w-6 h-6"/>
+            </x-sidebar-item>
+            <x-sidebar-item route="panel.permissions" name="مجوزها">
+                <x-icons.permissions class="w-6 h-6"/>
             </x-sidebar-item>
         </ul>
     </nav>
@@ -86,7 +97,7 @@
             @csrf
             <button
                 type="submit"
-                class="flex items-center justify-center text-red-500 w-full px-2 py-1 space-x-1 font-medium bg-red-200 shadow-m border border-red-200 hover:bg-red-300 rounded-md focus:outline-none focus:ring"
+                class="flex items-center justify-center bg-gray-100 text-red-500 w-full px-2 py-1 space-x-1 font-medium  shadow-m border border-red-200 hover:bg-red-300 rounded-md focus:outline-none focus:ring"
             >
             <span>
               <svg

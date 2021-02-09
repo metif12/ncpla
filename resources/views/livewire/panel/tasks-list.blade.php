@@ -79,7 +79,7 @@
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">
-                        <x-abutton color="yellow" href="{{ route('panel.task-edit', $task) }}">
+                        <x-abutton class="p-2" color="yellow" href="{{ route('panel.task-edit', $task) }}">
                             ویرایش
                         </x-abutton>
                     </td>

@@ -12,6 +12,7 @@ use App\Models\ProductAttribute;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Junges\ACL\Http\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,14 +23,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::query()->create([
+        $this->makePermissions('مدیرکل','admin','دسترسی کامل به تمام سیستم');
+
+//        $this->makePermissions('مدیرکل','admin','دسترسی کامل به تمام سیستم');
+//        $this->makePermissions('مدیرکل','admin','دسترسی کامل به تمام سیستم');
+
+        $user = User::query()->create([
 
             'name' => 'مهدی رمضان زاده',
             'email' => 'metif12@gmail.com',
             'mobile' => '09140041352',
             'national_code' => '1240070748',
+            'email_verified_at' => now(),
+            'mobile_verified_at' => now(),
+            'activated_at' => now(),
             'password' => Hash::make('password'),
         ]);
+
+        $user->assignPermissions('admin');
+
 
         $material1 = Material::query()->create([
 
@@ -147,5 +159,18 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // \App\Models\User::factory(10)->create();
+    }
+
+    protected function makePermissions($name, $slug, $desc)
+    {
+        return Permission::query()->updateOrCreate(
+            [
+                'slug' => $slug,
+            ],
+            [
+                'name' => $name,
+                'description' => $desc,
+            ]
+        );
     }
 }

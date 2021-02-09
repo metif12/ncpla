@@ -92,7 +92,7 @@
             ذخیره شد.
         </x-action-message>
 
-        <x-button wire:loading.attr="disabled" wire:target="photo">
+        <x-button class="px-4 py-2" wire:loading.attr="disabled" wire:target="photo">
             ذخیره
         </x-button>
     </x-slot>
