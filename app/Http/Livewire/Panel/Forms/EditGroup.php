@@ -20,6 +20,12 @@ class EditGroup extends Component
     public string $searchPermissions = '';
     public string $name = '';
 
+    protected $listeners = [
+
+        'group_permissions_updated' => 'groupPermissionsUpdated',
+        'group_users_updated' => 'groupUsersUpdated',
+    ];
+
     public function mount(Group $group)
     {
         $this->group = $group;
@@ -31,6 +37,16 @@ class EditGroup extends Component
         return [
             'name' => ['required', 'string', Rule::unique('groups', 'name')->ignore(($this->group ?? new Group())->slug, 'slug')]
         ];
+    }
+
+    public function groupPermissionsUpdated()
+    {
+        $this->group->refresh();
+    }
+
+    public function groupUsersUpdated()
+    {
+        $this->group->refresh();
     }
 
     public function updated()
@@ -51,17 +67,7 @@ class EditGroup extends Component
         $this->emitSelf('saved');
     }
 
-    public function delete(User $user)
-    {
-        $user->revokeGroup($this->group);
-    }
-
-    public function revoke(Permission $per)
-    {
-        $this->group->revokePermissions($per);
-    }
-
-    public function toggleAdmin(User $user)
+    public function toggleUser(User $user)
     {
         if (!$user->hasGroup($this->group))
             $user->assignGroup($this->group);
@@ -70,6 +76,8 @@ class EditGroup extends Component
 
         $user->refresh();
         $this->group->refresh();
+
+        $this->emit('group_users_updated');
     }
 
     public function togglePermission(Permission $permission)
@@ -81,6 +89,8 @@ class EditGroup extends Component
 
         $permission->refresh();
         $this->group->refresh();
+
+        $this->emit('group_permissions_updated');
     }
 
     public function render()
@@ -98,8 +108,9 @@ class EditGroup extends Component
 
             'members' => $this->group->users()->paginate(12),
             'granted' => $this->group->permissions()->paginate(12),
+
             'permissions' => $this->searchPermissions ? $permissions->limit(5)->get() : [],
-            'users' => $this->searchUsers ? $users->limit(5)->get() : []
+            'users' => $this->searchUsers ? $users->limit(5)->get() : [],
         ])
             ->layout('panel.layout');
 

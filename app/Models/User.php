@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Junges\ACL\Traits\UsersTrait;
 
 class User extends Authenticatable
@@ -51,5 +52,13 @@ class User extends Authenticatable
     {
         if(empty($this->activated_at)) $this->update(['activated_at'=>now()]);
         else $this->update(['activated_at'=>null]);
+    }
+
+    public function hasLine($line)
+    {
+        return DB::table('line_users')
+            ->where('user_id' , $this->id)
+            ->where('line_id' , $line->id)
+            ->exists();
     }
 }

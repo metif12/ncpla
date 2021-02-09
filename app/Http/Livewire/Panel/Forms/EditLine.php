@@ -9,6 +9,8 @@ use App\Models\LineMaterials;
 use App\Models\LineOutputs;
 use App\Models\Material;
 use App\Models\Product;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -16,13 +18,21 @@ class EditLine extends Component
 {
     public Line $line;
 
+    public string $searchUsers = '';
+
     public string $name = '';
+
     public int $output = 0;
 
     public array $materials = [];
     public array $inputs = [];
 
     public array $attrs = [];
+
+    protected $listeners = [
+
+        'line_users_updated' => 'lineUsersUpdated'
+    ];
 
     public function mount(Line $line)
     {
@@ -72,6 +82,11 @@ class EditLine extends Component
         }
 
         return $rules;
+    }
+
+    public function lineUsersUpdated()
+    {
+        $this->line->refresh();
     }
 
     public function updated()
@@ -143,6 +158,8 @@ class EditLine extends Component
         $this->line->inputs()->sync($this->inputs);
         $this->line->materials()->sync($this->materials);
 
+        $names = [];
+
         foreach ($this->attrs as $attr){
 
             LineAttributes::query()->updateOrCreate(
@@ -169,12 +186,45 @@ class EditLine extends Component
         $this->redirectRoute('panel.lines');
     }
 
+    public function toggleUser(User $user)
+    {
+        if (!$user->hasLine($this->line)) {
+
+            DB::table('line_users')
+                ->insert([
+                    'line_id' => $this->line->id,
+                    'user_id' => $user->id,
+                ]);
+        }
+        else {
+            DB::table('line_users')
+                ->where([
+                    'line_id', $this->line->id,
+                    'user_id', $user->id,
+                ])
+            ->delete();
+        }
+
+        $user->refresh();
+        $this->line->refresh();
+
+        $this->emit('line_users_updated');
+    }
+
     public function render()
     {
+
+        $users = User::query()
+            ->where('name', 'like', "%{$this->searchUsers}%")
+            ->orWhere('mobile', 'like', "%{$this->searchUsers}%")
+            ->orWhere('national_code', 'like', "%{$this->searchUsers}%");
+
         return view('livewire.panel.forms.edit-line', [
 
             'materials_list' => Material::all(),
             'product_list' => Product::all(),
+
+            'users' => $this->searchUsers ? $users->limit(5)->get() : [],
         ])
             ->layout('panel.layout');
     }
