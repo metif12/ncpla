@@ -127,13 +127,15 @@
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">
+                        @if($user->activated_at)
                         <x-button class="p-2" color="yellow" wire:click="toggleActivation('{{ $user->id }}')">
-                            @if($user->activated_at)
-                                <x-icons.sad class="text-white w-6 h-6"></x-icons.sad>
-                            @else
-                                <x-icons.happy class="text-white w-6 h-6"></x-icons.happy>
-                            @endif
+                            <x-icons.sad class="text-white w-6 h-6"></x-icons.sad>
                         </x-button>
+                        @else
+                        <x-button class="p-2" color="green" wire:click="toggleActivation('{{ $user->id }}')">
+                            <x-icons.happy class="text-white w-6 h-6"></x-icons.happy>
+                        </x-button>
+                        @endif
                     </td>
 
                     {{--                    <td class="p-2 border-dashed border-t border-gray-200">--}}

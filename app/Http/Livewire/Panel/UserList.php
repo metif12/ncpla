@@ -23,13 +23,12 @@ class UserList extends Component
     public function toggleActivation(User $user)
     {
         $user->toggleActivation();
-        $this->redirectRoute('panel.users');
     }
 
-    public function delete(User $admin)
+    public function delete(User $user)
     {
-        $admin->delete();
-        $this->redirectRoute('panel.users');
+        $user->delete();
+        $user->refresh();
     }
 
     public function render()

@@ -25,6 +25,9 @@ class User extends Authenticatable
         'profile_photo',
         'national_code',
         'mobile',
+        'activated_at',
+        'email_verified_at',
+        'mobile_verified_at',
     ];
 
     /**
@@ -50,8 +53,14 @@ class User extends Authenticatable
 
     public function toggleActivation()
     {
-        if(empty($this->activated_at)) $this->update(['activated_at'=>now()]);
-        else $this->update(['activated_at'=>null]);
+        if(empty($this->activated_at)) {
+            $this->update(['activated_at' => now()]);
+        }
+        else {
+            $this->update(['activated_at' => null]);
+        }
+
+        $this->refresh();
     }
 
     public function hasLine($line)
