@@ -20,6 +20,7 @@ class CreateLinesTable extends Migration
 
             $table->string('name');
             $table->string('code');
+            $table->string('progress_attribute');
 
             $table->timestamps();
         });

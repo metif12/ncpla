@@ -14,6 +14,7 @@ use Livewire\Component;
 class CreateLine extends Component
 {
     public string $name = '';
+    public string $progress_attribute = '';
     public int $output = 0;
 
     public array $materials = [];
@@ -25,6 +26,8 @@ class CreateLine extends Component
     {
         $rules = [
             'name' => 'required|string|unique:lines,name',
+
+            'progress_attribute' => 'required|string',
             'output' => 'required|integer',
 
             'materials.*' => 'required|integer',
@@ -117,6 +120,8 @@ class CreateLine extends Component
         $line = Line::query()->create([
 
             'name' => $this->name,
+            'progress_attribute' => $this->progress_attribute,
+
             'code' => generateCode(),
 
             'product_id' => $this->output,

@@ -194,6 +194,22 @@
                             <x-input-error for="output" class="mt-2"/>
                         </div>
 
+                        <div class="col-start-1 col-span-6 sm:col-span-4">
+                            <x-label for="progress_attribute" value="ویژگی برآورد پیشرفت"/>
+                            <select
+                                class="form-output rounded-md shadow-sm mt-1 block w-full"
+                                id="progress_attribute" wire:model.lazy="progress_attribute">
+                                @foreach($attrs as $attr)
+                                    @if(!empty($attr['name']) && $attr['type'] == 'number')
+                                        <option
+                                            value="{{ $attr['name'] }}"
+                                        >{{ $attr['name'] }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            <x-input-error for="progress_attribute" class="mt-2"/>
+                        </div>
+
                     </x-slot>
 
                     <x-slot name="actions">

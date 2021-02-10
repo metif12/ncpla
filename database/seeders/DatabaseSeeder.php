@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\ProductAttribute;
 use App\Models\Shift;
 use App\Models\Task;
+use App\Models\TaskAttribute;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -131,6 +132,7 @@ class DatabaseSeeder extends Seeder
         $line1 = Line::query()->create([
 
             'name' => 'خط UTP',
+            'progress_attribute' => 'طول',
             'code' => generateCode(),
 
             'product_id' => $product1->id,
@@ -141,12 +143,23 @@ class DatabaseSeeder extends Seeder
         $line2 = Line::query()->create([
 
             'name' => 'خط STP',
+            'progress_attribute' => 'طول',
             'code' => generateCode(),
 
             'product_id' => $product2->id,
         ]);
 
         $line2->inputs()->sync([$product1->id]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line1->id,
+            'name' => 'طول',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'متر',
+            'default' => '100',
+        ]);
 
         LineAttributes::query()->create([
 
@@ -183,6 +196,19 @@ class DatabaseSeeder extends Seeder
 
                 'line_id' => $line1->id,
                 'code' => generateCode(),
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task1->id,
+                'line_id' => $line1->id,
+
+                'name' => 'طول',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'متر',
+                'value' => '250',
             ]);
 
         $order1 = Order::query()->create([
