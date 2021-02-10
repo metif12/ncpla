@@ -113,13 +113,13 @@
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">
-                        <x-abutton color="green" href="{{ route('panel.task-create', $line) }}">
+                        <x-abutton class="p-2" color="green" href="{{ route('panel.task-create', $line) }}">
                             ایجاد دستور کار
                         </x-abutton>
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">
-                        <x-abutton color="yellow" href="{{ route('panel.line-edit', $line) }}">
+                        <x-abutton class="p-2" color="yellow" href="{{ route('panel.line-edit', $line) }}">
                             ویرایش
                         </x-abutton>
                     </td>

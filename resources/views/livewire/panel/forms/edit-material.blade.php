@@ -26,7 +26,7 @@
             ذخیره شد.
         </x-action-message>
 
-        <x-button>
+        <x-button class="px-4 py-2">
             ذخیره
         </x-button>
     </x-slot>

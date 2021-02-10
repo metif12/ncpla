@@ -7,6 +7,6 @@
         <span>
             {{ $slot }}
         </span>
-        <span class="pr-1" :class="{ 'lg:hidden': !isSidebarOpen }">{{ $name }}</span>
+        <span class="pr-3" :class="{ 'lg:hidden': !isSidebarOpen }">{{ $name }}</span>
     </a>
 </li>

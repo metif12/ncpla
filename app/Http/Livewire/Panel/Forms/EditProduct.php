@@ -26,6 +26,7 @@ class EditProduct extends Component
     protected function getRules()
     {
         $rules = [
+
             'name' => ['required', 'string', Rule::unique('products', 'name')->ignore($this->product->id ?? 0)],
         ];
 

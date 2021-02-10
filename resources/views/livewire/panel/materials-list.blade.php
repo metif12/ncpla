@@ -111,7 +111,7 @@
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">
-                        <x-abutton color="yellow" href="{{ route('panel.material-edit', $material) }}">
+                        <x-abutton class="p-2" color="yellow" href="{{ route('panel.material-edit', $material) }}">
                             ویرایش
                         </x-abutton>
                     </td>

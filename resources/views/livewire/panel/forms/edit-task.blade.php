@@ -24,6 +24,14 @@
                 <x-input-error for="attr.{{$i}}. $attr['name'] }}" class="mt-2"/>
             </div>
 
+            <div class="col-start-1 col-span-6 sm:col-span-4">
+                <x-label for="attr.{{$i}}.description"
+                         value="{{ $attr['name'] }} - توضیحات"/>
+                <x-textarea id="attr.{{$i}}.description }}" step="any" class="mt-1 block w-full"
+                            wire:model.lazy="attrs.{{ $i }}.description"/>
+                <x-input-error for="attr.{{$i}}.description }}" class="mt-2"/>
+            </div>
+
         @endforeach
 
 {{--        @foreach($pattrs as $i => $pattr)--}}
@@ -46,7 +54,7 @@
             ذخیره شد.
         </x-action-message>
 
-        <x-button>
+        <x-button class="px-4 py-2">
             ذخیره
         </x-button>
     </x-slot>

@@ -27,67 +27,45 @@
         </div>
     </div>
 
-    <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative"
-         style="max-height: 75vh;">
-        <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
-            <thead>
-            <tr class="text-right">
-
-                <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100">
-                    <label
-                        class="text-teal-500 inline-flex justify-between items-center hover:bg-gray-200 px-2 py-2 rounded-lg cursor-pointer">
-                        <input type="checkbox" class="form-checkbox focus:outline-none focus:shadow-outline">
-                    </label>
-                </th>
-
-                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
-                    #
-                </th>
-
-                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
-                    تاریخ ثبت
-                </th>
-
-                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
-                    عملیات
-                </th>
-
-
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($tasks as $task)
-                <tr class="">
-                    <td class="p-2 border-dashed border-t border-gray-200 px-3">
-                        <label
-                            class="text-teal-500 inline-flex justify-between items-center hover:bg-gray-200 px-2 py-2 rounded-lg cursor-pointer">
-                            <input type="checkbox"
-                                   class="form-checkbox rowCheckbox focus:outline-none focus:shadow-outline">
-                        </label>
-                    </td>
-
-                    <td class="p-2 border-dashed border-t border-gray-200">
-                            <span class="text-gray-700 flex items-center">
-                                {{ $task->code }}
-                            </span>
-                    </td>
-
-                    <td class="p-2 border-dashed border-t border-gray-200">
-                            <span class="text-gray-700 flex items-center">
-                                {{ verta($task->cretaed_at) }}
-                            </span>
-                    </td>
-
-                    <td class="p-2 border-dashed border-t border-gray-200">
-                        <x-abutton color="yellow" href="{{ route('panel.task-edit', $task) }}">
-                            ویرایش
-                        </x-abutton>
-                    </td>
-
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+    <div>
+        @foreach($tasks as $task)
+            <div class="bg-white rounded-md shadow my-1 p-2">
+                <div class="md:flex">
+                    <p>
+                        <span class="text-purple-500 inline-block items-center">
+                            #{{ $task->code }}
+                        </span>
+                        <span class="text-gray-900 inline-block items-center">
+                        {{ $task->line->name }}
+                    </span>
+                    </p>
+                    <p class="hidden md:inline-block md:mx-auto"></p>
+                    <p class="text-sm text-blue-400">
+                        {{ verta($task->cretaed_at) }}
+                    </p>
+                </div>
+                @if($task->task_attributes->count()>0)
+                    <hr class="my-2">
+                    <h3 class="">پارامتر های خط تولید:</h3>
+                    @foreach($task->task_attributes as $attr)
+                        <div class="md:flex my-1 p-2 border border-dashed border-gray-400 rounded-md">
+                            <p class="px-1 inline-block text-gray-900">#{{ $loop->index+1 }}</p>
+                            <p class="px-1 inline-block text-gray-900">{{ $attr->name }}</p>
+                            <p class="px-1 inline-block text-green-700">{{ $attr->value }}</p>
+                            <p class="px-1 inline-block text-green-700">{{ $attr->unit }}</p>
+                            <p class="hidden md:inline-block mx-auto"></p>
+                            <p class="px-1 text-red-500">{{ $attr->description }}</p>
+                        </div>
+                    @endforeach
+                @endif
+                <hr class="my-2">
+                <div class="flex flex-row-reverse">
+                    <x-abutton class="p-2" color="yellow" href="{{ route('panel.task-edit', $task) }}">
+                        ویرایش
+                    </x-abutton>
+                </div>
+            </div>
+        @endforeach
     </div>
 
     <div class="mt-4">

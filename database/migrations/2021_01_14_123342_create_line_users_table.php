@@ -15,6 +15,8 @@ class CreateLineUsersTable extends Migration
     {
         Schema::create('line_users', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Line::class);
+            $table->foreignIdFor(\App\Models\User::class);
             $table->timestamps();
         });
     }

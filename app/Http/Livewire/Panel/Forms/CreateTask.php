@@ -24,6 +24,7 @@ class CreateTask extends Component
         foreach ($this->line->line_attributes ?? [] as $attr) {
 
             $attr['value'] = $attr['default'];
+            $attr['description'] = '';
 
             $this->attrs[$this->line->id] = $attr;
         }
@@ -38,9 +39,14 @@ class CreateTask extends Component
 
     protected function getRules()
     {
-        $rules = [];
+        $rules = [
+
+            'line' => 'required'
+        ];
 
         foreach ($this->attrs ?? [] as $i => $attr) {
+
+            $rules["attrs.$i.description"] = 'nullable|string';
 
             switch ($attr['type']) {
 

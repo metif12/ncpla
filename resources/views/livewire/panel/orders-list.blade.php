@@ -123,7 +123,7 @@
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">
-                        <x-abutton color="yellow" href="{{ route('panel.order-edit', $order) }}">
+                        <x-abutton class="p-2" color="yellow" href="{{ route('panel.order-edit', $order) }}">
                             ویرایش
                         </x-abutton>
                     </td>

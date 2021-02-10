@@ -111,7 +111,7 @@
 
                     <td class="p-2 border-dashed border-t border-gray-200">
                         @if($product->lines->count() > 0)
-                            <x-abutton href="{{ route('panel.order-create', $product) }}">
+                            <x-abutton class="p-2" href="{{ route('panel.order-create', $product) }}">
                                 ثبت سفارش
                             </x-abutton>
                         @else
@@ -119,7 +119,7 @@
                         @endif
                     </td>
                     <td class="p-2 border-dashed border-t border-gray-200">
-                        <x-abutton color="yellow" href="{{ route('panel.product-edit', $product) }}">
+                        <x-abutton class="p-2" color="yellow" href="{{ route('panel.product-edit', $product) }}">
                             ویرایش
                         </x-abutton>
                     </td>
