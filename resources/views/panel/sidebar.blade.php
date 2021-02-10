@@ -89,6 +89,9 @@
             <x-sidebar-item route="panel.permissions" name="مجوزها">
                 <x-icons.permissions class="w-6 h-6"/>
             </x-sidebar-item>
+            <x-sidebar-item route="panel.shifts" name="شیفت های کاری">
+                <x-icons.shift class="w-6 h-6"/>
+            </x-sidebar-item>
         </ul>
     </nav>
     <!-- Sidebar footer -->

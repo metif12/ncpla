@@ -25,6 +25,8 @@ class User extends Authenticatable
         'profile_photo',
         'national_code',
         'mobile',
+        'address',
+        'shift_id',
         'activated_at',
         'email_verified_at',
         'mobile_verified_at',
@@ -49,6 +51,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'mobile_verified_at' => 'datetime',
         'activated_at' => 'datetime',
+        'address' => 'string',
     ];
 
     public function toggleActivation()
@@ -69,5 +72,15 @@ class User extends Authenticatable
             ->where('user_id' , $this->id)
             ->where('line_id' , $line->id)
             ->exists();
+    }
+
+    public function lines()
+    {
+        return $this->belongsToMany(Line::class, 'line_users');
+    }
+
+    public function shift()
+    {
+        return $this->belongsTo(Shift::class);
     }
 }

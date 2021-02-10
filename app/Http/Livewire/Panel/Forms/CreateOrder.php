@@ -37,7 +37,10 @@ class CreateOrder extends Component
 
     protected function getRules()
     {
-        $rules = [];
+        $rules = [
+
+            'product' => 'required'
+        ];
 
         foreach ($this->attrs ?? [] as $i => $attr) {
 

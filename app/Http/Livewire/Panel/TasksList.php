@@ -32,6 +32,8 @@ class TasksList extends Component
     private function getTaskQuery(): \Illuminate\Database\Eloquent\Builder
     {
         return Task::query()
+            ->whereIn('line_id', auth()->user()->lines()->pluck('lines.id'))
+            ->with(['line','task_attributes'])
             ->where('code', 'like', "%{$this->search}%");
             //->orWhere('name', 'like', "%{$this->search}%");
     }

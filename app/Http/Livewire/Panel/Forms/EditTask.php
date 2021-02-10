@@ -27,9 +27,14 @@ class EditTask extends Component
 
     protected function getRules()
     {
-        $rules = [];
+        $rules = [
+
+            'line' => 'required'
+        ];
 
         foreach ($this->attrs ?? [] as $i => $attr) {
+
+            $rules["attrs.$i.description"] = 'nullable|string';
 
             switch ($attr['type']){
 

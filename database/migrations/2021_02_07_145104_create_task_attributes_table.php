@@ -22,6 +22,7 @@ class CreateTaskAttributesTable extends Migration
             $table->string('type');
             $table->string('unit')->nullable();
             $table->string('value');
+            $table->string('description')->nullable();
             $table->string('merge_type');
 
             $table->timestamps();

@@ -21,6 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('mobile')->nullable();
             $table->string('password');
             $table->string('address')->nullable();
+
+            $table->foreignIdFor(\App\Models\Shift::class)->nullable();
+
             $table->string('profile_photo')->default('img/profile.png');
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('mobile_verified_at')->nullable();

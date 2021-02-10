@@ -33,7 +33,7 @@ class UserList extends Component
 
     public function render()
     {
-        $users = User::query();
+        $users = User::query()->with('shift');
 
         if (!empty($this->search)) {
             $users
