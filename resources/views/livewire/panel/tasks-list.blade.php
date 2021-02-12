@@ -60,8 +60,13 @@
                 @endif
                 <hr class="my-2">
                 <div class="flex flex-row-reverse">
-                    <x-abutton class="p-2" color="yellow" href="{{ route('panel.task-edit', $task) }}">
+
+                    <x-abutton class="p-2 mr-2" color="yellow" href="{{ route('panel.task-edit', $task) }}">
                         ویرایش
+                    </x-abutton>
+
+                    <x-abutton class="p-2 mr-2" color="blue" href="{{ route('panel.report-create', $task) }}">
+                        ثبت گزارش تولید
                     </x-abutton>
                 </div>
             </div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReportsTable extends Migration
+class CreateReportConfirmsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,10 @@ class CreateReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reports', function (Blueprint $table) {
+        Schema::create('report_confirms', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
-
-            $table->foreignIdFor(\App\Models\Task::class);
             $table->foreignIdFor(\App\Models\User::class);
-            $table->foreignIdFor(\App\Models\Shift::class);
-            $table->foreignIdFor(\App\Models\Line::class);
-
-            $table->integer('progress');
-
-            $table->text('description');
+            $table->string('code');
             $table->timestamps();
         });
     }
@@ -36,6 +28,6 @@ class CreateReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reports');
+        Schema::dropIfExists('report_confirms');
     }
 }
