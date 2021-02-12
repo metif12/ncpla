@@ -9,6 +9,8 @@ class Report extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -41,6 +43,6 @@ class Report extends Model
 
     public function confirms()
     {
-        return $this->belongsToMany(User::class, 'report_confirms')->withPivot(['code']);
+        return $this->belongsToMany(User::class, 'report_confirms');
     }
 }

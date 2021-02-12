@@ -60,11 +60,6 @@
                     عملیات
                 </th>
 
-{{--                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">--}}
-
-{{--                </th>--}}
-
-
             </tr>
             </thead>
             <tbody>
@@ -115,9 +110,9 @@
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">
-{{--                        <x-abutton class="p-2" color="yellow" href="{{ route('panel.report-edit', $report) }}">--}}
-{{--                            ویرایش--}}
-{{--                        </x-abutton>--}}
+                        <x-abutton class="p-2" color="yellow" href="{{ route('panel.report-edit', $report) }}">
+                            ویرایش
+                        </x-abutton>
                     </td>
 
                 </tr>

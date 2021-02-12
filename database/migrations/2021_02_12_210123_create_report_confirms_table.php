@@ -16,7 +16,6 @@ class CreateReportConfirmsTable extends Migration
         Schema::create('report_confirms', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class);
-            $table->string('code');
             $table->timestamps();
         });
     }

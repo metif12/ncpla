@@ -1,6 +1,6 @@
 <x-form-section submit="storeReport">
     <x-slot name="title">
-        گزارش تولید جدید
+        ویرایش گزارش تولید
     </x-slot>
 
     <x-slot name="description">
@@ -114,6 +114,10 @@
         <x-action-message class="ml-3" on="saved">
             ذخیره شد.
         </x-action-message>
+
+        <x-button class="px-4 py-2 ml-3" color="red" wire:loading.attr="disabled" type="button" wire:click="confirm">
+            تایید
+        </x-button>
 
         <x-button class="px-4 py-2 ml-3" color="pink" wire:loading.attr="disabled" type="button" wire:click="addOutput">
             خروجی

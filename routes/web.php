@@ -23,6 +23,7 @@ use App\Http\Livewire\Panel\Forms\EditMaterial;
 use App\Http\Livewire\Panel\Forms\EditOrder;
 use App\Http\Livewire\Panel\Forms\EditPermission;
 use App\Http\Livewire\Panel\Forms\EditProduct;
+use App\Http\Livewire\Panel\Forms\EditReport;
 use App\Http\Livewire\Panel\Forms\EditShift;
 use App\Http\Livewire\Panel\Forms\EditTask;
 use App\Http\Livewire\Panel\Forms\EditUser;
@@ -117,6 +118,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/lines/{line}/edit', EditLine::class)->name('line-edit');
             Route::get('/shifts/{shift}/edit', EditShift::class)->name('shift-edit');
             Route::get('/tasks/{task}/edit', EditTask::class)->name('task-edit');
+            Route::get('/reports/{report}/edit', EditReport::class)->name('report-edit');
             Route::get('/products/{product}/edit', EditProduct::class)->name('product-edit');
             Route::get('/tasks/{task}/reports/create', CreateReport::class)->name('report-create');
             Route::get('/lines/{line}/tasks/create', CreateTask::class)->name('task-create');

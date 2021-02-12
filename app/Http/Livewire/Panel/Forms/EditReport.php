@@ -2,20 +2,21 @@
 
 namespace App\Http\Livewire\Panel\Forms;
 
-use App\Models\LineAttributes;
+use App\Models\Line;
 use App\Models\Report;
 use App\Models\Shift;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
-class CreateReport extends Component
+class EditReport extends Component
 {
 
     public Task $task;
     public Shift $shift;
+    public Line $line;
+    public Report $report;
 
     public string $progress = '';
     public string $description = '';
@@ -24,16 +25,19 @@ class CreateReport extends Component
     public array $inputs = [];
     public array $outputs = [];
 
-    public function mount(Task $task)
+    public function mount(Report $report)
     {
-        $this->task = $task;
-        $this->shift = Auth::user()->shift;
+        $this->report = $report;
 
-        foreach ($task->line->materials as $material) {
+        $this->task = $report->task;
+        $this->shift = $report->shift;
+        $this->line = $report->line;
 
-            $material['value'] = '';
-            $this->materials[] = $material;
-        }
+        $this->materials = (array) $report->materials;
+        $this->inputs = (array) $report->input;
+        $this->output = (array) $report->output;
+
+        dd($this->materials);
     }
 
     protected function getRules(): array
@@ -43,7 +47,6 @@ class CreateReport extends Component
             'description' => 'nullable|string',
             'inputs.*.product_id' => 'required|integer',
             'inputs.*.code' => 'required|string',
-
             'outputs.*.product_id' => 'nullable|integer',
             'outputs.*.code' => 'required|string',
 
@@ -86,11 +89,16 @@ class CreateReport extends Component
         ];
     }
 
+    public function confirm()
+    {
+        $this->report->confirms()->attach(Auth::id());
+    }
+
     public function storeReport()
     {
         $this->validate();
 
-        $report = Report::query()->create([
+        $this->report->update([
 
             'code' => generateCode(),
 
@@ -102,6 +110,9 @@ class CreateReport extends Component
             'line_id' => $this->task->line_id,
             'shift_id' => $this->shift->id,
         ]);
+
+        $report->inputs()->delete();
+        $report->outputs()->delete();
 
         foreach ($this->inputs as $input){
 
@@ -118,7 +129,7 @@ class CreateReport extends Component
 
     public function render()
     {
-        return view('livewire.panel.forms.create-report')
+        return view('livewire.panel.forms.edit-report')
             ->layout('panel.layout');
     }
 }
