@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReportInputsTable extends Migration
+class CreateReportMaterialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateReportInputsTable extends Migration
      */
     public function up()
     {
-        Schema::create('report_inputs', function (Blueprint $table) {
+        Schema::create('report_materials', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Report::class);
-            $table->foreignIdFor(\App\Models\Product::class);
-            $table->string('code');
+            $table->foreignIdFor(\App\Models\Material::class);
+            $table->float('value',15,3);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateReportInputsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('report_inputs');
+        Schema::dropIfExists('report_materials');
     }
 }

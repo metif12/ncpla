@@ -17,7 +17,6 @@ class CreateReport extends Component
     public Task $task;
     public Shift $shift;
 
-    public string $progress = '';
     public string $description = '';
 
     public array $materials = [];
@@ -46,6 +45,7 @@ class CreateReport extends Component
 
             'outputs.*.product_id' => 'nullable|integer',
             'outputs.*.code' => 'required|string',
+            'outputs.*.progress' => 'required|regex:/^\d+(\.\d+)?$/',
 
             'materials.*.value' => 'required|regex:/^\d+(\.\d+)?$/',
         ];
@@ -83,6 +83,7 @@ class CreateReport extends Component
 
             'product_id' => null,
             'code' => generateCode(),
+            'progress' => 1.00,
         ];
     }
 
@@ -94,7 +95,6 @@ class CreateReport extends Component
 
             'code' => generateCode(),
 
-            'progress' => $this->progress,
             'description' => $this->description,
 
             'user_id' => Auth::id(),
@@ -103,6 +103,11 @@ class CreateReport extends Component
             'shift_id' => $this->shift->id,
         ]);
 
+        foreach ($this->materials as $material){
+
+            $report->materials()->attach($material['material_id'],['value'=>$material['value']]);
+        }
+
         foreach ($this->inputs as $input){
 
             $report->inputs()->attach($input['product_id'],['code'=>$input['code']]);
@@ -110,7 +115,7 @@ class CreateReport extends Component
 
         foreach ($this->outputs as $output){
 
-            $report->inputs()->attach($output['product_id'],['code'=>$output['code']]);
+            $report->inputs()->attach($output['product_id'],['code'=>$output['code'],'progress'=>$output['progress']]);
         }
 
         $this->redirectRoute('panel.reports');

@@ -91,6 +91,12 @@
                 <x-input-error for="outputs.{{$i}}.code" class="mt-2"/>
             </div>
 
+            <div class="col-span-6 sm:col-span-4">
+                <x-label for="outputs.{{$i}}.progress" value="پیشرفت"/>
+                <x-input id="outputs.{{$i}}.progress" type="number" step="any" class="mt-1 block w-full" wire:model.lazy="outputs.{{$i}}.progress"/>
+                <x-input-error for="outputs.{{$i}}.progress" class="mt-2"/>
+            </div>
+
             <div class="col-start-1 col-span-6">
                 <x-button class="p-2" color="red" wire:loading.attr="disabled" type="button" wire:click="remOutput('{{$i}}')">
                     حذف

@@ -18,7 +18,6 @@ class EditReport extends Component
     public Line $line;
     public Report $report;
 
-    public string $progress = '';
     public string $description = '';
 
     public array $materials = [];
@@ -49,6 +48,7 @@ class EditReport extends Component
             'inputs.*.code' => 'required|string',
             'outputs.*.product_id' => 'nullable|integer',
             'outputs.*.code' => 'required|string',
+            'outputs.*.progress' => 'required|regex:/^\d+(\.\d+)?$/',
 
             'materials.*.value' => 'required|regex:/^\d+(\.\d+)?$/',
         ];
@@ -86,6 +86,7 @@ class EditReport extends Component
 
             'product_id' => null,
             'code' => generateCode(),
+            'progress' => 1.00,
         ];
     }
 
@@ -102,7 +103,6 @@ class EditReport extends Component
 
             'code' => generateCode(),
 
-            'progress' => $this->progress,
             'description' => $this->description,
 
             'user_id' => Auth::id(),
@@ -111,17 +111,23 @@ class EditReport extends Component
             'shift_id' => $this->shift->id,
         ]);
 
-        $report->inputs()->delete();
-        $report->outputs()->delete();
+        $this->report->materials()->delete();
+        $this->report->inputs()->delete();
+        $this->report->outputs()->delete();
+
+        foreach ($this->materials as $material){
+
+            $this->report->materials()->attach($material['material_id'],['value'=>$material['value']]);
+        }
 
         foreach ($this->inputs as $input){
 
-            $report->inputs()->attach($input['product_id'],['code'=>$input['code']]);
+            $this->report->inputs()->attach($input['product_id'],['code'=>$input['code']]);
         }
 
         foreach ($this->outputs as $output){
 
-            $report->inputs()->attach($output['product_id'],['code'=>$output['code']]);
+            $this->report->inputs()->attach($output['product_id'],['code'=>$output['code'],'progress'=>$output['progress']]);
         }
 
         $this->redirectRoute('panel.reports');

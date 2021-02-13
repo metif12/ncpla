@@ -15,8 +15,10 @@ class CreateReportOutputsTable extends Migration
     {
         Schema::create('report_outputs', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Report::class);
             $table->foreignIdFor(\App\Models\Product::class);
             $table->string('code');
+            $table->float('progress',15,3);
             $table->timestamps();
         });
     }

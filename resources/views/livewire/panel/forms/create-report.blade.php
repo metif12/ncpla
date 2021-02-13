@@ -21,12 +21,6 @@
             <x-input-error for="shift" class="mt-2"/>
         </div>
 
-        <div class="col-span-6 sm:col-span-4">
-            <x-label for="progress" value=" پیشرفت : {{ $task->line->progress_field }}"/>
-            <x-input id="progress" type="number" step="any" class="mt-1 block w-full" wire:model.lazy="progress"/>
-            <x-input-error for="progress" class="mt-2"/>
-        </div>
-
         @foreach($materials as $i => $material)
             <div class="col-start-1 col-span-6 sm:col-span-4">
                 <x-label for="materials.{{$i}}.value" value="{{ $material['name'] }} مصرف شده به {{ $material['unit'] }}"/>
@@ -89,6 +83,12 @@
                 <x-label for="outputs.{{$i}}.code" value="شماره شناسایی"/>
                 <x-input id="outputs.{{$i}}.code" type="text" step="any" class="mt-1 block w-full" wire:model.lazy="outputs.{{$i}}.code"/>
                 <x-input-error for="outputs.{{$i}}.code" class="mt-2"/>
+            </div>
+
+            <div class="col-span-6 sm:col-span-4">
+                <x-label for="outputs.{{$i}}.progress" value="پیشرفت"/>
+                <x-input id="outputs.{{$i}}.progress" type="number" step="any" class="mt-1 block w-full" wire:model.lazy="outputs.{{$i}}.progress"/>
+                <x-input-error for="outputs.{{$i}}.progress" class="mt-2"/>
             </div>
 
             <div class="col-start-1 col-span-6">

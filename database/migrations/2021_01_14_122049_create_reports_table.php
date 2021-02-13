@@ -22,8 +22,6 @@ class CreateReportsTable extends Migration
             $table->foreignIdFor(\App\Models\Shift::class);
             $table->foreignIdFor(\App\Models\Line::class);
 
-            $table->integer('progress');
-
             $table->text('description');
             $table->timestamps();
         });

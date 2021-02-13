@@ -38,7 +38,12 @@ class Report extends Model
 
     public function outputs()
     {
-        return $this->belongsToMany(Product::class, 'report_outputs')->withPivot(['code']);
+        return $this->belongsToMany(Product::class, 'report_outputs')->withPivot(['code','progress']);
+    }
+
+    public function materials()
+    {
+        return $this->belongsToMany(Material::class, 'report_materials')->withPivot(['value']);
     }
 
     public function confirms()
