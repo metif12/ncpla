@@ -65,7 +65,7 @@
             </div>
 
             <div class="col-start-1 col-span-6">
-                <x-button class="p-2" color="red" wire:loading.attr="disabled" class="" type="button" wire:click="remAttr('{{$i}}')">
+                <x-button class="p-2" color="red" wire:loading.attr="disabled" type="button" wire:click="remAttr('{{$i}}')">
                     حذف
                 </x-button>
             </div>
@@ -93,7 +93,7 @@
             </div>
 
             <div class="col-start-1 col-span-6">
-                <x-button class="p-2" color="red" wire:loading.attr="disabled" class="" type="button" wire:click="remMaterial('{{$i}}')">
+                <x-button class="p-2" color="red" wire:loading.attr="disabled" type="button" wire:click="remMaterial('{{$i}}')">
                     حذف
                 </x-button>
             </div>
@@ -120,7 +120,7 @@
             </div>
 
             <div class="col-start-1 col-span-6">
-                <x-button class="p-2" color="red" wire:loading.attr="disabled" class="" type="button" wire:click="remInput('{{$i}}')">
+                <x-button class="p-2" color="red" wire:loading.attr="disabled" type="button" wire:click="remInput('{{$i}}')">
                     حذف
                 </x-button>
             </div>
@@ -145,6 +145,22 @@
             <x-input-error for="output" class="mt-2"/>
         </div>
 
+        <div class="col-start-1 col-span-6 sm:col-span-4">
+            <x-label for="progress_attribute" value="ویژگی برآورد پیشرفت"/>
+            <select
+                class="form-output rounded-md shadow-sm mt-1 block w-full"
+                id="progress_attribute" wire:model.lazy="progress_attribute">
+                @foreach($attrs as $attr)
+                    @if(!empty($attr['name']) && $attr['type'] == 'number')
+                        <option
+                            value="{{ $attr['name'] }}"
+                        >{{ $attr['name'] }}</option>
+                    @endif
+                @endforeach
+            </select>
+            <x-input-error for="progress_attribute" class="mt-2"/>
+        </div>
+
     </x-slot>
 
     <x-slot name="actions">
@@ -153,15 +169,15 @@
             ذخیره شد.
         </x-action-message>
 
-        <x-button class="px-4 py-2" color="pink" wire:loading.attr="disabled" class="ml-3" type="button" wire:click="addMaterial">
+        <x-button class="px-4 py-2 ml-3" color="pink" wire:loading.attr="disabled" type="button" wire:click="addMaterial">
             ماده اولیه
         </x-button>
 
-        <x-button class="px-4 py-2" color="purple" wire:loading.attr="disabled" class="ml-3" type="button" wire:click="addInput">
+        <x-button class="px-4 py-2 ml-3" color="purple" wire:loading.attr="disabled" type="button" wire:click="addInput">
             ورودی
         </x-button>
 
-        <x-button class="px-4 py-2" color="green" wire:loading.attr="disabled" class="ml-3" type="button" wire:click="addAttr">
+        <x-button class="px-4 py-2 ml-3" color="green" wire:loading.attr="disabled" type="button" wire:click="addAttr">
             افزودن ویژگی
         </x-button>
 

@@ -74,6 +74,11 @@ class User extends Authenticatable
             ->exists();
     }
 
+    public function hasShift()
+    {
+        return !empty($this->shift_id);
+    }
+
     public function lines()
     {
         return $this->belongsToMany(Line::class, 'line_users');

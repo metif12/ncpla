@@ -64,8 +64,13 @@
             <x-sidebar-item route="panel.orders" name="سفارش ها">
                 <x-icons.order class="w-6 h-6"/>
             </x-sidebar-item>
+
             <x-sidebar-item route="panel.tasks" name="دستور کارها">
                 <x-icons.tasks class="w-6 h-6"/>
+            </x-sidebar-item>
+
+            <x-sidebar-item route="panel.reports" name="گزارشات خطوط تولید">
+                <x-icons.report class="w-6 h-6"/>
             </x-sidebar-item>
 
             <x-sidebar-item route="panel.products" name="محصولات">

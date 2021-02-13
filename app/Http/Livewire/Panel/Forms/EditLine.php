@@ -21,6 +21,7 @@ class EditLine extends Component
     public string $searchUsers = '';
 
     public string $name = '';
+    public string $progress_attribute = '';
 
     public int $output = 0;
 
@@ -39,6 +40,7 @@ class EditLine extends Component
         $this->line = $line;
         $this->name = $line->name;
         $this->output = $line->product_id;
+        $this->progress_attribute = $line->progress_attribute;
 
         $this->materials = $line->materials()->pluck('materials.id')->toArray();
         $this->inputs = $line->inputs()->pluck('products.id')->toArray();
@@ -51,6 +53,7 @@ class EditLine extends Component
     {
         $rules = [
             'name' => ['required', 'string', Rule::unique('lines','name')->ignore($this->line ? $this->line->id : 0)],
+            'progress_attribute' => 'required|string',
             'output' => 'required|integer',
 
             'materials.*' => 'required|integer',
@@ -151,6 +154,7 @@ class EditLine extends Component
         $this->line->update([
 
             'name' => $this->name,
+            'progress_attribute' => $this->progress_attribute,
 
             'product_id' => $this->output,
         ]);

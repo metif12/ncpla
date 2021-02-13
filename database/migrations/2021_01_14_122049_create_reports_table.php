@@ -16,6 +16,13 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->string('code');
+
+            $table->foreignIdFor(\App\Models\Task::class);
+            $table->foreignIdFor(\App\Models\User::class);
+            $table->foreignIdFor(\App\Models\Shift::class);
+            $table->foreignIdFor(\App\Models\Line::class);
+
+            $table->text('description');
             $table->timestamps();
         });
     }
