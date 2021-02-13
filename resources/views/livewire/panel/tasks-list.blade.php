@@ -44,21 +44,32 @@
                         {{ verta($task->cretaed_at) }}
                     </p>
                 </div>
+                <div class="shadow w-full bg-gray-300 rounded overflow-hidden my-2">
+                    <div class="bg-blue-500 h-full font-bold leading-none py-1 text-center text-white" style="width: {{ $task->progress() }}%">
+                        {{ $task->progress() }}%</div>
+                </div>
                 @if($task->task_attributes->count()>0)
                     <hr class="my-2">
-                    <h3 class="">پارامتر های خط تولید:</h3>
+                    <div class="md:flex my-1 p-2 border-b-2 border-gray-400">
+                        <p class="px-2 border-l-2 inline-block text-gray-900">#</p>
+                        <p class="px-2 w-1/6 border-l-2 inline-block text-gray-900">پارامتر</p>
+                        <p class="px-2 w-1/6 border-l-2 inline-block text-green-700">مقدار</p>
+                        <p class="px-2 w-1/6 border-l-2 inline-block text-green-700">واحد</p>
+                        <p class="hidden md:inline-block mx-auto"></p>
+                        <p class="px-2 text-red-500"></p>
+                    </div>
                     @foreach($task->task_attributes as $attr)
-                        <div class="md:flex my-1 p-2 border border-dashed border-gray-400 rounded-md">
-                            <p class="px-1 inline-block text-gray-900">#{{ $loop->index+1 }}</p>
-                            <p class="px-1 inline-block text-gray-900">{{ $attr->name }}</p>
-                            <p class="px-1 inline-block text-green-700">{{ $attr->value }}</p>
-                            <p class="px-1 inline-block text-green-700">{{ $attr->unit }}</p>
+                        <div class="md:flex my-1 p-2 border-b border-dashed border-gray-400">
+                            <p class="px-2 border-l-2 inline-block text-gray-900">{{ $loop->index+1 }}</p>
+                            <p class="px-2 w-1/6 border-l-2 inline-block text-gray-900">{{ $attr->name }}</p>
+                            <p class="px-2 w-1/6 border-l-2 inline-block text-green-700">{{ $attr->value }}</p>
+                            <p class="px-2 w-1/6 border-l-2 inline-block text-green-700">{{ $attr->unit }}</p>
                             <p class="hidden md:inline-block mx-auto"></p>
-                            <p class="px-1 text-red-500">{{ $attr->description }}</p>
+                            <p class="px-2 text-red-500">{{ $attr->description }}</p>
                         </div>
                     @endforeach
                 @endif
-                <hr class="my-2">
+                <div class="my-2"></div>
                 <div class="flex flex-row-reverse">
 
                     <x-abutton class="p-2 mr-2" color="yellow" href="{{ route('panel.task-edit', $task) }}">
@@ -68,6 +79,10 @@
                     <x-abutton class="p-2 mr-2" color="blue" href="{{ route('panel.report-create', $task) }}">
                         ثبت گزارش تولید
                     </x-abutton>
+
+                    <x-button class="p-2 mr-2" color="red" wire:click="archive('{{$task->id}}')">
+                        بایگانی کردن
+                    </x-button>
                 </div>
             </div>
         @endforeach

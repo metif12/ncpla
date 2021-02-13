@@ -67,7 +67,7 @@
                         </span>
                         به مدت
                         <span class="text-red-600 font-bold inline-block items-center">
-                        {{ verta($shift->start)->diffMinutes(verta($shift->end)) }}
+                        {{ $shift->length() }}
                             دقیقه
                         </span>
                     </p>

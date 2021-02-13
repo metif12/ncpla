@@ -17,6 +17,7 @@ class CreateReportOutputsTable extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Report::class);
             $table->foreignIdFor(\App\Models\Product::class);
+            $table->foreignId('input_id')->nullable();
             $table->string('code');
             $table->float('progress',15,3);
             $table->timestamps();

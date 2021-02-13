@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Line::class);
             $table->string('code');
+            $table->timestamp('archived_at')->nullable();
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Report extends Model
 {
@@ -33,21 +34,31 @@ class Report extends Model
 
     public function inputs()
     {
-        return $this->belongsToMany(Product::class, 'report_inputs')->withPivot(['code']);
+        return $this->belongsToMany(Product::class, 'report_inputs')->withPivot(['code'])->withTimestamps();
     }
 
     public function outputs()
     {
-        return $this->belongsToMany(Product::class, 'report_outputs')->withPivot(['code','progress']);
+        return $this->belongsToMany(Product::class, 'report_outputs')->withPivot(['code','progress','input_id'])->withTimestamps();
     }
 
     public function materials()
     {
-        return $this->belongsToMany(Material::class, 'report_materials')->withPivot(['value']);
+        return $this->belongsToMany(Material::class, 'report_materials')->withPivot(['value'])->withTimestamps();
     }
 
     public function confirms()
     {
         return $this->belongsToMany(User::class, 'report_confirms');
+    }
+
+    public function performance()
+    {
+        return $this->progress() / $this->shift->length();
+    }
+
+    public function progress()
+    {
+        return DB::table('report_outputs')->where('report_id', $this->id)->sum('progress');
     }
 }

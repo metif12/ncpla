@@ -10,4 +10,9 @@ class Shift extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function length()
+    {
+        return verta($this->start)->diffMinutes(verta($this->end));
+    }
 }

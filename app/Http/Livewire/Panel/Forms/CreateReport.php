@@ -38,7 +38,6 @@ class CreateReport extends Component
     protected function getRules(): array
     {
         return [
-            'progress' => 'required|regex:/^\d+(\.\d+)?$/',
             'description' => 'nullable|string',
             'inputs.*.product_id' => 'required|integer',
             'inputs.*.code' => 'required|string',
@@ -81,7 +80,8 @@ class CreateReport extends Component
 
         $this->outputs[] = [
 
-            'product_id' => null,
+            'product_id' => $this->task->line->product_id,
+            'input_id' => null,
             'code' => generateCode(),
             'progress' => 1.00,
         ];
@@ -105,7 +105,7 @@ class CreateReport extends Component
 
         foreach ($this->materials as $material){
 
-            $report->materials()->attach($material['material_id'],['value'=>$material['value']]);
+            $report->materials()->attach($material['id'],['value'=>$material['value']]);
         }
 
         foreach ($this->inputs as $input){
@@ -115,7 +115,7 @@ class CreateReport extends Component
 
         foreach ($this->outputs as $output){
 
-            $report->inputs()->attach($output['product_id'],['code'=>$output['code'],'progress'=>$output['progress']]);
+            $report->outputs()->attach($output['product_id'],['code'=>$output['code'],'progress'=>$output['progress']]);
         }
 
         $this->redirectRoute('panel.reports');

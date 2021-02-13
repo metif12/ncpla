@@ -21,12 +21,6 @@
             <x-input-error for="shift" class="mt-2"/>
         </div>
 
-        <div class="col-span-6 sm:col-span-4">
-            <x-label for="progress" value=" پیشرفت : {{ $task->line->progress_field }}"/>
-            <x-input id="progress" type="number" step="any" class="mt-1 block w-full" wire:model.lazy="progress"/>
-            <x-input-error for="progress" class="mt-2"/>
-        </div>
-
         @foreach($materials as $i => $material)
             <div class="col-start-1 col-span-6 sm:col-span-4">
                 <x-label for="materials.{{$i}}.value" value="{{ $material['name'] }} مصرف شده به {{ $material['unit'] }}"/>
@@ -69,10 +63,10 @@
             <hr class="col-start-1 col-span-6 sm:col-span-4">
 
             <div class="col-start-1 col-span-6 sm:col-span-4">
-                <x-label for="outputs.{{$i}}.product_id" value="{{ $i+1 }}. خروجی مربوط به ورودی"/>
+                <x-label for="outputs.{{$i}}.input_id" value="{{ $i+1 }}. خروجی مربوط به ورودی"/>
                 <select
                     class="form-input rounded-md shadow-sm mt-1 block w-full"
-                    id="outputs.{{$i}}.product_id" wire:model.lazy="outputs.{{$i}}.product_id">
+                    id="outputs.{{$i}}.input_id" wire:model.lazy="outputs.{{$i}}.input_id">
                     <option
                         value="0"
                     >هیچکدام</option>
@@ -82,7 +76,7 @@
                         >{{ $input['code'] }}</option>
                     @endforeach
                 </select>
-                <x-input-error for="outputs.{{$i}}.product_id" class="mt-2"/>
+                <x-input-error for="outputs.{{$i}}.input_id" class="mt-2"/>
             </div>
 
             <div class="col-start-1 col-span-6 sm:col-span-4">

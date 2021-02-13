@@ -103,7 +103,7 @@
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">
-                            <a href="{{ route('panel.product-edit', $order->product) }}"
+                            <a href="{{ route('panel.product-edit', $order->product_id) }}"
                                class="text-gray-700 flex items-center">
                                 {{ $order->product->code }} - {{ $order->product->name }}
                             </a>

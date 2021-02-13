@@ -32,17 +32,34 @@ class EditReport extends Component
         $this->shift = $report->shift;
         $this->line = $report->line;
 
-        $this->materials = (array) $report->materials;
-        $this->inputs = (array) $report->input;
-        $this->output = (array) $report->output;
+        foreach ($report->materials as $material){
 
-        dd($this->materials);
+            $material->value = $material->pivot['value'];
+            $this->materials[] = $material;
+        }
+
+        foreach ($report->inputs as $input){
+
+            $input->product_id = $input->pivot['product_id'];
+            $input->code = $input->pivot['code'];
+            $this->inputs[] = $input;
+        }
+
+        foreach ($report->outputs as $output){
+
+            $output->product_id = $output->pivot['product_id'];
+            $output->input_id = $output->pivot['input_id'];
+            $output->progress = $output->pivot['progress'];
+            $output->code = $output->pivot['code'];
+            $this->outputs[] = $output;
+        }
+
     }
 
     protected function getRules(): array
     {
         return [
-            'progress' => 'required|regex:/^\d+(\.\d+)?$/',
+
             'description' => 'nullable|string',
             'inputs.*.product_id' => 'required|integer',
             'inputs.*.code' => 'required|string',
@@ -84,7 +101,8 @@ class EditReport extends Component
 
         $this->outputs[] = [
 
-            'product_id' => null,
+            'product_id' => $this->task->line->product_id,
+            'input_id' => null,
             'code' => generateCode(),
             'progress' => 1.00,
         ];
@@ -111,13 +129,13 @@ class EditReport extends Component
             'shift_id' => $this->shift->id,
         ]);
 
-        $this->report->materials()->delete();
-        $this->report->inputs()->delete();
-        $this->report->outputs()->delete();
+        $this->report->materials()->syncWithPivotValues([]);
+        $this->report->inputs()->syncWithPivotValues([]);
+        $this->report->outputs()->syncWithPivotValues([]);
 
         foreach ($this->materials as $material){
 
-            $this->report->materials()->attach($material['material_id'],['value'=>$material['value']]);
+            $this->report->materials()->attach($material['id'],['value'=>$material['value']]);
         }
 
         foreach ($this->inputs as $input){
@@ -127,7 +145,7 @@ class EditReport extends Component
 
         foreach ($this->outputs as $output){
 
-            $this->report->inputs()->attach($output['product_id'],['code'=>$output['code'],'progress'=>$output['progress']]);
+            $this->report->outputs()->attach($output['product_id'],['code'=>$output['code'],'progress'=>$output['progress']]);
         }
 
         $this->redirectRoute('panel.reports');
