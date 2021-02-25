@@ -26,7 +26,6 @@ class User extends Authenticatable
         'national_code',
         'mobile',
         'address',
-        'shift_id',
         'activated_at',
         'email_verified_at',
         'mobile_verified_at',
@@ -74,18 +73,8 @@ class User extends Authenticatable
             ->exists();
     }
 
-    public function hasShift()
-    {
-        return !empty($this->shift_id);
-    }
-
     public function lines()
     {
         return $this->belongsToMany(Line::class, 'line_users');
-    }
-
-    public function shift()
-    {
-        return $this->belongsTo(Shift::class);
     }
 }

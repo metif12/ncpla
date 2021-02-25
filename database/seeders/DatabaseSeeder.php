@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Interrupt;
 use App\Models\Line;
 use App\Models\LineAttributes;
 use App\Models\Material;
@@ -37,14 +38,49 @@ class DatabaseSeeder extends Seeder
 
             'name' => 'مس',
             'unit' => 'کیلوگرم',
-            'code' => generateCode(),
+            'code' => 'm1',
         ]);
 
         $material2 = Material::query()->create([
 
-            'name' => 'پلیمر',
+            'name' => 'PVC',
             'unit' => 'کیلوگرم',
-            'code' => generateCode(),
+            'code' => 'm2',
+        ]);
+
+        $material3 = Material::query()->create([
+
+            'name' => 'LSZH',
+            'unit' => 'کیلوگرم',
+            'code' => 'm3',
+        ]);
+
+        $material4 = Material::query()->create([
+
+            'name' => 'PE',
+            'unit' => 'کیلوگرم',
+            'code' => 'm4',
+        ]);
+
+        $material5 = Material::query()->create([
+
+            'name' => 'نوار پلی استر 45 میکرون',
+            'unit' => 'کیلوگرم',
+            'code' => 'm5',
+        ]);
+
+        $material6 = Material::query()->create([
+
+            'name' => 'فویل آلومینیومی 75 میکرون',
+            'unit' => 'کیلوگرم',
+            'code' => 'm6',
+        ]);
+
+        $material7 = Material::query()->create([
+
+            'name' => 'مفتول آلومینیومی 0.13',
+            'unit' => 'کیلوگرم',
+            'code' => 'm7',
         ]);
 
         $shift1 = Shift::query()
@@ -53,7 +89,7 @@ class DatabaseSeeder extends Seeder
                 'start' => '06:00',
                 'end' => '13:45',
 
-                'code' => generateCode(),
+                'code' => 101,
             ]);
 
         $shift2 = Shift::query()
@@ -62,7 +98,7 @@ class DatabaseSeeder extends Seeder
                 'start' => '14:00',
                 'end' => '23:45',
 
-                'code' => generateCode(),
+                'code' => 102,
             ]);
 
         $shift3 = Shift::query()
@@ -71,10 +107,51 @@ class DatabaseSeeder extends Seeder
                 'start' => '00:00',
                 'end' => '5:45',
 
-                'code' => generateCode(),
+                'code' => 103,
             ]);
 
-        $user = User::query()->create([
+        $interrupt1 = Interrupt::query()
+            ->create([
+                'name' => 'مکانیکی',
+                'code' => 'i1',
+            ]);
+        $interrupt2 = Interrupt::query()
+            ->create([
+                'name' => 'کیفیتی',
+                'code' => 'i2',
+            ]);
+        $interrupt3 = Interrupt::query()
+            ->create([
+                'name' => 'برقی',
+                'code' => 'i3',
+            ]);
+        $interrupt4 = Interrupt::query()
+            ->create([
+                'name' => 'تولیدی',
+                'code' => 'i4',
+            ]);
+        $interrupt5 = Interrupt::query()
+            ->create([
+                'name' => 'کمبود قرقره',
+                'code' => 'i5',
+            ]);
+        $interrupt6 = Interrupt::query()
+            ->create([
+                'name' => 'کمبود نیرو',
+                'code' => 'i6',
+            ]);
+        $interrupt7 = Interrupt::query()
+            ->create([
+                'name' => 'کمبود مواد اولیه',
+                'code' => 'i7',
+            ]);
+        $interrupt8 = Interrupt::query()
+            ->create([
+                'name' => 'نبود برنامه',
+                'code' => 'i8',
+            ]);
+
+        $user1 = User::query()->create([
 
             'name' => 'مهدی رمضان زاده',
             'email' => 'metif12@gmail.com',
@@ -84,30 +161,43 @@ class DatabaseSeeder extends Seeder
             'mobile_verified_at' => now(),
             'activated_at' => now(),
             'password' => Hash::make('password'),
-
-            'shift_id' => $shift1->id,
         ]);
 
-        $user->assignPermissions('admin');
+        $user1->assignPermissions('admin');
 
-        $material3 = Material::query()->create([
+        $user2 = User::query()->create([
 
-            'name' => 'قرقره',
-            'unit' => 'عدد',
-            'code' => generateCode(),
+            'name' => 'سید مجتبی صباغ جعفری',
+            'email' => 'mojtaba.sabbagh@vru.ac.ir',
+            'mobile' => '09133913037',
+            'national_code' => '1240070749',
+            'email_verified_at' => now(),
+            'mobile_verified_at' => now(),
+            'activated_at' => now(),
+            'password' => Hash::make('password'),
         ]);
+
+        $user2->assignPermissions('admin');
 
         $product1 = Product::query()->create([
 
-            'name' => 'کابل شبکه UTP',
-            'code' => generateCode(),
+            'name' => 'Cat6/UTP',
+            'code' => 'cat61',
         ]);
 
         $product2 = Product::query()->create([
 
-            'name' => 'کابل شبکه STP',
-            'code' => generateCode(),
+            'name' => 'Cat6/FTP',
+            'code' => 'cat62',
         ]);
+
+        $product2 = Product::query()->create([
+
+            'name' => 'Cat6/SFTP',
+            'code' => 'cat63',
+        ]);
+
+        //todo
 
         ProductAttribute::query()->create([
 
@@ -174,7 +264,7 @@ class DatabaseSeeder extends Seeder
         DB::table('line_users')
             ->insert([
 
-                'user_id' => $user->id,
+                'user_id' => $user1->id,
                 'line_id' => $line1->id,
 
                 'created_at' => now(),
@@ -184,7 +274,7 @@ class DatabaseSeeder extends Seeder
         DB::table('line_users')
             ->insert([
 
-                'user_id' => $user->id,
+                'user_id' => $user1->id,
                 'line_id' => $line2->id,
 
                 'created_at' => now(),

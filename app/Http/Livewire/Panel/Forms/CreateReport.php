@@ -15,7 +15,7 @@ class CreateReport extends Component
 {
 
     public Task $task;
-    public Shift $shift;
+    public int $shift = 0;
 
     public string $description = '';
 
@@ -26,7 +26,6 @@ class CreateReport extends Component
     public function mount(Task $task)
     {
         $this->task = $task;
-        $this->shift = Auth::user()->shift;
 
         foreach ($task->line->materials as $material) {
 
@@ -47,6 +46,8 @@ class CreateReport extends Component
             'outputs.*.progress' => 'required|regex:/^\d+(\.\d+)?$/',
 
             'materials.*.value' => 'required|regex:/^\d+(\.\d+)?$/',
+
+            'shift' => 'required',
         ];
     }
 
@@ -100,7 +101,7 @@ class CreateReport extends Component
             'user_id' => Auth::id(),
             'task_id' => $this->task->id,
             'line_id' => $this->task->line_id,
-            'shift_id' => $this->shift->id,
+            'shift_id' => $this->shift,
         ]);
 
         foreach ($this->materials as $material){

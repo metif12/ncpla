@@ -16,8 +16,14 @@
         </div>
 
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="shift" value="شیفت"/>
-            <x-input id="shift" type="text" class="bg-gray-100 mt-1 block w-full" value="{{ $shift->start }} تا {{ $shift->end }}" disabled />
+            <x-label for="shift" value="شیفت کاری"/>
+            <select
+                class="form-input rounded-md shadow-sm mt-1 block w-full"
+                id="shift" wire:model.lazy="shift">
+                @foreach(\App\Models\Shift::all() as $shift)
+                    <option value="{{ $shift['id'] }}">{{ $shift['start'] }} تا {{ $shift['end'] }}</option>
+                @endforeach
+            </select>
             <x-input-error for="shift" class="mt-2"/>
         </div>
 

@@ -14,9 +14,9 @@ class EditReport extends Component
 {
 
     public Task $task;
-    public Shift $shift;
     public Line $line;
     public Report $report;
+    public int $shift = 0;
 
     public string $description = '';
 
@@ -68,6 +68,8 @@ class EditReport extends Component
             'outputs.*.progress' => 'required|regex:/^\d+(\.\d+)?$/',
 
             'materials.*.value' => 'required|regex:/^\d+(\.\d+)?$/',
+
+            'shift' => 'required',
         ];
     }
 
@@ -126,7 +128,7 @@ class EditReport extends Component
             'user_id' => Auth::id(),
             'task_id' => $this->task->id,
             'line_id' => $this->task->line_id,
-            'shift_id' => $this->shift->id,
+            'shift_id' => $this->shift,
         ]);
 
         $this->report->materials()->syncWithPivotValues([]);

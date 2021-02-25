@@ -69,15 +69,15 @@
 {{--        </div>--}}
 {{--    </div>--}}
 
-    <div class="md:flex">
+    <div class="block md:flex">
         <div class="bg-white ml-auto shadow-lg md:shadow-xl rounded-md p-2 flex justify-center items-center" style="width: 100%">
-            <canvas id="product"></canvas>
+            <canvas id="product" style="width: 100%; height: 40vh;"></canvas>
         </div>
 
         <div class="h-4 w-4"></div>
 
         <div class="bg-white mr-auto shadow-lg md:shadow-xl rounded-md p-2 flex justify-center items-center" style="width: 100%">
-            <canvas id="material"></canvas>
+            <canvas id="material" style="width: 100%; height: 40vh;"></canvas>
         </div>
     </div>
 

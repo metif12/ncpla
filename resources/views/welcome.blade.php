@@ -10,11 +10,7 @@
                 <x-logo class="h-12" />
             </a>
             <ul class="md:ml-auto md:mr-auto mb-3 md:mb-0 flex flex-wrap items-center text-base justify-center block">
-                <li class="mr-5 inline-block hover:text-black font-semibold"><a href="#"> Link</a></li>
-                <li class="mr-5 inline-block hover:text-black font-semibold"><a href="#"> Link</a></li>
-                <li class="mr-5 inline-block hover:text-black font-semibold"><a href="#"> Link</a></li>
-                <li class="mr-5 inline-block hover:text-black font-semibold"><a href="#"> Link</a></li>
-                <li class="mr-5 inline-block hover:text-black font-semibold"><a href="#"> Link</a></li>
+                <li class="mr-5 inline-block hover:text-black font-semibold"><a href="https://www.ric-co.ir"> شرکت تعاونی اسلامی مجتمع صنعتی رفسنجان</a></li>
             </ul>
             <a href="{{ route('login') }}" rel="noopener" target="_blank">
                 <button
@@ -28,17 +24,17 @@
     <section class="text-black" style="background-image: url('{{ url('img/bg2.jpg') }}'); background-attachment: fixed; background-position: center; background-size: cover;">
         <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
             <div class="text-center bg-black p-4 bg-opacity-70 shadow-inner rounded-lg text-yellow-200 lg:w-2/3 w-full">
-                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium font-mono">
-                    This is your super duper title. </h1>
-                <p class="leading-relaxed mb-8 font-normal">The University of Huddersfield's School of Art, Design
-                    and Architecture presents the work of 10 of its award-winning
-                    interior design graduates in this school show for Virtual Design Festival.
+                <h1 class="sm:text-4xl text-3xl mb-4 font-medium">
+                    شرکت تعاونی اسلامی مجتمع صنعتی رفسنجان
+                </h1>
+                <p class="leading-relaxed mb-8 font-normal">
+                    شرکت تعاونی اسلامی مجتمع صنعتی رفسنجان در سال 1360 به منظور تولید محصولات صنعتی و کشاورزی تأسیس گردید. این مجتمع با جذب و هدایت سرمایه های حاصل از بخش کشاورزی به سمت تولیدات صنعتی و انتخاب قالب تعاونی نقش بسیار مهمی در توسعه فناوری و مدیریت تعاونی کشور عزیزمان ایفا نموده است.
                 </p>
                 <div class="flex justify-center">
-                    <button
+                    <a href="https://www.ric-co.ir/"
                         class="border-2 border-yellow-200 block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-gray-900 hover:text-pink-500 transition ease-in-out duration-700">
-                        Show me
-                    </button>
+                        سایت اصلی
+                    </a>
                 </div>
             </div>
         </div>
@@ -48,54 +44,70 @@
     <section class="">
         <div class="container px-5 py-24 mx-auto flex flex-wrap">
             <div class="flex flex-col text-center w-full mb-20">
-                <h2 class="text-xs text-black tracking-widest font-medium title-font mb-1">THIS IS A USEFUL
-                    SMALL TEXT</h2>
-                <h1 class="sm:text-3xl text-2xl font-medium title-font text-black">Tell them something about this
-                    cards.
+                <h2 class="text-xs text-black tracking-widest font-medium title-font mb-1">
+                    سابقه درخشان
+                </h2>
+                <h1 class="sm:text-2xl text-1xl font-medium text-black">
+                    کارخانجات کابلسازی مجتمع صنعتی رفسنجان دارای پیشینه موفق برای تأمین تقاضاهای شرکت مخابرات ایران(TCI) و شرکت مخابرات تهران(TCT) و شرکت های دیگر می باشد و دارای اعتبار خاصی نزد شرکتهای مخابراتی ایران می باشد.
                 </h1>
             </div>
             <div class="flex flex-wrap -m-4">
-                <div class="p-4 md:w-1/3">
+                <div class="p-4 w-full md:w-1/4">
                     <div class="flex rounded-lg h-full bg-gray-200 p-8 flex-col">
                         <div class="flex items-center mb-3">
-                            <h2 class="text-gray-700 text-lg title-font font-medium">Card title.</h2>
+                            <h2 class="text-gray-700 text-lg title-font font-medium">ظرفیت تولید</h2>
                         </div>
                         <div class="flex-grow">
-                            <p class="leading-relaxed text-gray-700 font-medium">House V replaces a property that
-                                had been built on the site nearly 80 years ago, but over time had fallen into
-                                complete disrepair..</p>
-                            <a class="mt-3 text-gray-700 inline-flex items-center font-medium">Learn More
-                                »
+                            <p class="leading-relaxed text-gray-700 font-medium">
+                                10 هزار تن انواع کابل مخابراتی مسی در سال
+                            </p>
+                            <a href="https://www.ric-co.ir" class="mt-3 text-gray-700 inline-flex items-center font-medium">
+                                بیشتر »
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="p-4 md:w-1/3">
+                <div class="p-4 w-full md:w-1/4">
                     <div class="flex rounded-lg h-full bg-gray-200 p-8 flex-col">
                         <div class="flex items-center mb-3">
-                            <h2 class="text-gray-700 text-lg title-font font-medium">Card title.</h2>
+                            <h2 class="text-gray-700 text-lg title-font font-medium">ظرفیت تولید</h2>
                         </div>
                         <div class="flex-grow">
-                            <p class="leading-relaxed text-gray-700 font-medium">House V replaces a property that
-                                had been built on the site nearly 80 years ago, but over time had fallen into
-                                complete disrepair..</p>
-                            <a class="mt-3 text-gray-700 inline-flex items-center font-medium">Learn More
-                                »
+                            <p class="leading-relaxed text-gray-700 font-medium">
+                                9 هزار تن انواع کابل خودنگهدار صنعت برق در سال
+                            </p>
+                            <a href="https://www.ric-co.ir" class="mt-3 text-gray-700 inline-flex items-center font-medium">
+                                بیشتر »
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="p-4 md:w-1/3">
+                <div class="p-4 w-full md:w-1/4">
                     <div class="flex rounded-lg h-full bg-gray-200 p-8 flex-col">
                         <div class="flex items-center mb-3">
-                            <h2 class="text-gray-700 text-lg title-font font-medium">Card title.</h2>
+                            <h2 class="text-gray-700 text-lg title-font font-medium">ظرفیت تولید</h2>
                         </div>
                         <div class="flex-grow">
-                            <p class="leading-relaxed text-gray-700 font-medium">House V replaces a property that
-                                had been built on the site nearly 80 years ago, but over time had fallen into
-                                complete disrepair..</p>
-                            <a class="mt-3 text-gray-700 inline-flex items-center font-medium">Learn More
-                                »
+                            <p class="leading-relaxed text-gray-700 font-medium">
+                                4400 تن انواع کابل شبکه صنعت IT در سال
+                            </p>
+                            <a href="https://www.ric-co.ir" class="mt-3 text-gray-700 inline-flex items-center font-medium">
+                                بیشتر »
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 w-full md:w-1/4">
+                    <div class="flex rounded-lg h-full bg-gray-200 p-8 flex-col">
+                        <div class="flex items-center mb-3">
+                            <h2 class="text-gray-700 text-lg title-font font-medium">ظرفیت تولید</h2>
+                        </div>
+                        <div class="flex-grow">
+                            <p class="leading-relaxed text-gray-700 font-medium">
+                                22000 متر مکعب نئوپان در سال
+                            </p>
+                            <a href="https://www.ric-co.ir" class="mt-3 text-gray-700 inline-flex items-center font-medium">
+                                بیشتر »
                             </a>
                         </div>
                     </div>
