@@ -34,49 +34,49 @@ class DatabaseSeeder extends Seeder
 //        $this->makePermissions('مدیرکل','admin','دسترسی کامل به تمام سیستم');
 
 
-        $material1 = Material::query()->create([
+//        $material1 = Material::query()->create([
+//
+//            'name' => 'مس',
+//            'unit' => 'کیلوگرم',
+//            'code' => 'm1',
+//        ]);
 
-            'name' => 'مس',
-            'unit' => 'کیلوگرم',
-            'code' => 'm1',
-        ]);
-
-        $material2 = Material::query()->create([
+        $pvc = Material::query()->create([
 
             'name' => 'PVC',
             'unit' => 'کیلوگرم',
             'code' => 'm2',
         ]);
 
-        $material3 = Material::query()->create([
+        $lszh = Material::query()->create([
 
             'name' => 'LSZH',
             'unit' => 'کیلوگرم',
             'code' => 'm3',
         ]);
 
-        $material4 = Material::query()->create([
+        $pe = Material::query()->create([
 
             'name' => 'PE',
             'unit' => 'کیلوگرم',
             'code' => 'm4',
         ]);
 
-        $material5 = Material::query()->create([
+        $polyEster = Material::query()->create([
 
             'name' => 'نوار پلی استر 45 میکرون',
             'unit' => 'کیلوگرم',
             'code' => 'm5',
         ]);
 
-        $material6 = Material::query()->create([
+        $aluminumFoil = Material::query()->create([
 
             'name' => 'فویل آلومینیومی 75 میکرون',
             'unit' => 'کیلوگرم',
             'code' => 'm6',
         ]);
 
-        $material7 = Material::query()->create([
+        $aluminumMaftol = Material::query()->create([
 
             'name' => 'مفتول آلومینیومی 0.13',
             'unit' => 'کیلوگرم',
@@ -151,7 +151,7 @@ class DatabaseSeeder extends Seeder
                 'code' => 'i8',
             ]);
 
-        $user1 = User::query()->create([
+        $metif12 = User::query()->create([
 
             'name' => 'مهدی رمضان زاده',
             'email' => 'metif12@gmail.com',
@@ -163,9 +163,9 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
-        $user1->assignPermissions('admin');
+        $metif12->assignPermissions('admin');
 
-        $user2 = User::query()->create([
+        $doctor = User::query()->create([
 
             'name' => 'سید مجتبی صباغ جعفری',
             'email' => 'mojtaba.sabbagh@vru.ac.ir',
@@ -177,31 +177,63 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
-        $user2->assignPermissions('admin');
+        $doctor->assignPermissions('admin');
 
-        $product1 = Product::query()->create([
+        $utp = Product::query()->create([
 
             'name' => 'Cat6/UTP',
             'code' => 'cat61',
         ]);
 
-        $product2 = Product::query()->create([
+        $ftp = Product::query()->create([
 
             'name' => 'Cat6/FTP',
             'code' => 'cat62',
         ]);
 
-        $product2 = Product::query()->create([
+        $sftp = Product::query()->create([
 
             'name' => 'Cat6/SFTP',
             'code' => 'cat63',
         ]);
 
-        //todo
+        $cable = Product::query()->create([
+
+            'name' => 'cable',
+            'code' => 'cable',
+        ]);
+
+        $twisted_pair = Product::query()->create([
+
+            'name' => 'twisted-pair',
+            'code' => 'twisted-pair',
+        ]);
+
+        $quad_pair = Product::query()->create([
+
+            'name' => 'quad-pair',
+            'code' => 'quad-pair',
+        ]);
+
+        $shielded_cable = Product::query()->create([
+
+            'name' => 'shielded-cable',
+            'code' => 'shielded-cable',
+        ]);
 
         ProductAttribute::query()->create([
 
-            'product_id' => $product1->id,
+            'product_id' => $cable->id,
+            'name' => 'color',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'unit' => '',
+            'default' => '',
+        ]);
+
+        ProductAttribute::query()->create([
+
+            'product_id' => $utp->id,
             'name' => 'stamp',
             'type' => 'text',
             'merge_type' => 'skip',
@@ -211,8 +243,48 @@ class DatabaseSeeder extends Seeder
 
         ProductAttribute::query()->create([
 
-            'product_id' => $product2->id,
+            'product_id' => $utp->id,
+            'name' => 'color',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'unit' => '',
+            'default' => '',
+        ]);
+
+        ProductAttribute::query()->create([
+
+            'product_id' => $sftp->id,
             'name' => 'stamp',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'unit' => '',
+            'default' => '',
+        ]);
+
+        ProductAttribute::query()->create([
+
+            'product_id' => $sftp->id,
+            'name' => 'color',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'unit' => '',
+            'default' => '',
+        ]);
+
+        ProductAttribute::query()->create([
+
+            'product_id' => $ftp->id,
+            'name' => 'stamp',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'unit' => '',
+            'default' => '',
+        ]);
+
+        ProductAttribute::query()->create([
+
+            'product_id' => $ftp->id,
+            'name' => 'color',
             'type' => 'text',
             'merge_type' => 'skip',
             'unit' => '',
@@ -221,30 +293,60 @@ class DatabaseSeeder extends Seeder
 
         $line1 = Line::query()->create([
 
-            'name' => 'خط UTP',
-            'progress_attribute' => 'طول',
-            'code' => generateCode(),
+            'name' => 'خط عایق کننده',
+            'progress_attribute' => 'طول کلی',
+            'code' => 'line1',
 
-            'product_id' => $product1->id,
+            'product_id' => $cable->id,
         ]);
 
-        $line1->materials()->sync([$material1->id, $material2->id]);
-
-        $line2 = Line::query()->create([
-
-            'name' => 'خط STP',
-            'progress_attribute' => 'طول',
-            'code' => generateCode(),
-
-            'product_id' => $product2->id,
-        ]);
-
-        $line2->inputs()->sync([$product1->id]);
+        $line1->materials()->sync([$aluminumMaftol->id, $pvc->id]);
 
         LineAttributes::query()->create([
 
             'line_id' => $line1->id,
-            'name' => 'طول',
+            'name' => 'طول کلی',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'متر',
+            'default' => '100',
+        ]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line1->id,
+            'name' => 'طول هر قرقره',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'متر',
+            'default' => '100',
+        ]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line1->id,
+            'name' => 'تعداد قرقره',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'عدد',
+            'default' => '100',
+        ]);
+
+        $line2 = Line::query()->create([
+
+            'name' => 'خط گروه کننده',
+            'progress_attribute' => 'طول کلی',
+            'code' => 'line2',
+
+            'product_id' => $twisted_pair->id,
+        ]);
+
+        $line2->inputs()->sync([$cable->id]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line2->id,
+            'name' => 'طول کلی',
             'type' => 'number',
             'merge_type' => 'sum',
             'unit' => 'متر',
@@ -254,32 +356,199 @@ class DatabaseSeeder extends Seeder
         LineAttributes::query()->create([
 
             'line_id' => $line2->id,
-            'name' => 'طول',
+            'name' => 'طول هر قرقره',
             'type' => 'number',
             'merge_type' => 'sum',
             'unit' => 'متر',
             'default' => '100',
         ]);
 
-        DB::table('line_users')
-            ->insert([
+        LineAttributes::query()->create([
 
-                'user_id' => $user1->id,
-                'line_id' => $line1->id,
+            'line_id' => $line2->id,
+            'name' => 'تعداد قرقره',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'عدد',
+            'default' => '100',
+        ]);
 
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+        $line3 = Line::query()->create([
 
-        DB::table('line_users')
-            ->insert([
+            'name' => 'خط کواد کننده',
+            'progress_attribute' => 'طول کلی',
+            'code' => 'line3',
 
-                'user_id' => $user1->id,
-                'line_id' => $line2->id,
+            'product_id' => $quad_pair->id,
+        ]);
 
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+        $line3->inputs()->sync([$twisted_pair->id]);
+        $line3->materials()->sync([$polyEster->id]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line3->id,
+            'name' => 'طول کلی',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'متر',
+            'default' => '100',
+        ]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line3->id,
+            'name' => 'طول هر قرقره',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'متر',
+            'default' => '100',
+        ]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line3->id,
+            'name' => 'تعداد قرقره',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'عدد',
+            'default' => '100',
+        ]);
+
+        $line4 = Line::query()->create([
+
+            'name' => 'خط نوارپیچ کننده',
+            'progress_attribute' => 'طول کلی',
+            'code' => 'line4',
+
+            'product_id' => $shielded_cable->id,
+        ]);
+
+        $line4->inputs()->sync([$quad_pair->id]);
+        $line4->materials()->sync([$aluminumFoil->id]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line4->id,
+            'name' => 'طول کلی',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'متر',
+            'default' => '100',
+        ]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line4->id,
+            'name' => 'طول هر قرقره',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'متر',
+            'default' => '100',
+        ]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line4->id,
+            'name' => 'تعداد قرقره',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'عدد',
+            'default' => '100',
+        ]);
+
+        $line5 = Line::query()->create([
+
+            'name' => 'خط روکش کننده (sftp)',
+            'progress_attribute' => 'طول کلی',
+            'code' => 'line5',
+
+            'product_id' => $sftp->id,
+        ]);
+
+        $line5->inputs()->sync([$shielded_cable->id]);
+        $line5->materials()->sync([$pvc->id]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line5->id,
+            'name' => 'طول کلی',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'متر',
+            'default' => '100',
+        ]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line5->id,
+            'name' => 'طول هر قرقره',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'متر',
+            'default' => '100',
+        ]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line5->id,
+            'name' => 'تعداد قرقره',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'عدد',
+            'default' => '100',
+        ]);
+
+        $line6 = Line::query()->create([
+
+            'name' => 'خط روکش کننده (utp)',
+            'progress_attribute' => 'طول کلی',
+            'code' => 'line6',
+
+            'product_id' => $utp->id,
+        ]);
+
+        $line6->inputs()->sync([$quad_pair->id]);
+        $line6->materials()->sync([$pvc->id]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line6->id,
+            'name' => 'طول کلی',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'متر',
+            'default' => '100',
+        ]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line6->id,
+            'name' => 'طول هر قرقره',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'متر',
+            'default' => '100',
+        ]);
+
+        LineAttributes::query()->create([
+
+            'line_id' => $line6->id,
+            'name' => 'تعداد قرقره',
+            'type' => 'number',
+            'merge_type' => 'sum',
+            'unit' => 'عدد',
+            'default' => '100',
+        ]);
+
+        $line1->users()->attach([1,2]);
+        $line2->users()->attach([1,2]);
+        $line3->users()->attach([1,2]);
+        $line4->users()->attach([1,2]);
+        $line5->users()->attach([1,2]);
+        $line6->users()->attach([1,2]);
+
+        //todo
 
         $task1 = Task::query()
             ->create([
@@ -294,24 +563,273 @@ class DatabaseSeeder extends Seeder
                 'task_id' => $task1->id,
                 'line_id' => $line1->id,
 
-                'name' => 'طول',
+                'name' => 'طول کلی',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'متر',
+                'value' => '10000',
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task1->id,
+                'line_id' => $line1->id,
+
+                'name' => 'طول هر قرقره',
                 'type' => 'number',
                 'merge_type' => 'sum',
                 'unit' => 'متر',
                 'value' => '250',
             ]);
 
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task1->id,
+                'line_id' => $line1->id,
+
+                'name' => 'تعداد قرقره',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'عدد',
+                'value' => '40',
+            ]);
+
+        $task2 = Task::query()
+            ->create([
+
+                'line_id' => $line2->id,
+                'code' => generateCode(),
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task2->id,
+                'line_id' => $line2->id,
+
+                'name' => 'طول کلی',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'متر',
+                'value' => '10000',
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task2->id,
+                'line_id' => $line2->id,
+
+                'name' => 'طول هر قرقره',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'متر',
+                'value' => '250',
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task2->id,
+                'line_id' => $line2->id,
+
+                'name' => 'تعداد قرقره',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'عدد',
+                'value' => '40',
+            ]);
+
+        $task3 = Task::query()
+            ->create([
+
+                'line_id' => $line3->id,
+                'code' => generateCode(),
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task3->id,
+                'line_id' => $line3->id,
+
+                'name' => 'طول کلی',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'متر',
+                'value' => '10000',
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task3->id,
+                'line_id' => $line3->id,
+
+                'name' => 'طول هر قرقره',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'متر',
+                'value' => '250',
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task3->id,
+                'line_id' => $line3->id,
+
+                'name' => 'تعداد قرقره',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'عدد',
+                'value' => '40',
+            ]);
+
+        $task4 = Task::query()
+            ->create([
+
+                'line_id' => $line4->id,
+                'code' => generateCode(),
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task4->id,
+                'line_id' => $line4->id,
+
+                'name' => 'طول کلی',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'متر',
+                'value' => '5000',
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task4->id,
+                'line_id' => $line4->id,
+
+                'name' => 'طول هر قرقره',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'متر',
+                'value' => '250',
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task4->id,
+                'line_id' => $line4->id,
+
+                'name' => 'تعداد قرقره',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'عدد',
+                'value' => '20',
+            ]);
+
+        $task5 = Task::query()
+            ->create([
+
+                'line_id' => $line5->id,
+                'code' => generateCode(),
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task5->id,
+                'line_id' => $line5->id,
+
+                'name' => 'طول کلی',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'متر',
+                'value' => '5000',
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task5->id,
+                'line_id' => $line5->id,
+
+                'name' => 'طول هر قرقره',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'متر',
+                'value' => '250',
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task5->id,
+                'line_id' => $line5->id,
+
+                'name' => 'تعداد قرقره',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'عدد',
+                'value' => '20',
+            ]);
+
+        $task6 = Task::query()
+            ->create([
+
+                'line_id' => $line6->id,
+                'code' => generateCode(),
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task6->id,
+                'line_id' => $line6->id,
+
+                'name' => 'طول کلی',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'متر',
+                'value' => '5000',
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task6->id,
+                'line_id' => $line6->id,
+
+                'name' => 'طول هر قرقره',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'متر',
+                'value' => '250',
+            ]);
+
+        TaskAttribute::query()
+            ->create([
+
+                'task_id' => $task6->id,
+                'line_id' => $line6->id,
+
+                'name' => 'تعداد قرقره',
+                'type' => 'number',
+                'merge_type' => 'sum',
+                'unit' => 'عدد',
+                'value' => '20',
+            ]);
+
         $order1 = Order::query()->create([
 
-            'product_id' => $product1->id,
-            'line_id' => $line1->id,
-            'code' => generateCode(),
-        ]);
-
-        $order2 = Order::query()->create([
-
-            'product_id' => $product2->id,
-            'line_id' => $line2->id,
+            'product_id' => $utp->id,
+            'line_id' => $line6->id,
             'code' => generateCode(),
         ]);
 
@@ -326,11 +844,36 @@ class DatabaseSeeder extends Seeder
 
         OrderAttribute::query()->create([
 
+            'order_id' => $order1->id,
+            'name' => 'color',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'value' => 'white',
+        ]);
+
+        $order2 = Order::query()->create([
+
+            'product_id' => $sftp->id,
+            'line_id' => $line5->id,
+            'code' => generateCode(),
+        ]);
+
+        OrderAttribute::query()->create([
+
             'order_id' => $order2->id,
             'name' => 'stamp',
             'type' => 'text',
             'merge_type' => 'skip',
-            'value' => 'MY AWESOME STP CABLE',
+            'value' => 'MY AWESOME SFTP CABLE',
+        ]);
+
+        OrderAttribute::query()->create([
+
+            'order_id' => $order2->id,
+            'name' => 'color',
+            'type' => 'text',
+            'merge_type' => 'skip',
+            'value' => 'white',
         ]);
 
         // \App\Models\User::factory(10)->create();

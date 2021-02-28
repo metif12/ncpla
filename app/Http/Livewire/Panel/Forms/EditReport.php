@@ -30,7 +30,7 @@ class EditReport extends Component
         $this->report = $report;
 
         $this->task = $report->task;
-        $this->shift = $report->shift;
+        $this->shift = $report->shift->id;
         $this->line = $report->line;
 
         foreach ($report->materials as $material){
