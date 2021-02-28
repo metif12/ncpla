@@ -22,6 +22,7 @@ class CreateReport extends Component
     public array $materials = [];
     public array $inputs = [];
     public array $outputs = [];
+    public array $interrupts = [];
 
     public function mount(Task $task)
     {
@@ -38,8 +39,12 @@ class CreateReport extends Component
     {
         return [
             'description' => 'nullable|string',
+
             'inputs.*.product_id' => 'required|integer',
             'inputs.*.code' => 'required|string',
+
+            'interrupts.*.interrupt_id' => 'required|integer',
+            'interrupts.*.length' => 'required|integer',
 
             'outputs.*.product_id' => 'nullable|integer',
             'outputs.*.code' => 'required|string',
@@ -47,7 +52,7 @@ class CreateReport extends Component
 
             'materials.*.value' => 'required|regex:/^\d+(\.\d+)?$/',
 
-            'shift' => 'required',
+            'shift' => 'required|integer',
         ];
     }
 
@@ -59,6 +64,11 @@ class CreateReport extends Component
     public function remInput($i)
     {
         array_splice($this->inputs, $i, 1);
+    }
+
+    public function remInterrupt($i)
+    {
+        array_splice($this->interrupts, $i, 1);
     }
 
     public function remOutput($i)
@@ -74,6 +84,15 @@ class CreateReport extends Component
                 'product_id' => '',
                 'code' => '',
             ];
+    }
+
+    public function addInterrupt()
+    {
+        $this->interrupts[] = [
+
+            'interrupt_id' => 1,
+            'length' => '',
+        ];
     }
 
     public function addOutput()
@@ -117,6 +136,11 @@ class CreateReport extends Component
         foreach ($this->outputs as $output){
 
             $report->outputs()->attach($output['product_id'],['code'=>$output['code'],'progress'=>$output['progress']]);
+        }
+
+        foreach ($this->interrupts as $interrupt){
+
+            $report->interrupts()->attach($interrupt['interrupt_id'],['length'=>$interrupt['length']]);
         }
 
         $this->redirectRoute('panel.reports');

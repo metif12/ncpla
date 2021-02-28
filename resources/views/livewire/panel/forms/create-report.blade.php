@@ -63,7 +63,7 @@
             </div>
 
             <div class="col-start-1 col-span-6">
-                <x-button class="p-2" color="red" wire:loading.attr="disabled" type="button"
+                <x-button class="p-2" color="red" type="button"
                           wire:click="remInput('{{$i}}')">
                     حذف
                 </x-button>
@@ -106,13 +106,44 @@
             </div>
 
             <div class="col-start-1 col-span-6">
-                <x-button class="p-2" color="red" wire:loading.attr="disabled" type="button"
+                <x-button class="p-2" color="red" type="button"
                           wire:click="remOutput('{{$i}}')">
                     حذف
                 </x-button>
             </div>
         @endforeach
 
+        @foreach($interrupts as $i => $interrupt)
+            <hr class="col-start-1 col-span-6 sm:col-span-4">
+
+            <div class="col-start-1 col-span-6 sm:col-span-4">
+                <x-label for="interrupts.{{$i}}.interrupt_id" value="{{ $i+1 }}. وقفه"/>
+                <select
+                    class="form-input rounded-md shadow-sm mt-1 block w-full"
+                    id="interrupts.{{$i}}.interrupt_id" wire:model.lazy="interrupts.{{$i}}.interrupt_id">
+                    @foreach(\App\Models\Interrupt::all() as $interrupt)
+                        <option
+                            value="{{ $interrupt->id }}"
+                        >{{ $interrupt->code }} - {{ $interrupt->name }}</option>
+                    @endforeach
+                </select>
+                <x-input-error for="interrupts.{{$i}}.interrupt_id" class="mt-2"/>
+            </div>
+
+            <div class="col-start-1 col-span-6 sm:col-span-4">
+                <x-label for="interrupts.{{$i}}.length" value="مدت به دقیقه"/>
+                <x-input id="interrupts.{{$i}}.length" type="text" step="any" class="mt-1 block w-full"
+                         wire:model.lazy="interrupts.{{$i}}.length"/>
+                <x-input-error for="interrupts.{{$i}}.length" class="mt-2"/>
+            </div>
+
+            <div class="col-start-1 col-span-6">
+                <x-button class="p-2" color="red" type="button"
+                          wire:click="remInterrupt('{{$i}}')">
+                    حذف
+                </x-button>
+            </div>
+        @endforeach
 
         <hr class="col-start-1 col-span-6 sm:col-span-4">
 
@@ -131,13 +162,18 @@
             ذخیره شد.
         </x-action-message>
 
-        <x-button class="px-4 py-2 ml-3" color="pink" wire:loading.attr="disabled" type="button" wire:click="addOutput">
+        <x-button class="px-4 py-2 ml-3" color="pink" type="button" wire:click="addOutput">
             خروجی
         </x-button>
 
-        <x-button class="px-4 py-2 ml-3" color="purple" wire:loading.attr="disabled" type="button"
+        <x-button class="px-4 py-2 ml-3" color="purple" type="button"
                   wire:click="addInput">
             ورودی
+        </x-button>
+
+        <x-button class="px-4 py-2 ml-3" color="blue" type="button"
+                  wire:click="addInterrupt">
+            وقفه
         </x-button>
 
         <x-button class="px-4 py-2">

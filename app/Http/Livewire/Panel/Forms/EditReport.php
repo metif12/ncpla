@@ -23,6 +23,7 @@ class EditReport extends Component
     public array $materials = [];
     public array $inputs = [];
     public array $outputs = [];
+    public array $interrupts = [];
 
     public function mount(Report $report)
     {
@@ -36,6 +37,12 @@ class EditReport extends Component
 
             $material->value = $material->pivot['value'];
             $this->materials[] = $material;
+        }
+
+        foreach ($report->interrupts as $interrupt){
+
+            $interrupt->length = $interrupt->pivot['length'];
+            $this->interrupts[] = $interrupt;
         }
 
         foreach ($report->inputs as $input){
@@ -61,15 +68,20 @@ class EditReport extends Component
         return [
 
             'description' => 'nullable|string',
+
             'inputs.*.product_id' => 'required|integer',
             'inputs.*.code' => 'required|string',
+
+            'interrupts.*.interrupt_id' => 'required|integer',
+            'interrupts.*.length' => 'required|integer',
+
             'outputs.*.product_id' => 'nullable|integer',
             'outputs.*.code' => 'required|string',
             'outputs.*.progress' => 'required|regex:/^\d+(\.\d+)?$/',
 
             'materials.*.value' => 'required|regex:/^\d+(\.\d+)?$/',
 
-            'shift' => 'required',
+            'shift' => 'required|integer',
         ];
     }
 
@@ -81,6 +93,11 @@ class EditReport extends Component
     public function remInput($i)
     {
         array_splice($this->inputs, $i, 1);
+    }
+
+    public function remInterrupt($i)
+    {
+        array_splice($this->interrupts, $i, 1);
     }
 
     public function remOutput($i)
@@ -96,6 +113,15 @@ class EditReport extends Component
                 'product_id' => '',
                 'code' => '',
             ];
+    }
+
+    public function addInterrupt()
+    {
+        $this->interrupts[] = [
+
+            'interrupt_id' => 1,
+            'length' => '',
+        ];
     }
 
     public function addOutput()
@@ -134,6 +160,7 @@ class EditReport extends Component
         $this->report->materials()->syncWithPivotValues([]);
         $this->report->inputs()->syncWithPivotValues([]);
         $this->report->outputs()->syncWithPivotValues([]);
+        $this->report->interrupts()->syncWithPivotValues([]);
 
         foreach ($this->materials as $material){
 
@@ -148,6 +175,11 @@ class EditReport extends Component
         foreach ($this->outputs as $output){
 
             $this->report->outputs()->attach($output['product_id'],['code'=>$output['code'],'progress'=>$output['progress']]);
+        }
+
+        foreach ($this->interrupts as $interrupt){
+
+            $this->report->interrupts()->attach($interrupt['interrupt_id'],['length'=>$interrupt['length']]);
         }
 
         $this->redirectRoute('panel.reports');

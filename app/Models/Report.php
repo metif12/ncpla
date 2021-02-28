@@ -47,6 +47,11 @@ class Report extends Model
         return $this->belongsToMany(Material::class, 'report_materials')->withPivot(['value'])->withTimestamps();
     }
 
+    public function interrupts()
+    {
+        return $this->belongsToMany(Interrupt::class, 'report_interrupts')->withPivot(['length'])->withTimestamps();
+    }
+
     public function confirms()
     {
         return $this->belongsToMany(User::class, 'report_confirms');
@@ -60,5 +65,10 @@ class Report extends Model
     public function progress()
     {
         return DB::table('report_outputs')->where('report_id', $this->id)->sum('progress');
+    }
+
+    public function interrupt()
+    {
+        return DB::table('report_interrupts')->where('report_id', $this->id)->sum('length');
     }
 }
