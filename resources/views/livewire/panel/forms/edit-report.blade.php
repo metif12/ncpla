@@ -38,7 +38,7 @@
         @foreach($inputs as $i => $input)
             <hr class="col-start-1 col-span-6 sm:col-span-4">
 
-            <div class="col-start-1 col-span-6 sm:col-span-4">
+            <div class="col-start-1 col-span-3">
                 <x-label for="inputs.{{$i}}.product_id" value="{{ $i+1 }}. ورودی"/>
                 <select
                     class="form-input rounded-md shadow-sm mt-1 block w-full"
@@ -52,13 +52,13 @@
                 <x-input-error for="inputs.{{$i}}.product_id" class="mt-2"/>
             </div>
 
-            <div class="col-start-1 col-span-6 sm:col-span-4">
+            <div class="col-start-4 col-span-3">
                 <x-label for="inputs.{{$i}}.code" value="شماره شناسایی"/>
                 <x-input id="inputs.{{$i}}.code" type="text" step="any" class="mt-1 block w-full" wire:model.lazy="inputs.{{$i}}.code"/>
                 <x-input-error for="inputs.{{$i}}.code" class="mt-2"/>
             </div>
 
-            <div class="col-start-1 col-span-6">
+            <div class="col-start-7 col-span-1">
                 <x-button class="p-2" color="red" type="button" wire:click="remInput('{{$i}}')">
                     حذف
                 </x-button>

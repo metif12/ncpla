@@ -110,7 +110,7 @@ class EditReport extends Component
         if ($this->task->line->inputs->count() > 0)
             $this->inputs[] = [
 
-                'product_id' => '',
+                'product_id' => 0,
                 'code' => '',
             ];
     }
@@ -119,7 +119,7 @@ class EditReport extends Component
     {
         $this->interrupts[] = [
 
-            'interrupt_id' => 1,
+            'interrupt_id' => 0,
             'length' => '',
         ];
     }
