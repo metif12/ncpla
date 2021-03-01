@@ -139,7 +139,7 @@
                     {{ \Illuminate\Support\Facades\DB::table('report_outputs')->where('product_id', $product->id)->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,9,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,10,1)->datetime()])->sum('progress') }},
                     {{ \Illuminate\Support\Facades\DB::table('report_outputs')->where('product_id', $product->id)->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,10,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,11,1)->datetime()])->sum('progress') }},
                     {{ \Illuminate\Support\Facades\DB::table('report_outputs')->where('product_id', $product->id)->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,11,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,12,1)->datetime()])->sum('progress') }},
-                    {{ \Illuminate\Support\Facades\DB::table('report_outputs')->where('product_id', $product->id)->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,12,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,1,1)->datetime()])->sum('progress') }},
+                    {{ \Illuminate\Support\Facades\DB::table('report_outputs')->where('product_id', $product->id)->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,12,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,1,1)->addYear(1)->datetime()])->sum('progress') }},
                 ]
             });
             @endforeach
@@ -161,7 +161,7 @@
                     {{ \Illuminate\Support\Facades\DB::table('report_materials')->where('material_id', $material->id)->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,9,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,10,1)->datetime()])->sum('value') }},
                     {{ \Illuminate\Support\Facades\DB::table('report_materials')->where('material_id', $material->id)->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,10,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,11,1)->datetime()])->sum('value') }},
                     {{ \Illuminate\Support\Facades\DB::table('report_materials')->where('material_id', $material->id)->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,11,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,12,1)->datetime()])->sum('value') }},
-                    {{ \Illuminate\Support\Facades\DB::table('report_materials')->where('material_id', $material->id)->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,12,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,1,1)->datetime()])->sum('value') }},
+                    {{ \Illuminate\Support\Facades\DB::table('report_materials')->where('material_id', $material->id)->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,12,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,1,1)->addYear(1)->datetime()])->sum('value') }},
                 ]
             });
             @endforeach
@@ -182,7 +182,7 @@
                     {{ \Illuminate\Support\Facades\DB::table('report_interrupts')->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,9,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,10,1)->datetime()])->sum('length') }},
                     {{ \Illuminate\Support\Facades\DB::table('report_interrupts')->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,10,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,11,1)->datetime()])->sum('length') }},
                     {{ \Illuminate\Support\Facades\DB::table('report_interrupts')->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,11,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,12,1)->datetime()])->sum('length') }},
-                    {{ \Illuminate\Support\Facades\DB::table('report_interrupts')->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,12,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,1,1)->datetime()])->sum('length') }},
+                    {{ \Illuminate\Support\Facades\DB::table('report_interrupts')->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,12,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,1,1)->addYear(1)->datetime()])->sum('length') }},
                 ]
             });
 
@@ -202,7 +202,7 @@
                     {{ \Illuminate\Support\Facades\DB::table('report_outputs')->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,9,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,10,1)->datetime()])->sum('progress') }},
                     {{ \Illuminate\Support\Facades\DB::table('report_outputs')->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,10,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,11,1)->datetime()])->sum('progress') }},
                     {{ \Illuminate\Support\Facades\DB::table('report_outputs')->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,11,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,12,1)->datetime()])->sum('progress') }},
-                    {{ \Illuminate\Support\Facades\DB::table('report_outputs')->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,12,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,1,1)->datetime()])->sum('progress') }},
+                    {{ \Illuminate\Support\Facades\DB::table('report_outputs')->whereBetween('created_at',[ \Hekmatinasser\Verta\Verta::createJalali(null,12,1)->datetime(), \Hekmatinasser\Verta\Verta::createJalali(null,1,1)->addYear(1)->datetime()])->sum('progress') }},
                 ]
             });
 

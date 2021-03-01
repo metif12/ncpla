@@ -40,19 +40,19 @@ class CreateReport extends Component
         return [
             'description' => 'nullable|string',
 
-            'inputs.*.product_id' => 'required|integer',
+            'inputs.*.product_id' => 'required|min:1',
             'inputs.*.code' => 'required|string',
 
-            'interrupts.*.interrupt_id' => 'required|integer',
+            'interrupts.*.interrupt_id' => 'required|min:1',
             'interrupts.*.length' => 'required|integer',
 
-            'outputs.*.product_id' => 'nullable|integer',
+            'outputs.*.product_id' => 'nullable|min:1',
             'outputs.*.code' => 'required|string',
             'outputs.*.progress' => 'required|regex:/^\d+(\.\d+)?$/',
 
             'materials.*.value' => 'required|regex:/^\d+(\.\d+)?$/',
 
-            'shift' => 'required|integer',
+            'shift' => 'required|min:1',
         ];
     }
 
