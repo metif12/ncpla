@@ -63,4 +63,9 @@ class Line extends Model
     {
         return $this->belongsToMany(Material::class, 'line_materials');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'line_users')->withTimestamps();
+    }
 }

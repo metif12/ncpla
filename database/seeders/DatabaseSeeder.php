@@ -6,6 +6,7 @@ use App\Models\Interrupt;
 use App\Models\Line;
 use App\Models\LineAttributes;
 use App\Models\Material;
+use App\Models\MaterialAttribute;
 use App\Models\Order;
 use App\Models\OrderAttribute;
 use App\Models\Product;
@@ -13,6 +14,7 @@ use App\Models\ProductAttribute;
 use App\Models\Shift;
 use App\Models\Task;
 use App\Models\TaskAttribute;
+use App\Models\TaskMaterial;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -48,6 +50,17 @@ class DatabaseSeeder extends Seeder
             'code' => 'm2',
         ]);
 
+        $pvcAttr = MaterialAttribute::query()->create([
+
+            'material_id' => $pvc->id,
+
+            'name' => 'color',
+            'type' => 'text',
+            'unit' => '',
+            'default' => 'white',
+            'merge_type' => 'merge',
+        ]);
+
         $lszh = Material::query()->create([
 
             'name' => 'LSZH',
@@ -64,23 +77,56 @@ class DatabaseSeeder extends Seeder
 
         $polyEster = Material::query()->create([
 
-            'name' => 'نوار پلی استر 45 میکرون',
+            'name' => 'نوار پلی استر',
             'unit' => 'کیلوگرم',
             'code' => 'm5',
         ]);
 
+        $polyEsterAttr = MaterialAttribute::query()->create([
+
+            'material_id' => $polyEster->id,
+
+            'name' => 'قطر',
+            'type' => 'text',
+            'unit' => '',
+            'default' => '45e-6',
+            'merge_type' => 'merge',
+        ]);
+
         $aluminumFoil = Material::query()->create([
 
-            'name' => 'فویل آلومینیومی 75 میکرون',
+            'name' => 'فویل آلومینیومی',
             'unit' => 'کیلوگرم',
             'code' => 'm6',
         ]);
 
+        $aluminumFoilAttr = MaterialAttribute::query()->create([
+
+            'material_id' => $aluminumFoil->id,
+
+            'name' => 'قطر',
+            'type' => 'text',
+            'unit' => '',
+            'default' => '75e-6',
+            'merge_type' => 'merge',
+        ]);
+
         $aluminumMaftol = Material::query()->create([
 
-            'name' => 'مفتول آلومینیومی 0.13',
+            'name' => 'مفتول آلومینیومی',
             'unit' => 'کیلوگرم',
             'code' => 'm7',
+        ]);
+
+        $aluminumMaftolAttr = MaterialAttribute::query()->create([
+
+            'material_id' => $aluminumMaftol->id,
+
+            'name' => 'قطر',
+            'type' => 'text',
+            'unit' => '',
+            'default' => '13e-1',
+            'merge_type' => 'merge',
         ]);
 
         $shift1 = Shift::query()
@@ -541,12 +587,12 @@ class DatabaseSeeder extends Seeder
             'default' => '100',
         ]);
 
-        $line1->users()->attach([1,2]);
-        $line2->users()->attach([1,2]);
-        $line3->users()->attach([1,2]);
-        $line4->users()->attach([1,2]);
-        $line5->users()->attach([1,2]);
-        $line6->users()->attach([1,2]);
+        $line1->users()->attach([1, 2]);
+        $line2->users()->attach([1, 2]);
+        $line3->users()->attach([1, 2]);
+        $line4->users()->attach([1, 2]);
+        $line5->users()->attach([1, 2]);
+        $line6->users()->attach([1, 2]);
 
         //todo
 
@@ -556,6 +602,24 @@ class DatabaseSeeder extends Seeder
                 'line_id' => $line1->id,
                 'code' => generateCode(),
             ]);
+
+        $data = array_merge($pvcAttr->toArray(), [
+            'task_id' => $task1->id,
+            'line_id' => $line1->id,
+            'value' => $pvcAttr['default'],
+        ]);
+
+        $data['id'] = null;
+        TaskMaterial::query()->create($data);
+
+        $data = array_merge($aluminumMaftolAttr->toArray(), [
+            'task_id' => $task1->id,
+            'line_id' => $line1->id,
+            'value' => $aluminumMaftolAttr['default'],
+        ]);
+
+        $data['id'] = null;
+        TaskMaterial::query()->create($data);
 
         TaskAttribute::query()
             ->create([
@@ -649,6 +713,15 @@ class DatabaseSeeder extends Seeder
                 'code' => generateCode(),
             ]);
 
+        $daat = array_merge($polyEsterAttr->toArray(), [
+            'task_id' => $task3->id,
+            'line_id' => $line3->id,
+            'value' => $polyEsterAttr['default'],
+        ]);
+
+        $data['id'] = null;
+        TaskMaterial::query()->create($data);
+
         TaskAttribute::query()
             ->create([
 
@@ -694,6 +767,14 @@ class DatabaseSeeder extends Seeder
                 'line_id' => $line4->id,
                 'code' => generateCode(),
             ]);
+
+        $data = array_merge($aluminumFoilAttr->toArray(), [
+            'task_id' => $task4->id,
+            'line_id' => $line4->id,
+            'value' => $aluminumFoilAttr['default'],
+        ]);
+        $data['id'] = null;
+        TaskMaterial::query()->create($data);
 
         TaskAttribute::query()
             ->create([
@@ -741,6 +822,14 @@ class DatabaseSeeder extends Seeder
                 'code' => generateCode(),
             ]);
 
+        $data = array_merge($pvcAttr->toArray(), [
+            'task_id' => $task5->id,
+            'line_id' => $line5->id,
+            'value' => $pvcAttr['default'],
+        ]);
+        $data['id'] = null;
+        TaskMaterial::query()->create($data);
+
         TaskAttribute::query()
             ->create([
 
@@ -786,6 +875,14 @@ class DatabaseSeeder extends Seeder
                 'line_id' => $line6->id,
                 'code' => generateCode(),
             ]);
+
+        $data = array_merge($pvcAttr->toArray(), [
+            'task_id' => $task6->id,
+            'line_id' => $line6->id,
+            'value' => $pvcAttr['default'],
+        ]);
+        $data['id'] = null;
+        TaskMaterial::query()->create($data);
 
         TaskAttribute::query()
             ->create([

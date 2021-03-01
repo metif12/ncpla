@@ -17,6 +17,11 @@ class Task extends Model
         return $this->hasMany(TaskAttribute::class);
     }
 
+    public function task_materials()
+    {
+        return $this->hasMany(TaskMaterial::class);
+    }
+
     public function reports()
     {
         return $this->hasMany(Report::class);
