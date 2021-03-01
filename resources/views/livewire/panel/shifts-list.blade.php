@@ -54,30 +54,32 @@
         @foreach($shifts as $shift)
             <div class="bg-white rounded-md shadow my-1 p-2">
                 <div class="md:flex">
-                    <p>
-                        <span class="text-purple-500 inline-block items-center">
-                            #{{ $shift->code }}
-                        </span>
-                        <span class="text-yellow-600 inline-block items-center">
-                        {{ verta($shift->start)->format('H:i') }}
-                        </span>
-                        تا
-                        <span class="text-yellow-600 inline-block items-center">
-                        {{ verta($shift->end)->format('H:i') }}
-                        </span>
-                        به مدت
-                        <span class="text-red-600 font-bold inline-block items-center">
-                        {{ verta($shift->start)->diffMinutes(verta($shift->end)) }}
-                            دقیقه
-                        </span>
-                    </p>
-                    <p class="hidden md:inline-block md:mx-auto"></p>
-                    <p class="text-sm text-blue-400">
+                    <span class="text-purple-500 inline-block items-center">
+                        #{{ $shift->code }}
+                    </span>
+                    <span class="hidden md:inline-block md:mx-auto"></span>
+                    <span class="text-sm text-blue-400">
                         {{ verta($shift->cretaed_at) }}
-                    </p>
+                    </span>
                 </div>
 
                 <hr class="my-2">
+                <p>
+                    <span class="text-yellow-600 inline-block items-center">
+                        {{ verta($shift->start)->format('H:i') }}
+                        </span>
+                    تا
+                    <span class="text-yellow-600 inline-block items-center">
+                        {{ verta($shift->end)->format('H:i') }}
+                        </span>
+                    به مدت
+                    <span class="text-red-600 font-bold inline-block items-center">
+                        {{ $shift->length() }}
+                            دقیقه
+                        </span>
+                </p>
+                <hr class="my-2">
+
                 <div class="flex flex-row-reverse">
                     <x-abutton class="p-2" color="yellow" href="{{ route('panel.shift-edit', $shift) }}">
                         ویرایش

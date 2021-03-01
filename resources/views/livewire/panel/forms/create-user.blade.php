@@ -33,18 +33,7 @@
             <x-textarea id="address" class="mt-1 block w-full" wire:model.lazy="address"/>
             <x-input-error for="address" class="mt-2"/>
         </div>
-        <hr>
-        <div class="col-start-1 col-span-6 sm:col-span-3 sm:col-start-1">
-            <x-label for="shift" value="شیفت کاری"/>
-            <select
-                class="form-input rounded-md shadow-sm mt-1 block w-full"
-                id="shift" wire:model.lazy="shift">
-                @foreach(\App\Models\Shift::all() as $shift)
-                    <option value="{{ $shift['id'] }}">{{ $shift['start'] }} تا {{ $shift['end'] }}</option>
-                @endforeach
-            </select>
-            <x-input-error for="shift" class="mt-2"/>
-        </div>
+
     </x-slot>
 
     <x-slot name="actions">

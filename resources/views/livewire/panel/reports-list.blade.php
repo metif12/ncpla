@@ -53,6 +53,12 @@
                     کاربر
                 </th>
                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
+                    عملکرد (در دقیقه)
+                </th>
+                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
+                    جمع وقفه ها (دقیقه)
+                </th>
+                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
                     تاریخ ثبت
                 </th>
 
@@ -82,7 +88,7 @@
                     <td class="p-2 border-dashed border-t border-gray-200">
                         <a href="{{ route('panel.line-edit', $report->line) }}"
                            class="text-gray-700 flex items-center">
-                            {{ $report->name }}
+                            {{ $report->line->name }}
                         </a>
                     </td>
 
@@ -99,8 +105,20 @@
                     <td class="p-2 border-dashed border-t border-gray-200">
                         <a href="{{ route('panel.user-edit', $report->user) }}"
                            class="text-gray-700 flex items-center">
-                            {{ $report->name }}
+                            {{ $report->user->name }}
                         </a>
+                    </td>
+
+                    <td class="p-2 border-dashed border-t border-gray-200">
+                        <span class="text-green-700 flex items-center">
+                            {{ round($report->performance(),2) }} {{ \Illuminate\Support\Facades\DB::table('line_attributes')->where('line_id', $report->line_id)->where('name', $report->line->progress_attribute)->value('unit') }}
+                        </span>
+                    </td>
+
+                    <td class="p-2 border-dashed border-t border-gray-200">
+                        <span class="text-green-700 flex items-center">
+                            {{ $report->interrupt() }}
+                        </span>
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">

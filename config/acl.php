@@ -91,5 +91,5 @@ return [
     | The solutions will then be automatically registered with ignition if its installed.
     |
     */
-    'offer_solutions' => true,
+    'offer_solutions' => false,
 ];

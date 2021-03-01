@@ -14,8 +14,6 @@ class CreateUser extends Component
     public string $national_code = '';
     public string $address = '';
 
-    public int $shift = 0;
-
     protected function getRules(): array
     {
         return [
@@ -25,7 +23,6 @@ class CreateUser extends Component
             'national_code' => 'required|string|unique:users,national_code',
             'address' => 'nullable|string',
 
-            'shift' => 'nullable|integer',
         ];
     }
 
@@ -46,7 +43,6 @@ class CreateUser extends Component
             'national_code' => $this->national_code,
             'address' => $this->address,
 
-            'shift_id' => $this->shift,
         ]);
 
         $this->redirectRoute('panel.users');

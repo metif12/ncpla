@@ -1,6 +1,6 @@
 <div>
     <x-section-title>
-        <x-slot name="title">لیست سفارشات</x-slot>
+        <x-slot name="title">لیست وقفه ها</x-slot>
         <x-slot name="description"></x-slot>
     </x-section-title>
 
@@ -25,29 +25,29 @@
                 </div>
             </div>
         </div>
-{{--        <div>--}}
-{{--            <div class="flex">--}}
-{{--                <div class="shadow rounded-lg relative">--}}
-{{--                    <a href="{{ route('panel.product-create') }}"--}}
-{{--                            class="rounded-lg inline-flex items-center bg-white hover:text-green-500 focus:outline-none focus:shadow-outline text-gray-500 font-semibold py-2 px-2 md:px-4">--}}
-{{--                        <span class="hidden md:block">افزودن</span>--}}
-{{--                        <svg class="w-5 h-5 md:mr-2" xmlns="http://www.w3.org/2000/svg"--}}
-{{--                             xmlns:xlink="http://www.w3.org/1999/xlink"--}}
-{{--                             focusable="false" width="1em" height="1em"--}}
-{{--                             stroke="currentColor"--}}
-{{--                             style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"--}}
-{{--                             preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16">--}}
-{{--                            <g fill="black">--}}
-{{--                                <path fill-rule="evenodd"--}}
-{{--                                      d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>--}}
-{{--                                <path fill-rule="evenodd"--}}
-{{--                                      d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>--}}
-{{--                            </g>--}}
-{{--                        </svg>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+        <div>
+            <div class="flex">
+                <div class="shadow rounded-lg relative">
+                    <a href="{{ route('panel.interrupt-create') }}"
+                            class="rounded-lg inline-flex items-center bg-white hover:text-green-500 focus:outline-none focus:shadow-outline text-gray-500 font-semibold py-2 px-2 md:px-4">
+                        <span class="hidden md:block">افزودن</span>
+                        <svg class="w-5 h-5 md:mr-2" xmlns="http://www.w3.org/2000/svg"
+                             xmlns:xlink="http://www.w3.org/1999/xlink"
+                             focusable="false" width="1em" height="1em"
+                             stroke="currentColor"
+                             style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"
+                             preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16">
+                            <g fill="black">
+                                <path fill-rule="evenodd"
+                                      d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+                                <path fill-rule="evenodd"
+                                      d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+                            </g>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative"
@@ -68,11 +68,7 @@
                 </th>
 
                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
-                    محصول
-                </th>
-
-                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
-                    خط تولید
+                    نام
                 </th>
 
                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
@@ -86,7 +82,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($orders as $order)
+            @foreach($interrupts as $interrupt)
                 <tr>
                     <td class="p-2 border-dashed border-t border-gray-200 px-3">
                         <label
@@ -98,32 +94,24 @@
 
                     <td class="p-2 border-dashed border-t border-gray-200">
                             <span class="text-gray-700 flex items-center">
-                                {{ $order->code }}
+                                {{ $interrupt->code }}
                             </span>
-                    </td>
-
-                    <td class="p-2 border-dashed border-t border-gray-200">
-                            <a href="{{ route('panel.product-edit', $order->product_id) }}"
-                               class="text-gray-700 flex items-center">
-                                {{ $order->product->code }} - {{ $order->product->name }}
-                            </a>
-                    </td>
-
-                    <td class="p-2 border-dashed border-t border-gray-200">
-                        <a href="{{ route('panel.line-edit', $order->line) }}"
-                           class="text-gray-700 flex items-center">
-                            {{ $order->line->code }} - {{ $order->line->name }}
-                        </a>
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">
                             <span class="text-gray-700 flex items-center">
-                                {{ verta($order->cretaed_at) }}
+                                {{ $interrupt->name }}
                             </span>
                     </td>
 
                     <td class="p-2 border-dashed border-t border-gray-200">
-                        <x-abutton class="p-2" color="yellow" href="{{ route('panel.order-edit', $order) }}">
+                            <span class="text-gray-700 flex items-center">
+                                {{ verta($interrupt->cretaed_at) }}
+                            </span>
+                    </td>
+
+                    <td class="p-2 border-dashed border-t border-gray-200">
+                        <x-abutton class="p-2" color="yellow" href="{{ route('panel.interrupt-edit', $interrupt) }}">
                             ویرایش
                         </x-abutton>
                     </td>
@@ -135,6 +123,6 @@
     </div>
 
     <div class="mt-4">
-        {{ $orders->links() }}
+        {{ $interrupts->links() }}
     </div>
 </div>

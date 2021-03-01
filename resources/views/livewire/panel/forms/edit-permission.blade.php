@@ -225,10 +225,10 @@
                 <div class="w-full grid gap-2 grid-cols-6">
                     <div class="col-span-6 sm:col-span-4">
                         <div wire:loading.class="bg-gray-100"
-                             wire:target="searchAdmins"
+                             wire:target="searchUsers"
                              class="relative rounded-lg shadow overflow-hidden bg-white">
                             <input type="search"
-                                   wire:model.debounce.750ms="searchAdmins"
+                                   wire:model.debounce.750ms="searchUsers"
                                    wire:loading.attr="disabled"
                                    class="w-full pl-10 pr-4 py-2 bg-transparent rounded-lg focus:outline-none focus:shadow-outline text-gray-600 font-medium"
                                    placeholder="جست و جوی ادمین ها">
@@ -259,8 +259,8 @@
                                 <span class="p-2" wire:loading>
                                     <x-icons.loading class="w-6 h-6"></x-icons.loading>
                                 </span>
-                                <span class="p-2">{{ $admin->name }}</span>
-                                <span class="mr-auto p-2">{{ $admin->mobile }}</span>
+                                <span class="p-2">{{ $user->name }}</span>
+                                <span class="mr-auto p-2">{{ $user->mobile }}</span>
                             </div>
                         </div>
                     @endforeach

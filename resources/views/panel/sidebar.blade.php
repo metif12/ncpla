@@ -26,7 +26,7 @@
                           d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
                 </svg>
             </button>
-                        <x-logo class="h-8 lg:hidden" />
+                        <x-logo class="h-8 lg:hidden"/>
                     </span>
         <button @click="toggleSidbarMenu()" class="p-2 rounded-md lg:hidden">
             <svg
@@ -42,8 +42,8 @@
         </button>
     </div>
     <!-- Sidebar links -->
-    <nav class="flex-1 overflow-hidden hover:overflow-y-auto">
-        <ul class="p-2 overflow-hidden">
+    <nav class="flex-1 overflow-y-auto">
+        <ul class="p-2">
             <x-sidebar-item route="panel.dashboard" name="داشبورد">
                 <svg
                     class="w-6 h-6"
@@ -96,6 +96,9 @@
             </x-sidebar-item>
             <x-sidebar-item route="panel.shifts" name="شیفت های کاری">
                 <x-icons.shift class="w-6 h-6"/>
+            </x-sidebar-item>
+            <x-sidebar-item route="panel.interrupts" name="وقفه ها">
+                <x-icons.interrupt class="w-6 h-6"/>
             </x-sidebar-item>
         </ul>
     </nav>

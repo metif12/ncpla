@@ -83,9 +83,6 @@
                     ایمیل
                 </th>
                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
-                    شیفت
-                </th>
-                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
                     موبایل
                 </th>
                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-2 py-2 text-gray-600 font-bold tracking-wider uppercase text-xs">
@@ -138,14 +135,6 @@
                     <td class="p-2 border-dashed border-t border-gray-200">
                         <span class="text-gray-700 flex items-center">
                             {{ $user->email }}
-                        </span>
-                    </td>
-
-                    <td class="p-2 border-dashed border-t border-gray-200">
-                        <span class="text-red-700 flex items-center">
-                            {{ $user->shift->start }}
-                            تا
-                            {{ $user->shift->end }}
                         </span>
                     </td>
 

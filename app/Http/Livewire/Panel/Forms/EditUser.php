@@ -14,8 +14,6 @@ class EditUser extends Component
     public string $national_code = '';
     public string $address = '';
 
-    public int $shift = 0;
-
     public User $user;
 
     public function mount(User $user)
@@ -27,7 +25,6 @@ class EditUser extends Component
         $this->mobile = $user->mobile ?? '';
         $this->national_code = $user->national_code;
         $this->address = $user->address ?? '';
-        $this->shift = $user->shift_id ?? 0;
     }
 
     protected function getRules(): array
@@ -40,7 +37,6 @@ class EditUser extends Component
             'national_code' => ['required', 'string', Rule::unique('users', 'national_code')->ignore($this->user?$this->user->id :0)],
             'address' => 'nullable|string',
 
-            'shift' => 'nullable|integer',
         ];
     }
 
@@ -61,7 +57,6 @@ class EditUser extends Component
             'national_code' => $this->national_code,
             'address' => $this->address,
 
-            'shift_id' => $this->shift,
         ]);
 
         $this->redirectRoute('panel.users');

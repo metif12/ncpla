@@ -12,6 +12,11 @@ class TasksList extends Component
 
     public string $search = '';
 
+    public function archive(Task $task)
+    {
+        $task->update(['archived_at'=>now()]);
+    }
+
     public function render()
     {
         return view('livewire.panel.tasks-list', [
@@ -34,6 +39,7 @@ class TasksList extends Component
         return Task::query()
             ->whereIn('line_id', auth()->user()->lines()->pluck('lines.id'))
             ->with(['line','task_attributes'])
+            ->whereNull('archived_at')
             ->where('code', 'like', "%{$this->search}%");
             //->orWhere('name', 'like', "%{$this->search}%");
     }
