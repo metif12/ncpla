@@ -30,7 +30,7 @@
                     class="form-input rounded-md shadow-sm mt-1 block w-full"
                     id="attrs.{{$i}}.type" wire:model.lazy="attrs.{{$i}}.type">
                     @foreach(\App\Models\Product::$types as $type)
-                        <option value="{{ $type['value'] }}">{{ $type['name'] }}</option>
+                        <option value="{{ $type['value'] }}" @if($loop->index==0) selected @endif>{{ $type['name'] }}</option>
                     @endforeach
                 </select>
                 <x-input-error for="attrs.{{$i}}.type" class="mt-2"/>
@@ -42,7 +42,7 @@
                     class="form-input rounded-md shadow-sm mt-1 block w-full"
                     id="attrs.{{$i}}.merge_type" wire:model.lazy="attrs.{{$i}}.merge_type">
                     @foreach(\App\Models\Product::$merge_types as $type)
-                        <option value="{{ $type['value'] }}">{{ $type['name'] }}</option>
+                        <option value="{{ $type['value'] }}" @if($loop->index==0) selected @endif>{{ $type['name'] }}</option>
                     @endforeach
                 </select>
                 <x-input-error for="attrs.{{$i}}.merge_type" class="mt-2"/>

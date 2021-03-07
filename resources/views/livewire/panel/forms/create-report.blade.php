@@ -22,7 +22,7 @@
                 class="form-input rounded-md shadow-sm mt-1 block w-full"
                 id="shift" wire:model.lazy="shift">
                 @foreach(\App\Models\Shift::all() as $shift)
-                    <option value="{{ $shift['id'] }}">{{ $shift['start'] }} تا {{ $shift['end'] }}</option>
+                    <option value="{{ $shift['id'] }}" @if($loop->index==0) selected @endif>{{ $shift['start'] }} تا {{ $shift['end'] }}</option>
                 @endforeach
             </select>
             <x-input-error for="shift" class="mt-2"/>
@@ -49,6 +49,7 @@
                     @foreach($task->line->inputs as $product)
                         <option
                             value="{{ $product->id }}"
+                            @if($loop->index==0) selected @endif
                         >{{ $product->code }} - {{ $product->name }}</option>
                     @endforeach
                 </select>
@@ -80,6 +81,7 @@
                     id="outputs.{{$i}}.input_id" wire:model.lazy="outputs.{{$i}}.input_id">
                     <option
                         value="0"
+                        @if($loop->index==0) selected @endif
                     >هیچکدام
                     </option>
                     @foreach($inputs as $input)
@@ -124,6 +126,7 @@
                     @foreach(\App\Models\Interrupt::all() as $interrupt)
                         <option
                             value="{{ $interrupt->id }}"
+                            @if($loop->index==0) selected @endif
                         >{{ $interrupt->code }} - {{ $interrupt->name }}</option>
                     @endforeach
                 </select>
