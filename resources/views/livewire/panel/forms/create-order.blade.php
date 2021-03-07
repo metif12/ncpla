@@ -22,6 +22,7 @@
                 @foreach($product->lines as $line)
                     <option
                         value="{{ $line->id }}"
+                        @if($loop->index==0) selected @endif
                     >{{ $line->code }} - {{ $line->name }}</option>
                 @endforeach
             </select>
