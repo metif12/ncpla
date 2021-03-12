@@ -95,39 +95,108 @@ Route::middleware('auth')->group(function () {
 
             Route::view('/', 'panel.dashboard')->name('dashboard');
 
-            Route::get('/profile', Profile::class)->name('profile');
-            Route::get('/password', Password::class)->name('password');
-            Route::get('/products', ProductsList::class)->name('products');
-            Route::get('/orders', OrdersList::class)->name('orders');
-            Route::get('/shifts', ShiftsList::class)->name('shifts');
-            Route::get('/lines', LinesList::class)->name('lines');
-            Route::get('/tasks', TasksList::class)->name('tasks');
-            Route::get('/users', UserList::class)->name('users');
-            Route::get('/groups', GroupList::class)->name('groups');
-            Route::get('/reports', ReportsList::class)->name('reports');
-            Route::get('/permissions', PermissionList::class)->name('permissions');
-            Route::get('/materials', MaterialsList::class)->name('materials');
-            Route::get('/interrupts', InterruptsList::class)->name('interrupts');
-            Route::get('/shifts/create', CreateShift::class)->name('shift-create');
-            Route::get('/materials/create', CreateMaterial::class)->name('material-create');
-            Route::get('/interrupts/create', CreateInterrupt::class)->name('interrupt-create');
-            Route::get('/products/create', CreateProduct::class)->name('product-create');
-            Route::get('/groups/create', CreateGroup::class)->name('group-create');
-            Route::get('/lines/create', CreateLine::class)->name('line-create');
-            Route::get('/users/create', CreateUser::class)->name('user-create');
-            Route::get('/users/{user}/edit', EditUser::class)->name('user-edit');
-            Route::get('/groups/{group}/edit', EditGroup::class)->name('group-edit');
-            Route::get('/permissions/{permission}/edit', EditPermission::class)->name('permission-edit');
-            Route::get('/orders/{order}/edit', EditOrder::class)->name('order-edit');
-            Route::get('/materials/{material}/edit', EditMaterial::class)->name('material-edit');
-            Route::get('/interrupts/{interrupt}/edit', EditInterrupt::class)->name('interrupt-edit');
-            Route::get('/lines/{line}/edit', EditLine::class)->name('line-edit');
-            Route::get('/shifts/{shift}/edit', EditShift::class)->name('shift-edit');
-            Route::get('/tasks/{task}/edit', EditTask::class)->name('task-edit');
-            Route::get('/reports/{report}/edit', EditReport::class)->name('report-edit');
-            Route::get('/products/{product}/edit', EditProduct::class)->name('product-edit');
-            Route::get('/tasks/{task}/reports/create', CreateReport::class)->name('report-create');
-            Route::get('/lines/{line}/tasks/create', CreateTask::class)->name('task-create');
-            Route::get('/products/{product}/orders/create', CreateOrder::class)->name('order-create');
+            Route::get('/profile', Profile::class)
+                ->name('profile');
+            Route::get('/password', Password::class)
+                ->name('password');
+
+            Route::get('/products', ProductsList::class)
+                ->middleware('permissions:view-products')
+                ->name('products');
+            Route::get('/orders', OrdersList::class)
+                ->middleware('permissions:view-orders')
+                ->name('orders');
+            Route::get('/shifts', ShiftsList::class)
+                ->middleware('permissions:view-shifts')
+                ->name('shifts');
+            Route::get('/lines', LinesList::class)
+                ->middleware('permissions:view-lines')
+                ->name('lines');
+            Route::get('/tasks', TasksList::class)
+                ->middleware('permissions:view-tasks')
+                ->name('tasks');
+            Route::get('/users', UserList::class)
+                ->middleware('permissions:view-users')
+                ->name('users');
+            Route::get('/groups', GroupList::class)
+                ->middleware('permissions:view-groups')
+                ->name('groups');
+            Route::get('/reports', ReportsList::class)
+                ->middleware('permissions:view-reports')
+                ->name('reports');
+            Route::get('/permissions', PermissionList::class)
+                ->middleware('permissions:view-permissions')
+                ->name('permissions');
+            Route::get('/materials', MaterialsList::class)
+                ->middleware('permissions:view-materials')
+                ->name('materials');
+            Route::get('/interrupts', InterruptsList::class)
+                ->middleware('permissions:view-interrupts')
+                ->name('interrupts');
+
+            Route::get('/shifts/create', CreateShift::class)
+                ->middleware('permissions:add-shifts')
+                ->name('shift-create');
+            Route::get('/materials/create', CreateMaterial::class)
+                ->middleware('permissions:add-materials')
+                ->name('material-create');
+            Route::get('/interrupts/create', CreateInterrupt::class)
+                ->middleware('permissions:add-interrupts')
+                ->name('interrupt-create');
+            Route::get('/products/create', CreateProduct::class)
+                ->middleware('permissions:add-products')
+                ->name('product-create');
+            Route::get('/groups/create', CreateGroup::class)
+                ->middleware('permissions:add-groups')
+                ->name('group-create');
+            Route::get('/lines/create', CreateLine::class)
+                ->middleware('permissions:add-lines')
+                ->name('line-create');
+            Route::get('/users/create', CreateUser::class)
+                ->middleware('permissions:add-users')
+                ->name('user-create');
+            Route::get('/tasks/{task}/reports/create', CreateReport::class)
+                ->middleware('permissions:add-tasks')
+                ->name('report-create');
+            Route::get('/lines/{line}/tasks/create', CreateTask::class)
+                ->middleware('permissions:add-lines')
+                ->name('task-create');
+            Route::get('/products/{product}/orders/create', CreateOrder::class)
+                ->middleware('permissions:add-products')
+                ->name('order-create');
+
+            Route::get('/users/{user}/edit', EditUser::class)
+                ->middleware('permissions:edit-users')
+                ->name('user-edit');
+            Route::get('/groups/{group}/edit', EditGroup::class)
+                ->middleware('permissions:edit-groups')
+                ->name('group-edit');
+            Route::get('/permissions/{permission}/edit', EditPermission::class)
+                ->middleware('permissions:edit-permissions')
+                ->name('permission-edit');
+            Route::get('/orders/{order}/edit', EditOrder::class)
+                ->middleware('permissions:edit-orders')
+                ->name('order-edit');
+            Route::get('/materials/{material}/edit', EditMaterial::class)
+                ->middleware('permissions:edit-materials')
+                ->name('material-edit');
+            Route::get('/interrupts/{interrupt}/edit', EditInterrupt::class)
+                ->middleware('permissions:edit-interrupts')
+                ->name('interrupt-edit');
+            Route::get('/lines/{line}/edit', EditLine::class)
+                ->middleware('permissions:edit-lines')
+                ->name('line-edit');
+            Route::get('/shifts/{shift}/edit', EditShift::class)
+                ->middleware('permissions:edit-shifts')
+                ->name('shift-edit');
+            Route::get('/tasks/{task}/edit', EditTask::class)
+                ->middleware('permissions:edit-tasks')
+                ->name('task-edit');
+            Route::get('/reports/{report}/edit', EditReport::class)
+                ->middleware('permissions:edit-reports')
+                ->name('report-edit');
+            Route::get('/products/{product}/edit', EditProduct::class)
+                ->middleware('permissions:edit-products')
+                ->name('product-edit');
         });
 });

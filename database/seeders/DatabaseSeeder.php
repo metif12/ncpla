@@ -32,16 +32,44 @@ class DatabaseSeeder extends Seeder
     {
         $this->makePermissions('مدیرکل', 'admin', 'دسترسی کامل به تمام سیستم');
 
-//        $this->makePermissions('مدیرکل','admin','دسترسی کامل به تمام سیستم');
-//        $this->makePermissions('مدیرکل','admin','دسترسی کامل به تمام سیستم');
+        //view
+        $this->makePermissions('مشاهده سفارشات','view-orders','');
+        $this->makePermissions('مشاهده دستور کارها','view-tasks','');
+        $this->makePermissions('مشاهده گزارشات','view-reports','');
+        $this->makePermissions('مشاهده محصولات','view-products','');
+        $this->makePermissions('مشاهده خطوط تولید','view-lines','');
+        $this->makePermissions('مشاهده مواد اولیه','view-materials','');
+        $this->makePermissions('مشاهده کاربران','view-users','');
+        $this->makePermissions('مشاهده گروه ها','view-groups','');
+        $this->makePermissions('مشاهده مجوزها','view-permissions','');
+        $this->makePermissions('مشاهده شیفت های کاری','view-shifts','');
+        $this->makePermissions('مشاهده وقفه ها','view-interrupts','');
 
+        //add
+        $this->makePermissions('ثبت سفارشات','add-orders','');
+        $this->makePermissions('ثبت دستور کارها','add-tasks','');
+        $this->makePermissions('ثبت گزارشات','add-reports','');
+        $this->makePermissions('ثبت محصولات','add-products','');
+        $this->makePermissions('ثبت خطوط تولید','add-lines','');
+        $this->makePermissions('ثبت مواد اولیه','add-materials','');
+        $this->makePermissions('ثبت کاربران','add-users','');
+        $this->makePermissions('ثبت گروه ها','add-groups','');
+        $this->makePermissions('ثبت مجوزها','add-permissions','');
+        $this->makePermissions('ثبت شیفت های کاری','add-shifts','');
+        $this->makePermissions('ثبت وقفه ها','add-interrupts','');
 
-//        $material1 = Material::query()->create([
-//
-//            'name' => 'مس',
-//            'unit' => 'کیلوگرم',
-//            'code' => 'm1',
-//        ]);
+        //edit
+        $this->makePermissions('ویرایش سفارشات','edit-orders','');
+        $this->makePermissions('ویرایش دستور کارها','edit-tasks','');
+        $this->makePermissions('ویرایش گزارشات','edit-reports','');
+        $this->makePermissions('ویرایش محصولات','edit-products','');
+        $this->makePermissions('ویرایش خطوط تولید','edit-lines','');
+        $this->makePermissions('ویرایش مواد اولیه','edit-materials','');
+        $this->makePermissions('ویرایش کاربران','edit-users','');
+        $this->makePermissions('ویرایش گروه ها','edit-groups','');
+        $this->makePermissions('ویرایش مجوزها','edit-permissions','');
+        $this->makePermissions('ویرایش شیفت های کاری','edit-shifts','');
+        $this->makePermissions('ویرایش وقفه ها','edit-interrupts','');
 
         $pvc = Material::query()->create([
 

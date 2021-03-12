@@ -32,6 +32,7 @@ class ReportsList extends Component
     private function getReportQuery(): \Illuminate\Database\Eloquent\Builder
     {
         return Report::query()
+            ->whereIn('line_id', auth()->user()->lines()->pluck('lines.id'))
             ->with(['line','user','shift'])
             ->Where('code', 'like', "%{$this->search}%");
     }
