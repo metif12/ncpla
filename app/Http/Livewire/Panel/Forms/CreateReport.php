@@ -15,7 +15,7 @@ class CreateReport extends Component
 {
 
     public Task $task;
-    public int $shift = 0;
+    public int $shift = 1;
 
     public string $description = '';
 
